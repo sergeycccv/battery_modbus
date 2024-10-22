@@ -8,10 +8,21 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 import sys
 import ui_main
 
-app = QApplication(sys.argv)
-window = QMainWindow()
 
-ui_main.Ui_MainWindow().setupUi(window)
+class ExampleApp(QMainWindow, ui_main.Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
 
-window.show()
-sys.exit(app.exec())
+        self.statusBar.showMessage('Ожидание подключения...')
+
+
+def main():
+    app = QApplication(sys.argv)
+    window = ExampleApp()
+    window.show()
+    sys.exit(app.exec())
+
+
+if __name__ == '__main__':
+    main()
