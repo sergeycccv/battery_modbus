@@ -19,8 +19,10 @@ class ExampleApp(QMainWindow, ui_main.Ui_MainWindow):
 
 def main():
     app = QApplication(sys.argv)
+
     window = ExampleApp()
     window.show()
+
     sys.exit(app.exec())
 
 
