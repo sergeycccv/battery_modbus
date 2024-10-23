@@ -15,32 +15,27 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractButton, QApplication, QDialog, QDialogButtonBox,
-    QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QSizePolicy, QWidget)
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        if not Dialog.objectName():
-            Dialog.setObjectName(u"Dialog")
-        Dialog.setWindowModality(Qt.WindowModality.WindowModal)
-        Dialog.resize(400, 300)
-        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.DocumentProperties))
-        Dialog.setWindowIcon(icon)
-        Dialog.setModal(True)
-        self.buttonBox = QDialogButtonBox(Dialog)
-        self.buttonBox.setObjectName(u"buttonBox")
-        self.buttonBox.setGeometry(QRect(30, 240, 341, 32))
-        self.buttonBox.setOrientation(Qt.Orientation.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.StandardButton.Cancel|QDialogButtonBox.StandardButton.Ok)
+class Ui_SettingsWindow(object):
+    def setupUi(self, SettingsWindow):
+        if not SettingsWindow.objectName():
+            SettingsWindow.setObjectName(u"SettingsWindow")
+        SettingsWindow.setWindowModality(Qt.WindowModality.ApplicationModal)
+        SettingsWindow.resize(550, 400)
+        SettingsWindow.setMinimumSize(QSize(550, 400))
+        SettingsWindow.setMaximumSize(QSize(550, 400))
+        SettingsWindow.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        self.centralwidget = QWidget(SettingsWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+        SettingsWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
+        self.retranslateUi(SettingsWindow)
 
-        QMetaObject.connectSlotsByName(Dialog)
+        QMetaObject.connectSlotsByName(SettingsWindow)
     # setupUi
 
-    def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
+    def retranslateUi(self, SettingsWindow):
+        SettingsWindow.setWindowTitle(QCoreApplication.translate("SettingsWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u044b", None))
     # retranslateUi
 

@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1128</width>
+    <width>1130</width>
     <height>601</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1130</width>
+    <height>601</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1130</width>
+    <height>601</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -735,7 +747,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Здесь будут системные сообщения</string>
+      <string>Ожидание подключения к системе тестирования аккумуляторов...</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -751,7 +763,7 @@
       <string>Количество ошибок:</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_connect_2">
+    <widget class="QPushButton" name="btn_settings">
      <property name="geometry">
       <rect>
        <x>827</x>
@@ -764,7 +776,7 @@
       <string>Настройки</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_connect_3">
+    <widget class="QPushButton" name="btn_logs">
      <property name="geometry">
       <rect>
        <x>970</x>
@@ -2773,7 +2785,7 @@
     <string/>
    </property>
    <property name="sizeGripEnabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </widget>
  </widget>
