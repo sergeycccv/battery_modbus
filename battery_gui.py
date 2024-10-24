@@ -1,13 +1,42 @@
 '''
-pyside6-uic ui/main.ui -o ui_main.py
+pyside6-uic ui\main.ui -o ui_main.py
+pyside6-uic ui\logs.ui -o ui_logs.py
+pyside6-rcc ui/res.qrc -o res_rc.py
 pysyde6-designer
-
 '''
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6 import QtCore
-import sys
-import ui_main, ui_settings
+import sys, glob, serial
+import ui_main, ui_logs
+
+
+# Список COM-портов
+def serial_ports():
+    """ Lists serial port names
+        :raises EnvironmentError:
+            On unsupported or unknown platforms
+        :returns:
+            A list of the serial ports available on the system
+    """
+    if sys.platform.startswith('win'):
+        ports = ['COM%s' % (i + 1) for i in range(256)]
+    elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
+        # this excludes your current terminal "/dev/tty"
+        ports = glob.glob('/dev/tty[A-Za-z]*')
+    elif sys.platform.startswith('darwin'):
+        ports = glob.glob('/dev/tty.*')
+    else:
+        raise EnvironmentError('Unsupported platform')
+    result = []
+    for port in ports:
+        try:
+            s = serial.Serial(port)
+            s.close()
+            result.append(port)
+        except (OSError, serial.SerialException):
+            pass
+    return result
 
 
 class MainApp(QMainWindow, ui_main.Ui_MainWindow):
@@ -15,16 +44,19 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.statusBar.showMessage('Ожидание подключения батарей...')
+        # Список COM-портов
+        self.list_com.addItems(serial_ports())
 
-        # Нажатие на кнопку "Настройки"
-        self.btn_settings.clicked.connect(self.btn_settings_clicked)
+        # self.statusBar.showMessage('Ожидание подключения батарей...')
+
+        # Нажатие на кнопку "Просмотр логов"
+        self.btn_logs.clicked.connect(self.btn_logs_clicked)
 
         # Нажатие на кнопку "Начать тестирование"
         self.btn_start_test.clicked.connect(self.btn_start_test_clicked)
 
-    def btn_settings_clicked(self, checked):
-        self.w = SettingsApp()
+    def btn_logs_clicked(self, checked):
+        self.w = LogsApp()
         self.w.show()
 
 
@@ -32,7 +64,7 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
     def btn_start_test_clicked(self):
         warr = QMessageBox(self)
         warr.setWindowTitle('Внимание!')
-        warr.setText('Установите подключение к системе тестирования')
+        warr.setText('Подключитесь к системе тестирования')
         warr.setIcon(QMessageBox.Warning)
         self.statusBar.showMessage('Ожидание подключения батарей...')
         warr.exec()
@@ -41,7 +73,7 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
         # if button == QMessageBox.Ok:
         #     self.statusBar.showMessage('Ожидание подключения...')
 
-class SettingsApp(QMainWindow, ui_settings.Ui_SettingsWindow):
+class LogsApp(QMainWindow, ui_logs.Ui_LogsWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)

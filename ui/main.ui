@@ -31,6 +31,10 @@
   <property name="windowTitle">
    <string>Тест аккумуляторов.</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/ICO/Charging24.png</normaloff>:/ICO/Charging24.png</iconset>
+  </property>
   <property name="accessibleName">
    <string/>
   </property>
@@ -42,10 +46,16 @@
 #edit_008, #edit_009, #edit_010, #edit_011, #edit_012 {
 	background-color: rgb(0, 0, 0);
 	color: rgb(1, 255, 31);
+}
+#frm_back_ch_1, #frm_back_ch_2, #frm_back_ch_3, #frm_back_ch_4 {
+	background-color: rgb(210, 210, 210);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frame_channel">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -60,13 +70,13 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_title_channel">
+    <widget class="QLabel" name="lbl_ico_channel_1">
      <property name="geometry">
       <rect>
-       <x>11</x>
-       <y>8</y>
-       <width>221</width>
-       <height>31</height>
+       <x>6</x>
+       <y>6</y>
+       <width>41</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -79,22 +89,37 @@
       </font>
      </property>
      <property name="autoFillBackground">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Box</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>Канал 1</string>
+      <string/>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::AutoText</enum>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="res.qrc">:/ICO/N1_36.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="openExternalLinks">
+      <bool>false</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextInteractionFlag::NoTextInteraction</set>
      </property>
      <property name="buddy">
       <cstring></cstring>
@@ -104,8 +129,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>64</y>
-       <width>111</width>
+       <y>82</y>
+       <width>88</width>
        <height>16</height>
       </rect>
      </property>
@@ -125,9 +150,9 @@
     <widget class="QLineEdit" name="edit_001">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>57</y>
-       <width>113</width>
+       <x>110</x>
+       <y>75</y>
+       <width>133</width>
        <height>28</height>
       </rect>
      </property>
@@ -142,56 +167,6 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_002">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>96</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Состояние</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_002">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>91</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Бездействие</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_003">
@@ -676,18 +651,27 @@
        <x>20</x>
        <y>480</y>
        <width>231</width>
-       <height>24</height>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Запуск теста</string>
      </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
+     </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_channel">
+    <widget class="QToolButton" name="tbtn_settings_channel_1">
      <property name="geometry">
       <rect>
-       <x>235</x>
-       <y>8</y>
+       <x>230</x>
+       <y>10</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -696,12 +680,105 @@
       <string/>
      </property>
      <property name="statusTip">
-      <string>Настройки канала</string>
+      <string>Настройки канала 1</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
      </property>
      <property name="text">
       <string>...</string>
      </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
+     </property>
     </widget>
+    <widget class="QLabel" name="lbl_satus_channel_1">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>10</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
+       <strikeout>false</strikeout>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <property name="text">
+      <string>ПОДКЛЮЧЕН</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring></cstring>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frm_back_ch_1">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>2</y>
+       <width>266</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+    </widget>
+    <zorder>frm_back_ch_1</zorder>
+    <zorder>lbl_ico_channel_1</zorder>
+    <zorder>lbl_001</zorder>
+    <zorder>edit_001</zorder>
+    <zorder>lbl_003</zorder>
+    <zorder>edit_003</zorder>
+    <zorder>lbl_004</zorder>
+    <zorder>edit_004</zorder>
+    <zorder>lbl_005</zorder>
+    <zorder>edit_005</zorder>
+    <zorder>lbl_006</zorder>
+    <zorder>edit_006</zorder>
+    <zorder>lbl_007</zorder>
+    <zorder>lbl_009</zorder>
+    <zorder>edit_010</zorder>
+    <zorder>edit_011</zorder>
+    <zorder>edit_007</zorder>
+    <zorder>lbl_011</zorder>
+    <zorder>lbl_010</zorder>
+    <zorder>lbl_012</zorder>
+    <zorder>edit_009</zorder>
+    <zorder>lbl_008</zorder>
+    <zorder>edit_008</zorder>
+    <zorder>edit_012</zorder>
+    <zorder>btn_start_test</zorder>
+    <zorder>tbtn_settings_channel_1</zorder>
+    <zorder>lbl_satus_channel_1</zorder>
    </widget>
    <widget class="QFrame" name="frame_top">
     <property name="geometry">
@@ -709,7 +786,7 @@
       <x>10</x>
       <y>9</y>
       <width>1111</width>
-      <height>41</height>
+      <height>47</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -727,66 +804,143 @@
     <widget class="QPushButton" name="btn_connect">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>131</width>
-       <height>24</height>
+       <x>169</x>
+       <y>8</y>
+       <width>141</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Подключиться к системе тестирования</string>
      </property>
      <property name="text">
       <string>Подключиться</string>
      </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Plug24.png</normaloff>:/ICO/Plug24.png</iconset>
+     </property>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="lbl_messages">
      <property name="geometry">
       <rect>
-       <x>175</x>
-       <y>12</y>
-       <width>471</width>
+       <x>319</x>
+       <y>15</y>
+       <width>541</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Ожидание подключения к системе тестирования аккумуляторов...</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="lbl_error">
      <property name="geometry">
       <rect>
-       <x>670</x>
-       <y>12</y>
-       <width>141</width>
+       <x>870</x>
+       <y>15</y>
+       <width>81</width>
        <height>20</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Количество ошибок:</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_settings">
-     <property name="geometry">
-      <rect>
-       <x>827</x>
-       <y>8</y>
-       <width>131</width>
-       <height>24</height>
-      </rect>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
-      <string>Настройки</string>
+      <string>Ошибки: 0</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_logs">
      <property name="geometry">
       <rect>
-       <x>970</x>
+       <x>961</x>
        <y>8</y>
-       <width>131</width>
-       <height>24</height>
+       <width>141</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Просмотр логов и построение графиков</string>
      </property>
      <property name="text">
       <string>Просмотр логов</string>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Log24.png</normaloff>:/ICO/Log24.png</iconset>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_com_ports">
+     <property name="geometry">
+      <rect>
+       <x>16</x>
+       <y>13</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Порт:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="list_com">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>9</y>
+       <width>69</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="statusTip">
+      <string>Выбор COM-порта</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tbtn_settings_com">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>8</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="statusTip">
+      <string>Настройки порта</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
    </widget>
@@ -808,12 +962,12 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_title_channel_2">
+    <widget class="QLabel" name="lbl_status_channel_2">
      <property name="geometry">
       <rect>
-       <x>11</x>
-       <y>8</y>
-       <width>221</width>
+       <x>51</x>
+       <y>10</y>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -827,19 +981,19 @@
       </font>
      </property>
      <property name="autoFillBackground">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Box</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>Канал 2</string>
+      <string>НЕ ПОДКЛЮЧЕН</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -852,8 +1006,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>64</y>
-       <width>111</width>
+       <y>82</y>
+       <width>88</width>
        <height>16</height>
       </rect>
      </property>
@@ -873,9 +1027,9 @@
     <widget class="QLineEdit" name="edit_2">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>57</y>
-       <width>113</width>
+       <x>110</x>
+       <y>75</y>
+       <width>133</width>
        <height>28</height>
       </rect>
      </property>
@@ -890,56 +1044,6 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>96</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Состояние</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>91</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Бездействие</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_4">
@@ -1424,18 +1528,27 @@
        <x>20</x>
        <y>480</y>
        <width>231</width>
-       <height>24</height>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Запуск теста</string>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
     <widget class="QToolButton" name="tbtn_settings_channel_2">
      <property name="geometry">
       <rect>
-       <x>235</x>
-       <y>8</y>
+       <x>230</x>
+       <y>10</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -1444,12 +1557,114 @@
       <string/>
      </property>
      <property name="statusTip">
-      <string>Настройки канала</string>
+      <string>Настройки канала 2</string>
      </property>
      <property name="text">
       <string>...</string>
      </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
+     </property>
     </widget>
+    <widget class="QLabel" name="lbl_ico_channel_2">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>6</y>
+       <width>41</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
+       <strikeout>false</strikeout>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::AutoText</enum>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="res.qrc">:/ICO/N2_36.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="openExternalLinks">
+      <bool>false</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextInteractionFlag::NoTextInteraction</set>
+     </property>
+     <property name="buddy">
+      <cstring></cstring>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frm_back_ch_2">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>2</y>
+       <width>266</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+    </widget>
+    <zorder>frm_back_ch_2</zorder>
+    <zorder>lbl_status_channel_2</zorder>
+    <zorder>lbl_2</zorder>
+    <zorder>edit_2</zorder>
+    <zorder>lbl_4</zorder>
+    <zorder>edit_4</zorder>
+    <zorder>lbl_5</zorder>
+    <zorder>edit_5</zorder>
+    <zorder>lbl_6</zorder>
+    <zorder>edit_6</zorder>
+    <zorder>lbl_7</zorder>
+    <zorder>edit_7</zorder>
+    <zorder>lbl_8</zorder>
+    <zorder>lbl_10</zorder>
+    <zorder>edit_11</zorder>
+    <zorder>edit_12</zorder>
+    <zorder>edit_8</zorder>
+    <zorder>lbl_12</zorder>
+    <zorder>lbl_11</zorder>
+    <zorder>lbl_13</zorder>
+    <zorder>edit_10</zorder>
+    <zorder>lbl_9</zorder>
+    <zorder>edit_9</zorder>
+    <zorder>edit_13</zorder>
+    <zorder>btn_start_test_2</zorder>
+    <zorder>tbtn_settings_channel_2</zorder>
+    <zorder>lbl_ico_channel_2</zorder>
    </widget>
    <widget class="QFrame" name="frame_channel_3">
     <property name="enabled">
@@ -1469,12 +1684,12 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_title_channel_3">
+    <widget class="QLabel" name="lbl_satus_channel_3">
      <property name="geometry">
       <rect>
-       <x>11</x>
-       <y>8</y>
-       <width>221</width>
+       <x>51</x>
+       <y>10</y>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -1488,19 +1703,19 @@
       </font>
      </property>
      <property name="autoFillBackground">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Box</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>Канал 3</string>
+      <string>НЕ ПОДКЛЮЧЕН</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1513,8 +1728,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>64</y>
-       <width>111</width>
+       <y>82</y>
+       <width>88</width>
        <height>16</height>
       </rect>
      </property>
@@ -1534,9 +1749,9 @@
     <widget class="QLineEdit" name="edit_14">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>57</y>
-       <width>113</width>
+       <x>110</x>
+       <y>75</y>
+       <width>133</width>
        <height>28</height>
       </rect>
      </property>
@@ -1551,56 +1766,6 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_15">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>96</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Состояние</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_15">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>91</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Бездействие</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_16">
@@ -2085,18 +2250,27 @@
        <x>20</x>
        <y>480</y>
        <width>231</width>
-       <height>24</height>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Запуск теста</string>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
     <widget class="QToolButton" name="tbtn_settings_channel_3">
      <property name="geometry">
       <rect>
-       <x>235</x>
-       <y>8</y>
+       <x>230</x>
+       <y>10</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -2105,12 +2279,114 @@
       <string/>
      </property>
      <property name="statusTip">
-      <string>Настройки канала</string>
+      <string>Настройки канала 3</string>
      </property>
      <property name="text">
       <string>...</string>
      </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
+     </property>
     </widget>
+    <widget class="QLabel" name="lbl_ico_channel_3">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>6</y>
+       <width>41</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
+       <strikeout>false</strikeout>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::AutoText</enum>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="res.qrc">:/ICO/N3_36.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="openExternalLinks">
+      <bool>false</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextInteractionFlag::NoTextInteraction</set>
+     </property>
+     <property name="buddy">
+      <cstring></cstring>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frm_back_ch_3">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>2</y>
+       <width>266</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+    </widget>
+    <zorder>frm_back_ch_3</zorder>
+    <zorder>lbl_satus_channel_3</zorder>
+    <zorder>lbl_14</zorder>
+    <zorder>edit_14</zorder>
+    <zorder>lbl_16</zorder>
+    <zorder>edit_16</zorder>
+    <zorder>lbl_17</zorder>
+    <zorder>edit_17</zorder>
+    <zorder>lbl_18</zorder>
+    <zorder>edit_18</zorder>
+    <zorder>lbl_19</zorder>
+    <zorder>edit_19</zorder>
+    <zorder>lbl_20</zorder>
+    <zorder>lbl_21</zorder>
+    <zorder>edit_20</zorder>
+    <zorder>edit_21</zorder>
+    <zorder>edit_22</zorder>
+    <zorder>lbl_22</zorder>
+    <zorder>lbl_23</zorder>
+    <zorder>lbl_24</zorder>
+    <zorder>edit_23</zorder>
+    <zorder>lbl_25</zorder>
+    <zorder>edit_24</zorder>
+    <zorder>edit_25</zorder>
+    <zorder>btn_start_test_3</zorder>
+    <zorder>tbtn_settings_channel_3</zorder>
+    <zorder>lbl_ico_channel_3</zorder>
    </widget>
    <widget class="QFrame" name="frame_channel_4">
     <property name="enabled">
@@ -2130,12 +2406,12 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_title_channel_4">
+    <widget class="QLabel" name="lbl_status_channel_4">
      <property name="geometry">
       <rect>
-       <x>11</x>
-       <y>8</y>
-       <width>221</width>
+       <x>51</x>
+       <y>10</y>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -2149,19 +2425,19 @@
       </font>
      </property>
      <property name="autoFillBackground">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Box</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>Канал 4</string>
+      <string>НЕ ПОДКЛЮЧЕН</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2174,8 +2450,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>64</y>
-       <width>111</width>
+       <y>82</y>
+       <width>88</width>
        <height>16</height>
       </rect>
      </property>
@@ -2195,9 +2471,9 @@
     <widget class="QLineEdit" name="edit_26">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>57</y>
-       <width>113</width>
+       <x>110</x>
+       <y>75</y>
+       <width>133</width>
        <height>28</height>
       </rect>
      </property>
@@ -2212,56 +2488,6 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_27">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>96</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Состояние</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_27">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>91</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Бездействие</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_28">
@@ -2746,18 +2972,27 @@
        <x>20</x>
        <y>480</y>
        <width>231</width>
-       <height>24</height>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Запуск теста</string>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
     <widget class="QToolButton" name="tbtn_settings_channel_4">
      <property name="geometry">
       <rect>
-       <x>235</x>
-       <y>8</y>
+       <x>230</x>
+       <y>10</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -2766,12 +3001,114 @@
       <string/>
      </property>
      <property name="statusTip">
-      <string>Настройки канала</string>
+      <string>Настройки канала 4</string>
      </property>
      <property name="text">
       <string>...</string>
      </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
+     </property>
     </widget>
+    <widget class="QLabel" name="lbl_ico_channel_4">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>6</y>
+       <width>41</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
+       <strikeout>false</strikeout>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::TextFormat::AutoText</enum>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="res.qrc">:/ICO/N4_36.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="openExternalLinks">
+      <bool>false</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextInteractionFlag::NoTextInteraction</set>
+     </property>
+     <property name="buddy">
+      <cstring></cstring>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frm_back_ch_4">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>2</y>
+       <width>266</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+    </widget>
+    <zorder>frm_back_ch_4</zorder>
+    <zorder>lbl_status_channel_4</zorder>
+    <zorder>lbl_26</zorder>
+    <zorder>edit_26</zorder>
+    <zorder>lbl_28</zorder>
+    <zorder>edit_28</zorder>
+    <zorder>lbl_29</zorder>
+    <zorder>edit_29</zorder>
+    <zorder>lbl_30</zorder>
+    <zorder>edit_30</zorder>
+    <zorder>lbl_31</zorder>
+    <zorder>edit_31</zorder>
+    <zorder>lbl_32</zorder>
+    <zorder>lbl_33</zorder>
+    <zorder>edit_32</zorder>
+    <zorder>edit_33</zorder>
+    <zorder>edit_34</zorder>
+    <zorder>lbl_34</zorder>
+    <zorder>lbl_35</zorder>
+    <zorder>lbl_36</zorder>
+    <zorder>edit_35</zorder>
+    <zorder>lbl_37</zorder>
+    <zorder>edit_36</zorder>
+    <zorder>edit_37</zorder>
+    <zorder>btn_start_test_4</zorder>
+    <zorder>tbtn_settings_channel_4</zorder>
+    <zorder>lbl_ico_channel_4</zorder>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -2789,6 +3126,8 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

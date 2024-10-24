@@ -1,0 +1,30 @@
+<RCC>
+  <qresource prefix="ICO">
+    <file>N1_0_36.png</file>
+    <file>N2_0_36.png</file>
+    <file>N3_0_36.png</file>
+    <file>N4_0_36.png</file>
+    <file>N1_4_36.png</file>
+    <file>N2_4_36.png</file>
+    <file>N3_4_36.png</file>
+    <file>N4_4_36.png</file>
+    <file>N1_3_36.png</file>
+    <file>N2_3_36.png</file>
+    <file>N3_3_36.png</file>
+    <file>N4_3_36.png</file>
+    <file>N2_2_36.png</file>
+    <file>N3_2_36.png</file>
+    <file>N4_2_36.png</file>
+    <file>N1_2_36.png</file>
+    <file>Charge24.png</file>
+    <file>N2_36.png</file>
+    <file>N3_36.png</file>
+    <file>N4_36.png</file>
+    <file>N1_36.png</file>
+    <file>Gear24.png</file>
+    <file>Charging24.png</file>
+    <file>Log24.png</file>
+    <file>Plug24.png</file>
+    <file>Zap24.png</file>
+  </qresource>
+</RCC>
