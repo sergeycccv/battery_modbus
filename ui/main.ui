@@ -35,12 +35,6 @@
    <iconset resource="res.qrc">
     <normaloff>:/ICO/Charging24.png</normaloff>:/ICO/Charging24.png</iconset>
   </property>
-  <property name="accessibleName">
-   <string/>
-  </property>
-  <property name="accessibleDescription">
-   <string/>
-  </property>
   <property name="styleSheet">
    <string notr="true">#edit_002, #edit_003, #edit_004, #edit_005, #edit_006, #edit_007,
 #edit_008, #edit_009, #edit_010, #edit_011, #edit_012 {
@@ -3126,6 +3120,64 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>btn_connect</tabstop>
+  <tabstop>tbtn_settings_channel_1</tabstop>
+  <tabstop>edit_001</tabstop>
+  <tabstop>edit_2</tabstop>
+  <tabstop>edit_14</tabstop>
+  <tabstop>edit_26</tabstop>
+  <tabstop>btn_logs</tabstop>
+  <tabstop>edit_009</tabstop>
+  <tabstop>edit_004</tabstop>
+  <tabstop>edit_005</tabstop>
+  <tabstop>edit_006</tabstop>
+  <tabstop>btn_start_test</tabstop>
+  <tabstop>edit_012</tabstop>
+  <tabstop>edit_010</tabstop>
+  <tabstop>list_com</tabstop>
+  <tabstop>tbtn_settings_com</tabstop>
+  <tabstop>edit_008</tabstop>
+  <tabstop>edit_4</tabstop>
+  <tabstop>edit_003</tabstop>
+  <tabstop>edit_5</tabstop>
+  <tabstop>edit_6</tabstop>
+  <tabstop>edit_7</tabstop>
+  <tabstop>edit_11</tabstop>
+  <tabstop>edit_12</tabstop>
+  <tabstop>edit_8</tabstop>
+  <tabstop>edit_10</tabstop>
+  <tabstop>edit_9</tabstop>
+  <tabstop>edit_13</tabstop>
+  <tabstop>btn_start_test_2</tabstop>
+  <tabstop>tbtn_settings_channel_2</tabstop>
+  <tabstop>edit_011</tabstop>
+  <tabstop>edit_16</tabstop>
+  <tabstop>edit_17</tabstop>
+  <tabstop>edit_18</tabstop>
+  <tabstop>edit_19</tabstop>
+  <tabstop>edit_20</tabstop>
+  <tabstop>edit_21</tabstop>
+  <tabstop>edit_22</tabstop>
+  <tabstop>edit_23</tabstop>
+  <tabstop>edit_24</tabstop>
+  <tabstop>edit_25</tabstop>
+  <tabstop>btn_start_test_3</tabstop>
+  <tabstop>tbtn_settings_channel_3</tabstop>
+  <tabstop>edit_28</tabstop>
+  <tabstop>edit_007</tabstop>
+  <tabstop>edit_29</tabstop>
+  <tabstop>edit_30</tabstop>
+  <tabstop>edit_31</tabstop>
+  <tabstop>edit_32</tabstop>
+  <tabstop>edit_33</tabstop>
+  <tabstop>edit_34</tabstop>
+  <tabstop>edit_35</tabstop>
+  <tabstop>edit_36</tabstop>
+  <tabstop>edit_37</tabstop>
+  <tabstop>btn_start_test_4</tabstop>
+  <tabstop>tbtn_settings_channel_4</tabstop>
+ </tabstops>
  <resources>
   <include location="res.qrc"/>
  </resources>

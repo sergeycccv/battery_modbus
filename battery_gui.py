@@ -11,7 +11,7 @@ import sys, glob, serial
 import ui_main, ui_logs
 
 
-# Список COM-портов
+# Список доступных в системе COM-портов
 def serial_ports():
     """ Lists serial port names
         :raises EnvironmentError:
