@@ -53,7 +53,7 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
 
         # Нажатие на кнопку "Начать тестирование"
-        self.btn_start_test.clicked.connect(self.btn_start_test_clicked)
+        self.btn_start_test_1.clicked.connect(self.btn_start_test_clicked)
 
     def btn_logs_clicked(self, checked):
         self.w = LogsApp()

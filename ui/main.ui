@@ -39,14 +39,23 @@
    <string notr="true">#edit_002, #edit_003, #edit_004, #edit_005, #edit_006, #edit_007,
 #edit_008, #edit_009, #edit_010, #edit_011, #edit_012 {
 	background-color: rgb(0, 0, 0);
-	color: rgb(1, 255, 31);
+	color: rgb(0, 255, 30);
 }
 #frm_back_ch_1, #frm_back_ch_2, #frm_back_ch_3, #frm_back_ch_4 {
 	background-color: rgb(210, 210, 210);
+}
+#lbl_messages {
+	color: rgb(255, 55, 30);
+	background-color: rgb(210, 210, 210);
+	padding-left: 10;
+}
+ #lbl_error {
+	background-color: rgb(210, 210, 210);
+	padding-left: 5;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frame_channel">
+   <widget class="QFrame" name="frm_ch_1">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -64,7 +73,7 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_ico_channel_1">
+    <widget class="QLabel" name="lbl_ico_ch_1">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -141,7 +150,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_001">
+    <widget class="QLineEdit" name="edit_1_number">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -185,7 +194,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_003">
+    <widget class="QLineEdit" name="edit_1_Ustart">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -232,7 +241,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_004">
+    <widget class="QLineEdit" name="edit_1_Ucurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -279,7 +288,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_005">
+    <widget class="QLineEdit" name="edit_1_Icurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -326,7 +335,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_006">
+    <widget class="QLineEdit" name="edit_1_Pcurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -395,7 +404,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_010">
+    <widget class="QLineEdit" name="edit_1_Wdischarge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -420,7 +429,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_011">
+    <widget class="QLineEdit" name="edit_1_Ccharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -445,7 +454,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_007">
+    <widget class="QLineEdit" name="edit_1_Crecharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -539,7 +548,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_009">
+    <widget class="QLineEdit" name="edit_1_Cdischarge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -586,7 +595,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_008">
+    <widget class="QLineEdit" name="edit_1_Wrecharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -611,7 +620,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_012">
+    <widget class="QLineEdit" name="edit_1_Wcharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -636,7 +645,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_start_test">
+    <widget class="QPushButton" name="btn_start_test_1">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -661,7 +670,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_channel_1">
+    <widget class="QToolButton" name="tbtn_settings_ch_1">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -687,7 +696,7 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_satus_channel_1">
+    <widget class="QLabel" name="lbl_satus_ch_1">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -747,34 +756,34 @@
      </property>
     </widget>
     <zorder>frm_back_ch_1</zorder>
-    <zorder>lbl_ico_channel_1</zorder>
+    <zorder>lbl_ico_ch_1</zorder>
     <zorder>lbl_001</zorder>
-    <zorder>edit_001</zorder>
+    <zorder>edit_1_number</zorder>
     <zorder>lbl_003</zorder>
-    <zorder>edit_003</zorder>
+    <zorder>edit_1_Ustart</zorder>
     <zorder>lbl_004</zorder>
-    <zorder>edit_004</zorder>
+    <zorder>edit_1_Ucurrent</zorder>
     <zorder>lbl_005</zorder>
-    <zorder>edit_005</zorder>
+    <zorder>edit_1_Icurrent</zorder>
     <zorder>lbl_006</zorder>
-    <zorder>edit_006</zorder>
+    <zorder>edit_1_Pcurrent</zorder>
     <zorder>lbl_007</zorder>
     <zorder>lbl_009</zorder>
-    <zorder>edit_010</zorder>
-    <zorder>edit_011</zorder>
-    <zorder>edit_007</zorder>
+    <zorder>edit_1_Wdischarge</zorder>
+    <zorder>edit_1_Ccharge</zorder>
+    <zorder>edit_1_Crecharge</zorder>
     <zorder>lbl_011</zorder>
     <zorder>lbl_010</zorder>
     <zorder>lbl_012</zorder>
-    <zorder>edit_009</zorder>
+    <zorder>edit_1_Cdischarge</zorder>
     <zorder>lbl_008</zorder>
-    <zorder>edit_008</zorder>
-    <zorder>edit_012</zorder>
-    <zorder>btn_start_test</zorder>
-    <zorder>tbtn_settings_channel_1</zorder>
-    <zorder>lbl_satus_channel_1</zorder>
+    <zorder>edit_1_Wrecharge</zorder>
+    <zorder>edit_1_Wcharge</zorder>
+    <zorder>btn_start_test_1</zorder>
+    <zorder>tbtn_settings_ch_1</zorder>
+    <zorder>lbl_satus_ch_1</zorder>
    </widget>
-   <widget class="QFrame" name="frame_top">
+   <widget class="QFrame" name="frm_top">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -824,37 +833,26 @@
     <widget class="QLabel" name="lbl_messages">
      <property name="geometry">
       <rect>
-       <x>319</x>
-       <y>15</y>
-       <width>541</width>
-       <height>20</height>
+       <x>320</x>
+       <y>9</y>
+       <width>531</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <pointsize>10</pointsize>
+       <bold>false</bold>
       </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Sunken</enum>
      </property>
      <property name="text">
       <string>Ожидание подключения к системе тестирования аккумуляторов...</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_error">
-     <property name="geometry">
-      <rect>
-       <x>870</x>
-       <y>15</y>
-       <width>81</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Ошибки: 0</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_logs">
@@ -875,7 +873,7 @@
       <string>Просмотр логов и построение графиков</string>
      </property>
      <property name="text">
-      <string>Просмотр логов</string>
+      <string>Логи батарей</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -937,8 +935,36 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
+    <widget class="QPushButton" name="btn_errors">
+     <property name="geometry">
+      <rect>
+       <x>860</x>
+       <y>8</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Просмотр лога ошибок работы программы и тестирования</string>
+     </property>
+     <property name="text">
+      <string>Ошибки</string>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/ICO/Alert24.png</normaloff>:/ICO/Alert24.png</iconset>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
    </widget>
-   <widget class="QFrame" name="frame_channel_2">
+   <widget class="QFrame" name="frm_ch_2">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -956,7 +982,7 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_status_channel_2">
+    <widget class="QLabel" name="lbl_status_ch_2">
      <property name="geometry">
       <rect>
        <x>51</x>
@@ -1018,7 +1044,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_2">
+    <widget class="QLineEdit" name="edit_2_number">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -1062,7 +1088,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_4">
+    <widget class="QLineEdit" name="edit_2_Ustart">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1109,7 +1135,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_5">
+    <widget class="QLineEdit" name="edit_2_Ucurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1156,7 +1182,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_6">
+    <widget class="QLineEdit" name="edit_2_Icurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1203,7 +1229,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_7">
+    <widget class="QLineEdit" name="edit_2_Pcurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1272,7 +1298,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_11">
+    <widget class="QLineEdit" name="edit_2_Wdischarge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1297,7 +1323,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_12">
+    <widget class="QLineEdit" name="edit_2_Ccharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1322,7 +1348,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_8">
+    <widget class="QLineEdit" name="edit_2_Crecharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1416,7 +1442,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_10">
+    <widget class="QLineEdit" name="edit_2_Cdischarge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1463,7 +1489,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_9">
+    <widget class="QLineEdit" name="edit_2_Wrecharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1488,7 +1514,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_13">
+    <widget class="QLineEdit" name="edit_2_Wcharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1538,7 +1564,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_channel_2">
+    <widget class="QToolButton" name="tbtn_settings_ch_2">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -1561,7 +1587,7 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_ico_channel_2">
+    <widget class="QLabel" name="lbl_ico_ch_2">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -1633,34 +1659,34 @@
      </property>
     </widget>
     <zorder>frm_back_ch_2</zorder>
-    <zorder>lbl_status_channel_2</zorder>
+    <zorder>lbl_status_ch_2</zorder>
     <zorder>lbl_2</zorder>
-    <zorder>edit_2</zorder>
+    <zorder>edit_2_number</zorder>
     <zorder>lbl_4</zorder>
-    <zorder>edit_4</zorder>
+    <zorder>edit_2_Ustart</zorder>
     <zorder>lbl_5</zorder>
-    <zorder>edit_5</zorder>
+    <zorder>edit_2_Ucurrent</zorder>
     <zorder>lbl_6</zorder>
-    <zorder>edit_6</zorder>
+    <zorder>edit_2_Icurrent</zorder>
     <zorder>lbl_7</zorder>
-    <zorder>edit_7</zorder>
+    <zorder>edit_2_Pcurrent</zorder>
     <zorder>lbl_8</zorder>
     <zorder>lbl_10</zorder>
-    <zorder>edit_11</zorder>
-    <zorder>edit_12</zorder>
-    <zorder>edit_8</zorder>
+    <zorder>edit_2_Wdischarge</zorder>
+    <zorder>edit_2_Ccharge</zorder>
+    <zorder>edit_2_Crecharge</zorder>
     <zorder>lbl_12</zorder>
     <zorder>lbl_11</zorder>
     <zorder>lbl_13</zorder>
-    <zorder>edit_10</zorder>
+    <zorder>edit_2_Cdischarge</zorder>
     <zorder>lbl_9</zorder>
-    <zorder>edit_9</zorder>
-    <zorder>edit_13</zorder>
+    <zorder>edit_2_Wrecharge</zorder>
+    <zorder>edit_2_Wcharge</zorder>
     <zorder>btn_start_test_2</zorder>
-    <zorder>tbtn_settings_channel_2</zorder>
-    <zorder>lbl_ico_channel_2</zorder>
+    <zorder>tbtn_settings_ch_2</zorder>
+    <zorder>lbl_ico_ch_2</zorder>
    </widget>
-   <widget class="QFrame" name="frame_channel_3">
+   <widget class="QFrame" name="frm_ch_3">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -1678,7 +1704,7 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_satus_channel_3">
+    <widget class="QLabel" name="lbl_satus_ch_3">
      <property name="geometry">
       <rect>
        <x>51</x>
@@ -1740,7 +1766,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_14">
+    <widget class="QLineEdit" name="edit_3_number">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -1784,7 +1810,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_16">
+    <widget class="QLineEdit" name="edit_3_Ustart">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1831,7 +1857,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_17">
+    <widget class="QLineEdit" name="edit_3_Ucurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1878,7 +1904,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_18">
+    <widget class="QLineEdit" name="edit_3_Icurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1925,7 +1951,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_19">
+    <widget class="QLineEdit" name="edit_3_Pcurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1994,7 +2020,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_20">
+    <widget class="QLineEdit" name="edit_3_Wdischarge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2019,7 +2045,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_21">
+    <widget class="QLineEdit" name="edit_3_Ccharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2044,7 +2070,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_22">
+    <widget class="QLineEdit" name="edit_3_Crecharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2138,7 +2164,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_23">
+    <widget class="QLineEdit" name="edit_3_Cdischarge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2185,7 +2211,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_24">
+    <widget class="QLineEdit" name="edit_3_Wrecharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2210,7 +2236,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_25">
+    <widget class="QLineEdit" name="edit_3_Wcharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2260,7 +2286,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_channel_3">
+    <widget class="QToolButton" name="tbtn_settings_ch_3">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -2283,7 +2309,7 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_ico_channel_3">
+    <widget class="QLabel" name="lbl_ico_ch_3">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -2355,34 +2381,34 @@
      </property>
     </widget>
     <zorder>frm_back_ch_3</zorder>
-    <zorder>lbl_satus_channel_3</zorder>
+    <zorder>lbl_satus_ch_3</zorder>
     <zorder>lbl_14</zorder>
-    <zorder>edit_14</zorder>
+    <zorder>edit_3_number</zorder>
     <zorder>lbl_16</zorder>
-    <zorder>edit_16</zorder>
+    <zorder>edit_3_Ustart</zorder>
     <zorder>lbl_17</zorder>
-    <zorder>edit_17</zorder>
+    <zorder>edit_3_Ucurrent</zorder>
     <zorder>lbl_18</zorder>
-    <zorder>edit_18</zorder>
+    <zorder>edit_3_Icurrent</zorder>
     <zorder>lbl_19</zorder>
-    <zorder>edit_19</zorder>
+    <zorder>edit_3_Pcurrent</zorder>
     <zorder>lbl_20</zorder>
     <zorder>lbl_21</zorder>
-    <zorder>edit_20</zorder>
-    <zorder>edit_21</zorder>
-    <zorder>edit_22</zorder>
+    <zorder>edit_3_Wdischarge</zorder>
+    <zorder>edit_3_Ccharge</zorder>
+    <zorder>edit_3_Crecharge</zorder>
     <zorder>lbl_22</zorder>
     <zorder>lbl_23</zorder>
     <zorder>lbl_24</zorder>
-    <zorder>edit_23</zorder>
+    <zorder>edit_3_Cdischarge</zorder>
     <zorder>lbl_25</zorder>
-    <zorder>edit_24</zorder>
-    <zorder>edit_25</zorder>
+    <zorder>edit_3_Wrecharge</zorder>
+    <zorder>edit_3_Wcharge</zorder>
     <zorder>btn_start_test_3</zorder>
-    <zorder>tbtn_settings_channel_3</zorder>
-    <zorder>lbl_ico_channel_3</zorder>
+    <zorder>tbtn_settings_ch_3</zorder>
+    <zorder>lbl_ico_ch_3</zorder>
    </widget>
-   <widget class="QFrame" name="frame_channel_4">
+   <widget class="QFrame" name="frm_ch_4">
     <property name="enabled">
      <bool>false</bool>
     </property>
@@ -2400,7 +2426,7 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_status_channel_4">
+    <widget class="QLabel" name="lbl_status_ch_4">
      <property name="geometry">
       <rect>
        <x>51</x>
@@ -2462,7 +2488,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_26">
+    <widget class="QLineEdit" name="edit_4_number">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -2506,7 +2532,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_28">
+    <widget class="QLineEdit" name="edit_4_Ustart">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2553,7 +2579,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_29">
+    <widget class="QLineEdit" name="edit_4_Ucurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2600,7 +2626,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_30">
+    <widget class="QLineEdit" name="edit_4_Icurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2647,7 +2673,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_31">
+    <widget class="QLineEdit" name="edit_4_Pcurrent">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2716,7 +2742,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_32">
+    <widget class="QLineEdit" name="edit_4_Wdischarge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2741,7 +2767,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_33">
+    <widget class="QLineEdit" name="edit_4_Ccharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2766,7 +2792,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_34">
+    <widget class="QLineEdit" name="edit_4_Crecharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2860,7 +2886,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_35">
+    <widget class="QLineEdit" name="edit_4_Cdischarge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2907,7 +2933,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_36">
+    <widget class="QLineEdit" name="edit_4_Wrecharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2932,7 +2958,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_37">
+    <widget class="QLineEdit" name="edit_4_Wcharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -2982,7 +3008,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_channel_4">
+    <widget class="QToolButton" name="tbtn_settings_ch_4">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -3005,7 +3031,7 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_ico_channel_4">
+    <widget class="QLabel" name="lbl_ico_ch_4">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -3077,32 +3103,32 @@
      </property>
     </widget>
     <zorder>frm_back_ch_4</zorder>
-    <zorder>lbl_status_channel_4</zorder>
+    <zorder>lbl_status_ch_4</zorder>
     <zorder>lbl_26</zorder>
-    <zorder>edit_26</zorder>
+    <zorder>edit_4_number</zorder>
     <zorder>lbl_28</zorder>
-    <zorder>edit_28</zorder>
+    <zorder>edit_4_Ustart</zorder>
     <zorder>lbl_29</zorder>
-    <zorder>edit_29</zorder>
+    <zorder>edit_4_Ucurrent</zorder>
     <zorder>lbl_30</zorder>
-    <zorder>edit_30</zorder>
+    <zorder>edit_4_Icurrent</zorder>
     <zorder>lbl_31</zorder>
-    <zorder>edit_31</zorder>
+    <zorder>edit_4_Pcurrent</zorder>
     <zorder>lbl_32</zorder>
     <zorder>lbl_33</zorder>
-    <zorder>edit_32</zorder>
-    <zorder>edit_33</zorder>
-    <zorder>edit_34</zorder>
+    <zorder>edit_4_Wdischarge</zorder>
+    <zorder>edit_4_Ccharge</zorder>
+    <zorder>edit_4_Crecharge</zorder>
     <zorder>lbl_34</zorder>
     <zorder>lbl_35</zorder>
     <zorder>lbl_36</zorder>
-    <zorder>edit_35</zorder>
+    <zorder>edit_4_Cdischarge</zorder>
     <zorder>lbl_37</zorder>
-    <zorder>edit_36</zorder>
-    <zorder>edit_37</zorder>
+    <zorder>edit_4_Wrecharge</zorder>
+    <zorder>edit_4_Wcharge</zorder>
     <zorder>btn_start_test_4</zorder>
-    <zorder>tbtn_settings_channel_4</zorder>
-    <zorder>lbl_ico_channel_4</zorder>
+    <zorder>tbtn_settings_ch_4</zorder>
+    <zorder>lbl_ico_ch_4</zorder>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -3122,61 +3148,61 @@
  </widget>
  <tabstops>
   <tabstop>btn_connect</tabstop>
-  <tabstop>tbtn_settings_channel_1</tabstop>
-  <tabstop>edit_001</tabstop>
-  <tabstop>edit_2</tabstop>
-  <tabstop>edit_14</tabstop>
-  <tabstop>edit_26</tabstop>
+  <tabstop>tbtn_settings_ch_1</tabstop>
+  <tabstop>edit_1_number</tabstop>
+  <tabstop>edit_2_number</tabstop>
+  <tabstop>edit_3_number</tabstop>
+  <tabstop>edit_4_number</tabstop>
   <tabstop>btn_logs</tabstop>
-  <tabstop>edit_009</tabstop>
-  <tabstop>edit_004</tabstop>
-  <tabstop>edit_005</tabstop>
-  <tabstop>edit_006</tabstop>
-  <tabstop>btn_start_test</tabstop>
-  <tabstop>edit_012</tabstop>
-  <tabstop>edit_010</tabstop>
+  <tabstop>edit_1_Cdischarge</tabstop>
+  <tabstop>edit_1_Ucurrent</tabstop>
+  <tabstop>edit_1_Icurrent</tabstop>
+  <tabstop>edit_1_Pcurrent</tabstop>
+  <tabstop>btn_start_test_1</tabstop>
+  <tabstop>edit_1_Wcharge</tabstop>
+  <tabstop>edit_1_Wdischarge</tabstop>
   <tabstop>list_com</tabstop>
   <tabstop>tbtn_settings_com</tabstop>
-  <tabstop>edit_008</tabstop>
-  <tabstop>edit_4</tabstop>
-  <tabstop>edit_003</tabstop>
-  <tabstop>edit_5</tabstop>
-  <tabstop>edit_6</tabstop>
-  <tabstop>edit_7</tabstop>
-  <tabstop>edit_11</tabstop>
-  <tabstop>edit_12</tabstop>
-  <tabstop>edit_8</tabstop>
-  <tabstop>edit_10</tabstop>
-  <tabstop>edit_9</tabstop>
-  <tabstop>edit_13</tabstop>
+  <tabstop>edit_1_Wrecharge</tabstop>
+  <tabstop>edit_2_Ustart</tabstop>
+  <tabstop>edit_1_Ustart</tabstop>
+  <tabstop>edit_2_Ucurrent</tabstop>
+  <tabstop>edit_2_Icurrent</tabstop>
+  <tabstop>edit_2_Pcurrent</tabstop>
+  <tabstop>edit_2_Wdischarge</tabstop>
+  <tabstop>edit_2_Ccharge</tabstop>
+  <tabstop>edit_2_Crecharge</tabstop>
+  <tabstop>edit_2_Cdischarge</tabstop>
+  <tabstop>edit_2_Wrecharge</tabstop>
+  <tabstop>edit_2_Wcharge</tabstop>
   <tabstop>btn_start_test_2</tabstop>
-  <tabstop>tbtn_settings_channel_2</tabstop>
-  <tabstop>edit_011</tabstop>
-  <tabstop>edit_16</tabstop>
-  <tabstop>edit_17</tabstop>
-  <tabstop>edit_18</tabstop>
-  <tabstop>edit_19</tabstop>
-  <tabstop>edit_20</tabstop>
-  <tabstop>edit_21</tabstop>
-  <tabstop>edit_22</tabstop>
-  <tabstop>edit_23</tabstop>
-  <tabstop>edit_24</tabstop>
-  <tabstop>edit_25</tabstop>
+  <tabstop>tbtn_settings_ch_2</tabstop>
+  <tabstop>edit_1_Ccharge</tabstop>
+  <tabstop>edit_3_Ustart</tabstop>
+  <tabstop>edit_3_Ucurrent</tabstop>
+  <tabstop>edit_3_Icurrent</tabstop>
+  <tabstop>edit_3_Pcurrent</tabstop>
+  <tabstop>edit_3_Wdischarge</tabstop>
+  <tabstop>edit_3_Ccharge</tabstop>
+  <tabstop>edit_3_Crecharge</tabstop>
+  <tabstop>edit_3_Cdischarge</tabstop>
+  <tabstop>edit_3_Wrecharge</tabstop>
+  <tabstop>edit_3_Wcharge</tabstop>
   <tabstop>btn_start_test_3</tabstop>
-  <tabstop>tbtn_settings_channel_3</tabstop>
-  <tabstop>edit_28</tabstop>
-  <tabstop>edit_007</tabstop>
-  <tabstop>edit_29</tabstop>
-  <tabstop>edit_30</tabstop>
-  <tabstop>edit_31</tabstop>
-  <tabstop>edit_32</tabstop>
-  <tabstop>edit_33</tabstop>
-  <tabstop>edit_34</tabstop>
-  <tabstop>edit_35</tabstop>
-  <tabstop>edit_36</tabstop>
-  <tabstop>edit_37</tabstop>
+  <tabstop>tbtn_settings_ch_3</tabstop>
+  <tabstop>edit_4_Ustart</tabstop>
+  <tabstop>edit_1_Crecharge</tabstop>
+  <tabstop>edit_4_Ucurrent</tabstop>
+  <tabstop>edit_4_Icurrent</tabstop>
+  <tabstop>edit_4_Pcurrent</tabstop>
+  <tabstop>edit_4_Wdischarge</tabstop>
+  <tabstop>edit_4_Ccharge</tabstop>
+  <tabstop>edit_4_Crecharge</tabstop>
+  <tabstop>edit_4_Cdischarge</tabstop>
+  <tabstop>edit_4_Wrecharge</tabstop>
+  <tabstop>edit_4_Wcharge</tabstop>
   <tabstop>btn_start_test_4</tabstop>
-  <tabstop>tbtn_settings_channel_4</tabstop>
+  <tabstop>tbtn_settings_ch_4</tabstop>
  </tabstops>
  <resources>
   <include location="res.qrc"/>

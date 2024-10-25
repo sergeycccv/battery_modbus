@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="ICO">
+    <file>Alert24.png</file>
     <file>N1_0_36.png</file>
     <file>N2_0_36.png</file>
     <file>N3_0_36.png</file>
