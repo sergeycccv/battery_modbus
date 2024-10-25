@@ -64,9 +64,29 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
             # if isinstance(widget, QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
                 # widget.setProperty('text', '------')
-                widget.setText('------')
+                widget.setText('00,000')
                 # print(f'{widget.objectName()} - {widget.text()} - {widget.property("channel")}')
-                widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
+                # widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
+                if widget.objectName() == 'edit_1_Ustart':
+                    widget.setProperty('styleSheet', 'color: rgb(200, 200, 200); background-color: black;')
+                if widget.objectName() == 'edit_1_Ucurrent':
+                    widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
+                if widget.objectName() == 'edit_1_Icurrent':
+                    widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
+                if widget.objectName() == 'edit_1_Pcurrent':
+                    widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
+                if widget.objectName() == 'edit_1_Crecharge':
+                    widget.setProperty('styleSheet', 'color: rgb(200, 200, 200); background-color: black;')
+                if widget.objectName() == 'edit_1_Wrecharge':
+                    widget.setProperty('styleSheet', 'color: rgb(200, 200, 200); background-color: black;')
+                if widget.objectName() == 'edit_1_Cdischarge':
+                    widget.setProperty('styleSheet', 'color: rgb(255, 140, 140); background-color: black;')
+                if widget.objectName() == 'edit_1_Wdischarge':
+                    widget.setProperty('styleSheet', 'color: rgb(255, 140, 140); background-color: black;')
+                if widget.objectName() == 'edit_1_Ccharge':
+                    widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
+                if widget.objectName() == 'edit_1_Wcharge':
+                    widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
             
 
     # Обработка нажатия на кнопку "Просмотр логов"
@@ -81,7 +101,7 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
         warr.setWindowTitle('Внимание!')
         warr.setText('Подключитесь к системе тестирования')
         warr.setIcon(QMessageBox.Warning)
-        self.statusBar.showMessage('Ожидание подключения батарей...')
+        # self.statusBar.showMessage('Ожидание подключения батарей...')
         warr.exec()
         # warr.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         # button = warr.exec()

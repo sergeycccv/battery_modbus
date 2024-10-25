@@ -856,6 +856,9 @@
      </property>
     </widget>
     <widget class="QLabel" name="lbl_messages">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>320</x>
@@ -867,7 +870,7 @@
      <property name="font">
       <font>
        <pointsize>10</pointsize>
-       <bold>false</bold>
+       <bold>true</bold>
       </font>
      </property>
      <property name="frameShape">
@@ -877,7 +880,7 @@
       <enum>QFrame::Shadow::Sunken</enum>
      </property>
      <property name="text">
-      <string>Ожидание подключения программы к системе тестирования</string>
+      <string>Подключитесь к системе тестирования</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_logs">
