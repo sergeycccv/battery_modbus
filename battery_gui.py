@@ -5,11 +5,15 @@ pyside6-rcc ui/res.qrc -o res_rc.py
 pysyde6-designer
 '''
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
 from PySide6 import QtCore
 import sys, glob, serial
 import ui_main, ui_logs
 
+FLAG_CH_1 = True
+FLAG_CH_2 = False
+FLAG_CH_3 = True
+FLAG_CH_3 = False
 
 # Список доступных в системе COM-портов
 def serial_ports():
@@ -55,6 +59,17 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
         # Нажатие на кнопку "Начать тестирование"
         self.btn_start_test_1.clicked.connect(self.btn_start_test_clicked)
 
+        # Инициализация текста в полях ввода и их стиля
+        for widget in self.findChildren(QLineEdit):
+            # if isinstance(widget, QLineEdit):
+            if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
+                # widget.setProperty('text', '------')
+                widget.setText('------')
+                # print(f'{widget.objectName()} - {widget.text()} - {widget.property("channel")}')
+                widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
+            
+
+    # Обработка нажатия на кнопку "Просмотр логов"
     def btn_logs_clicked(self, checked):
         self.w = LogsApp()
         self.w.show()

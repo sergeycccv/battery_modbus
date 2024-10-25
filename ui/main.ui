@@ -29,19 +29,14 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Тест аккумуляторов.</string>
+   <string>Тест аккумуляторов</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
     <normaloff>:/ICO/Charging24.png</normaloff>:/ICO/Charging24.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">#edit_002, #edit_003, #edit_004, #edit_005, #edit_006, #edit_007,
-#edit_008, #edit_009, #edit_010, #edit_011, #edit_012 {
-	background-color: rgb(0, 0, 0);
-	color: rgb(0, 255, 30);
-}
-#frm_back_ch_1, #frm_back_ch_2, #frm_back_ch_3, #frm_back_ch_4 {
+   <string notr="true">#frm_back_ch_1, #frm_back_ch_2, #frm_back_ch_3, #frm_back_ch_4 {
 	background-color: rgb(210, 210, 210);
 }
 #lbl_messages {
@@ -218,6 +213,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_004">
      <property name="geometry">
@@ -264,6 +262,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_005">
@@ -312,6 +313,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_006">
      <property name="geometry">
@@ -358,6 +362,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_007">
@@ -428,6 +435,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_1_Ccharge">
      <property name="geometry">
@@ -453,6 +463,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_1_Crecharge">
      <property name="geometry">
@@ -477,6 +490,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_011">
@@ -572,6 +588,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_008">
      <property name="geometry">
@@ -619,6 +638,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_1_Wcharge">
      <property name="geometry">
@@ -644,6 +666,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="btn_start_test_1">
      <property name="enabled">
@@ -663,7 +688,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Запуск теста</string>
+      <string> Запуск теста</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -823,7 +848,7 @@
       <string>Подключиться к системе тестирования</string>
      </property>
      <property name="text">
-      <string>Подключиться</string>
+      <string> Подключиться</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -852,7 +877,7 @@
       <enum>QFrame::Shadow::Sunken</enum>
      </property>
      <property name="text">
-      <string>Ожидание подключения к системе тестирования аккумуляторов...</string>
+      <string>Ожидание подключения программы к системе тестирования</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_logs">
@@ -873,7 +898,7 @@
       <string>Просмотр логов и построение графиков</string>
      </property>
      <property name="text">
-      <string>Логи батарей</string>
+      <string> Логи батарей</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -953,7 +978,7 @@
       <string>Просмотр лога ошибок работы программы и тестирования</string>
      </property>
      <property name="text">
-      <string>Ошибки</string>
+      <string> Ошибки</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -1112,6 +1137,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_5">
      <property name="geometry">
@@ -1158,6 +1186,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_6">
@@ -1206,6 +1237,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_7">
      <property name="geometry">
@@ -1252,6 +1286,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_8">
@@ -1322,6 +1359,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_2_Ccharge">
      <property name="geometry">
@@ -1347,6 +1387,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_2_Crecharge">
      <property name="geometry">
@@ -1371,6 +1414,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_12">
@@ -1466,6 +1512,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_9">
      <property name="geometry">
@@ -1513,6 +1562,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_2_Wcharge">
      <property name="geometry">
@@ -1538,6 +1590,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch2</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="btn_start_test_2">
      <property name="enabled">
@@ -1557,7 +1612,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Запуск теста</string>
+      <string> Запуск теста</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -1834,6 +1889,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_17">
      <property name="geometry">
@@ -1880,6 +1938,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_18">
@@ -1928,6 +1989,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_19">
      <property name="geometry">
@@ -1974,6 +2038,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_20">
@@ -2044,6 +2111,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_3_Ccharge">
      <property name="geometry">
@@ -2069,6 +2139,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_3_Crecharge">
      <property name="geometry">
@@ -2093,6 +2166,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_22">
@@ -2188,6 +2264,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_25">
      <property name="geometry">
@@ -2235,6 +2314,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_3_Wcharge">
      <property name="geometry">
@@ -2260,6 +2342,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch3</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="btn_start_test_3">
      <property name="enabled">
@@ -2279,7 +2364,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Запуск теста</string>
+      <string> Запуск теста</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -2556,6 +2641,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_29">
      <property name="geometry">
@@ -2602,6 +2690,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_30">
@@ -2650,6 +2741,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_31">
      <property name="geometry">
@@ -2696,6 +2790,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_32">
@@ -2766,6 +2863,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_4_Ccharge">
      <property name="geometry">
@@ -2791,6 +2891,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_4_Crecharge">
      <property name="geometry">
@@ -2815,6 +2918,9 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_34">
@@ -2910,6 +3016,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_37">
      <property name="geometry">
@@ -2957,6 +3066,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="edit_4_Wcharge">
      <property name="geometry">
@@ -2982,6 +3094,9 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+     <property name="channel" stdset="0">
+      <string>ch4</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="btn_start_test_4">
      <property name="enabled">
@@ -3001,7 +3116,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Запуск теста</string>
+      <string> Запуск теста</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
