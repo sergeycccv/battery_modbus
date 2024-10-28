@@ -5,15 +5,13 @@ pyside6-rcc ui/res.qrc -o res_rc.py
 pysyde6-designer
 '''
 
+import sys, glob, serial, modbus_tk, time
+import modbus_tk.defines as cst
+from modbus_tk import modbus_rtu
+
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
 from PySide6 import QtCore
-import sys, glob, serial
 import ui_main, ui_logs
-
-FLAG_CH_1 = True
-FLAG_CH_2 = False
-FLAG_CH_3 = True
-FLAG_CH_3 = False
 
 # Список доступных в системе COM-портов
 def serial_ports():
@@ -41,6 +39,22 @@ def serial_ports():
         except (OSError, serial.SerialException):
             pass
     return result
+
+
+def get_modbus_data(port='COM3', baudrate=9600, bytesize=8, parity='N', stopbits=1, xonxoff=0):
+    logger = modbus_tk.utils.create_logger('console')
+    try:
+        master = modbus_rtu.RtuMaster(
+            serial.Serial(port, baudrate, bytesize, parity, stopbits, xonxoff)
+        )
+        master.set_timeout(5.0)
+        master.set_verbose(True)
+        logger.info(f'Подключено к {port}')
+        p = master.execute(3, cst.READ_INPUT_REGISTERS, 0, 25)
+        logger.info(p)
+    except modbus_tk.modbus.ModbusError as exc:
+        logger.error(f'{exc} - Code = {exc.get_exception_code()}')
+    return p
 
 
 class MainApp(QMainWindow, ui_main.Ui_MainWindow):
@@ -87,7 +101,18 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
                 if widget.objectName() == 'edit_1_Wcharge':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
-            
+        
+        # Нажатие на кнопку "Подключиться"
+        self.btn_connect.clicked.connect(self.btn_connect_clicked)
+
+
+    # Обработка нажатия на кнопку "Подключиться"
+    def btn_connect_clicked(self, checked):
+        reg_modbus = ()
+        reg_modbus = get_modbus_data(self.list_com.currentText())
+        # Получение Ustart с устройства тестирования
+        self.edit_1_Ustart.setText(str(round(reg_modbus[1] * 0.00125, 3)))
+
 
     # Обработка нажатия на кнопку "Просмотр логов"
     def btn_logs_clicked(self, checked):
