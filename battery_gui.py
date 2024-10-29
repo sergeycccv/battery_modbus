@@ -1,9 +1,8 @@
-'''
-pyside6-uic ui\main.ui -o ui_main.py
-pyside6-uic ui\logs.ui -o ui_logs.py
-pyside6-rcc ui/res.qrc -o res_rc.py
-pysyde6-designer
-'''
+# pyside6-uic ui\main.ui -o ui_main.py
+# pyside6-uic ui\logs.ui -o ui_logs.py
+# pyside6-rcc ui/res.qrc -o res_rc.py
+# pysyde6-designer
+
 
 import sys, glob, serial, modbus_tk, time
 import modbus_tk.defines as cst
@@ -132,6 +131,31 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
         # button = warr.exec()
         # if button == QMessageBox.Ok:
         #     self.statusBar.showMessage('Ожидание подключения...')
+
+    
+    # Обработка закрытия главного окна
+    def closeEvent(self, event):
+        # answer = QMessageBox.question(self, 'Выход', 'Вы уверены, что хотите выйти из приложения?',
+        # QMessageBox.StandardButton.No | \
+        # QMessageBox.StandardButton.Yes,
+        # QMessageBox.StandardButton.Yes)
+        # if answer == QMessageBox.StandardButton.Yes:
+        #     event.accept()
+        # if answer == QMessageBox.StandardButton.No:
+        #     event.ignore()
+        warr = QMessageBox(self)
+        warr.setWindowTitle('Внимание!')
+        warr.setText('<p><strong>В данный момент тестируется батарея!</strong></p><p>Вы действительно хотите прервать тестирование и закрыть программу?</p>')
+        warr.setIcon(warr.Icon.Warning)
+        warr.addButton('Нет', warr.ButtonRole.NoRole)
+        warr.addButton('  Закрыть программу  ', warr.ButtonRole.YesRole)
+        warr.exec()
+        button = warr.clickedButton().text()
+        if button == '  Закрыть программу  ':
+            event.accept()
+        if button == 'Нет':
+            event.ignore()
+
 
 class LogsApp(QMainWindow, ui_logs.Ui_LogsWindow):
     def __init__(self):
