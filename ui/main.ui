@@ -943,7 +943,7 @@
       <string>Выбор COM-порта</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_com">
+    <widget class="QToolButton" name="tbtn_settings">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -953,7 +953,7 @@
       </rect>
      </property>
      <property name="statusTip">
-      <string>Настройки порта</string>
+      <string>Настройки программы</string>
      </property>
      <property name="text">
       <string/>
@@ -3280,7 +3280,7 @@
   <tabstop>edit_1_Wcharge</tabstop>
   <tabstop>edit_1_Wdischarge</tabstop>
   <tabstop>list_com</tabstop>
-  <tabstop>tbtn_settings_com</tabstop>
+  <tabstop>tbtn_settings</tabstop>
   <tabstop>edit_1_Wrecharge</tabstop>
   <tabstop>edit_2_Ustart</tabstop>
   <tabstop>edit_1_Ustart</tabstop>

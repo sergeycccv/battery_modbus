@@ -26,7 +26,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Просмотр и анализ логов</string>
+   <string>Просмотр и анализ логов заряда батарей</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">

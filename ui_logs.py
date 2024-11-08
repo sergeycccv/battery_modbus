@@ -97,7 +97,7 @@ class Ui_LogsWindow(object):
     # setupUi
 
     def retranslateUi(self, LogsWindow):
-        LogsWindow.setWindowTitle(QCoreApplication.translate("LogsWindow", u"\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0438 \u0430\u043d\u0430\u043b\u0438\u0437 \u043b\u043e\u0433\u043e\u0432", None))
+        LogsWindow.setWindowTitle(QCoreApplication.translate("LogsWindow", u"\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0438 \u0430\u043d\u0430\u043b\u0438\u0437 \u043b\u043e\u0433\u043e\u0432 \u0437\u0430\u0440\u044f\u0434\u0430 \u0431\u0430\u0442\u0430\u0440\u0435\u0439", None))
         self.label.setText(QCoreApplication.translate("LogsWindow", u"\u041f\u0430\u043f\u043a\u0430 \u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u043b\u043e\u0433\u043e\u0432", None))
         self.tbtn_path_logs.setText(QCoreApplication.translate("LogsWindow", u"...", None))
         self.btn_view_log.setText(QCoreApplication.translate("LogsWindow", u"\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440 \u0444\u0430\u0439\u043b\u0430", None))
