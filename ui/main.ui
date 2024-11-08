@@ -29,7 +29,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Тест аккумуляторов</string>
+   <string>Тестирование аккумуляторов</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
@@ -863,7 +863,7 @@
       <rect>
        <x>320</x>
        <y>9</y>
-       <width>531</width>
+       <width>633</width>
        <height>30</height>
       </rect>
      </property>
@@ -943,7 +943,7 @@
       <string>Выбор COM-порта</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings">
+    <widget class="QToolButton" name="tbtn_settings_port">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -953,7 +953,7 @@
       </rect>
      </property>
      <property name="statusTip">
-      <string>Настройки программы</string>
+      <string>Настройки порта</string>
      </property>
      <property name="text">
       <string/>
@@ -966,10 +966,10 @@
     <widget class="QPushButton" name="btn_errors">
      <property name="geometry">
       <rect>
-       <x>860</x>
-       <y>8</y>
-       <width>91</width>
-       <height>31</height>
+       <x>917</x>
+       <y>11</y>
+       <width>33</width>
+       <height>25</height>
       </rect>
      </property>
      <property name="font">
@@ -981,7 +981,7 @@
       <string>Просмотр лога ошибок работы программы и тестирования</string>
      </property>
      <property name="text">
-      <string> Ошибки</string>
+      <string/>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -3280,7 +3280,7 @@
   <tabstop>edit_1_Wcharge</tabstop>
   <tabstop>edit_1_Wdischarge</tabstop>
   <tabstop>list_com</tabstop>
-  <tabstop>tbtn_settings</tabstop>
+  <tabstop>tbtn_settings_port</tabstop>
   <tabstop>edit_1_Wrecharge</tabstop>
   <tabstop>edit_2_Ustart</tabstop>
   <tabstop>edit_1_Ustart</tabstop>
