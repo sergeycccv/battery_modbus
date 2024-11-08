@@ -1,25 +1,20 @@
-# pyside6-uic ui\main.ui -o ui_main.py
-# pyside6-uic ui\logs.ui -o ui_logs.py
-# pyside6-rcc ui/res.qrc -o res_rc.py
-# pysyde6-designer
-
-
 import sys, glob, serial, modbus_tk, time
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QDialog
 from PySide6 import QtCore
 import ui_main, ui_logs
 
+
 # Список доступных в системе COM-портов
 def serial_ports():
-    """ Lists serial port names
+    ''' Список всех доступных в системе COM-портов
         :raises EnvironmentError:
-            On unsupported or unknown platforms
+            Не поддерживаемая или неизвестная платформа
         :returns:
-            A list of the serial ports available on the system
-    """
+            Список COM-портов
+    '''
     if sys.platform.startswith('win'):
         ports = ['COM%s' % (i + 1) for i in range(256)]
     elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
@@ -28,7 +23,7 @@ def serial_ports():
     elif sys.platform.startswith('darwin'):
         ports = glob.glob('/dev/tty.*')
     else:
-        raise EnvironmentError('Unsupported platform')
+        raise EnvironmentError('Неподдерживаемая платформа')
     result = []
     for port in ports:
         try:
@@ -60,6 +55,9 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+
+        # # Создание окна просмотра логов
+        # self.logs_window = LogsApp()
 
         # Список COM-портов
         self.list_com.addItems(serial_ports())
@@ -114,9 +112,11 @@ class MainApp(QMainWindow, ui_main.Ui_MainWindow):
 
 
     # Обработка нажатия на кнопку "Просмотр логов"
-    def btn_logs_clicked(self, checked):
-        self.w = LogsApp()
-        self.w.show()
+    def btn_logs_clicked(self):
+        # self.w = LogsApp(self)
+        # self.w.show()
+        self.logs_window = LogsApp(self)#QDialog(self)
+        self.logs_window.show()
 
 
     # Обработка нажатия на кнопку "Начать тестирование"
@@ -165,7 +165,11 @@ class LogsApp(QMainWindow, ui_logs.Ui_LogsWindow):
         self.setWindowFlags(self.windowFlags() & QtCore.Qt.CustomizeWindowHint)
         self.setWindowFlags(self.windowFlags() & QtCore.Qt.WindowCloseButtonHint)
         # self.setWindowFlags(self.windowFlags() & QtCore.Qt.WindowMaximizeButtonHint)
-
+        # self.move(self.geometry().center() - self.rect().center() - QtCore.QPoint(40, 30))
+        # self.move(0, 0)
+        # self.resize(1130, 601)
+        # self.geometry = QtCore.QRect(0, 0, 1130, 601)
+        # print(self.geometry().getCoords())
 
 
 def main():
