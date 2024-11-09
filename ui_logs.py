@@ -56,6 +56,8 @@ class Ui_LogsWindow(object):
         self.list_file_logs = QListView(self.frame_2)
         self.list_file_logs.setObjectName(u"list_file_logs")
         self.list_file_logs.setGeometry(QRect(10, 10, 321, 291))
+        self.list_file_logs.setFrameShape(QFrame.Shape.Box)
+        self.list_file_logs.setFrameShadow(QFrame.Shadow.Plain)
         self.btn_view_log = QPushButton(self.frame_2)
         self.btn_view_log.setObjectName(u"btn_view_log")
         self.btn_view_log.setGeometry(QRect(340, 10, 181, 24))
