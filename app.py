@@ -1,4 +1,4 @@
-import sys
+import sys, os, serial
 from configparser import ConfigParser
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
 from ui_main import Ui_MainWindow
@@ -8,19 +8,20 @@ from ui_alert import Ui_AlertsWindow
 from ui_settings_ch import Ui_SettingsChWindow
 
 
-
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.initUI()
-        self.pach_logs = '' # Путь к лoгам
-        self.port = 'COM1'
+
+        self.path_logs = 'COM1'
+        self.port = ''
         self.baudrate = 9600
         self.bytesize = 8
         self.parity = 'N' # N - None, E - Even, O - Odd
         self.stopbits = 1
         self.xonxoff = False
+
         # Создаём окно логов
         self.logs = LogsWindow(self)
         # Создаём окно настроек программы
@@ -29,6 +30,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.alerts = AlertsWindow(self)
         # Создаём окно настроек канала
         self.settings_ch = SettingsChWindow(self)
+
+        # Список COM-портов
+        self.list_com.addItems(serial_ports())
+        # Индекс текущего COM-порта
+        self.port = self.list_com.currentText()
+        # Изменение текущего COM-порта
+        self.list_com.currentIndexChanged.connect(self.list_com_changed)
 
         self.get_settings_ini_file()
 
@@ -40,6 +48,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_alerts.clicked.connect(self.btn_alerts_clicked)
         # Нажатие на кнопку "Настройки канала"
         self.tbtn_settings_ch_1.clicked.connect(self.btn_settings_ch_clicked)
+
+    # Изменение текущего COM-порта
+    def list_com_changed(self):
+        self.port = self.list_com.currentText()
 
     def initUI(self):
         for widget in self.findChildren(QLineEdit):
@@ -89,53 +101,75 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config = ConfigParser()
             config.read('settings.ini')
             
-            if config.has_option('DEFAULT', 'PachLogs'):
-                self.pach_logs = config.get('DEFAULT', 'PachLogs')
-                self.logs.line_path_logs.setText(config['DEFAULT']['PachLogs'])
-                # print(self.pach_logs)
+            if config.has_option('DEFAULT', 'PathLogs'):
+                self.path_logs = config.get('DEFAULT', 'PathLogs')
+                self.logs.line_path_logs.setText(self.path_logs)
             else:
-                pass
+                self.path_logs = os.path.abspath(os.curdir)
+                self.logs.line_path_logs.setText(self.path_logs)
             
             if config.has_option('COM', 'Port'):
-                # self.settings.edit_port.setText(config.get('COM', 'Port').replace('\'', ''))
-                pass
+                self.port = config.get('COM', 'Port')
+                self.list_com.setCurrentText(self.port)
             else:
-                # self.settings.edit_buadrate.setText('COM1')
-                pass
+                self.port = 'COM1'
+                self.list_com.setCurrentIndex(0)
 
             if config.has_option('COM', 'BaudRate'):
-                # self.settings.edit_buadrate.setText(config.getint('COM', 'BaudRate'))
-                self.settings.edit_buadrate.setText(config['COM']['BaudRate'])
+                self.baudrate = config.getint('COM', 'BaudRate')
+                self.settings.edit_buadrate.setText(str(self.baudrate))
             else:
+                self.baudrate = 9600
                 self.settings.edit_buadrate.setText('9600')
 
             if config.has_option('COM', 'ByteSize'):
-                # print(config.getint('COM', 'ByteSize'))
-                self.settings.edit_bytesize.setText(config['COM']['ByteSize'])
+                self.bytesize = config.getint('COM', 'ByteSize')
+                self.settings.edit_bytesize.setText(str(self.bytesize))
             else:
+                self.bytesize = 8
                 self.settings.edit_bytesize.setText('8')
 
             if config.has_option('COM', 'Parity'):
                 parity = {'N': 0, 'E': 1, 'O': 2}
-                self.parity = config.get('COM', 'Parity').replace('\'', '')
+                self.parity = config.get('COM', 'Parity')
                 self.settings.cb_parity.setCurrentIndex(parity.get(self.parity))
             else:
+                self.parity = 'N'
                 self.settings.cb_parity.setCurrentIndex(0)
 
             if config.has_option('COM', 'StopBits'):
-                # print(config.getint('COM', 'StopBits'))
-                self.settings.edit_stopbits.setText(config['COM']['StopBits'])
+                self.stopbits = config.getint('COM', 'StopBits')
+                self.settings.edit_stopbits.setText(str(self.stopbits))
             else:
+                self.stopbits = 1
                 self.settings.edit_stopbits.setText('1')
             
             if config.has_option('COM', 'XOnXOff'):
-                # print(config.getboolean('COM', 'XOnXOff'))
-                self.settings.cb_xonxoff.setChecked(config.getboolean('COM', 'XOnXOff'))
+                self.xonxoff = config.getboolean('COM', 'XOnXOff')
+                self.settings.cb_xonxoff.setChecked(self.xonxoff)
             else:
+                self.xonxoff = False
                 self.settings.cb_xonxoff.setChecked(False)
 
         except Exception as e:
             QMessageBox.warning(self, 'Предупреждение', 'Ошибка чтения настроек из ini-файла:\n' + str(e))
+
+    def set_settings_ini_file(self):
+        try:
+            config = ConfigParser()
+            config.add_section('GENERAL')
+            config.set('GENERAL', 'PathLogs', win.path_logs)
+            config.add_section('COM')
+            config.set('COM', 'Port', win.port)
+            config.set('COM', 'BaudRate', str(win.baudrate))
+            config.set('COM', 'ByteSize', str(win.bytesize))
+            config.set('COM', 'Parity', win.parity)
+            config.set('COM', 'StopBits', str(win.stopbits))
+            config.set('COM', 'XOnXOff', str(win.xonxoff))
+            with open('settings.ini', 'w') as configfile:
+                config.write(configfile)
+        except Exception as e:
+            QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи настроек в ini-файл:\n' + str(e))
 
  # Обработка закрытия главного окна
     def closeEvent(self, event):
@@ -183,8 +217,14 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
 
     # Сохраняем настройки
     def btn_save_clicked(self):
-        # self.close()
-        pass
+        win.baudrate = int(self.edit_buadrate.text())
+        win.bytesize = int(self.edit_bytesize.text())
+        parity = {0:'N', 1:'E', 2:'O'}
+        win.parity = parity.get(self.cb_parity.currentIndex())
+        win.stopbits = int(self.edit_stopbits.text())
+        win.xonxoff = self.cb_xonxoff.isChecked()
+        win.set_settings_ini_file()
+        self.close()
 
 
 class AlertsWindow(QMainWindow, Ui_AlertsWindow):
@@ -197,6 +237,33 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+
+def serial_ports():
+    ''' Список всех доступных в системе COM-портов
+        :raises EnvironmentError:
+            Не поддерживаемая или неизвестная платформа
+        :returns:
+            Список COM-портов
+    '''
+    if sys.platform.startswith('win'):
+        ports = ['COM%s' % (i + 1) for i in range(256)]
+    elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
+        # this excludes your current terminal "/dev/tty"
+        ports = glob.glob('/dev/tty[A-Za-z]*')
+    elif sys.platform.startswith('darwin'):
+        ports = glob.glob('/dev/tty.*')
+    else:
+        raise EnvironmentError('Неподдерживаемая платформа')
+    result = []
+    for port in ports:
+        try:
+            s = serial.Serial(port)
+            s.close()
+            result.append(port)
+        except (OSError, serial.SerialException):
+            pass
+    return result
 
 
 if __name__ == '__main__':
