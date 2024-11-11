@@ -75,9 +75,9 @@
    <widget class="QComboBox" name="cb_parity">
     <property name="geometry">
      <rect>
-      <x>152</x>
+      <x>111</x>
       <y>152</y>
-      <width>90</width>
+      <width>131</width>
       <height>22</height>
      </rect>
     </property>
@@ -94,12 +94,12 @@
     </item>
     <item>
      <property name="text">
-      <string>Чет</string>
+      <string>Чётность (Even)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Нечет</string>
+      <string>Нечётность (Odd)</string>
      </property>
     </item>
    </widget>

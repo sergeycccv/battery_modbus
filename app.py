@@ -14,6 +14,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super().__init__(parent)
         self.setupUi(self)
         self.initUI()
+        self.pach_logs = '' # Путь к лoгам
+        self.port = 'COM1'
+        self.baudrate = 9600
+        self.bytesize = 8
+        self.parity = 'N' # N - None, E - Even, O - Odd
+        self.stopbits = 1
+        self.xonxoff = False
         # Создаём окно логов
         self.logs = LogsWindow(self)
         # Создаём окно настроек программы
@@ -22,6 +29,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.alerts = AlertsWindow(self)
         # Создаём окно настроек канала
         self.settings_ch = SettingsChWindow(self)
+
+        self.get_settings_ini_file()
+
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
         # Нажатие на кнопку "Настройки программы"
@@ -61,7 +71,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def btn_logs_clicked(self):
         self.logs.show()
 
-    # Показываем окно настроек программы
+    # Показываем окно настроек порта
     def btn_settings_port_clicked(self):
         self.settings.show()
 
@@ -73,6 +83,59 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def btn_settings_ch_clicked(self):
         self.settings_ch.show()
 
+    # Чтение настроек из ini-файла
+    def get_settings_ini_file(self):
+        try:
+            config = ConfigParser()
+            config.read('settings.ini')
+            
+            if config.has_option('DEFAULT', 'PachLogs'):
+                self.pach_logs = config.get('DEFAULT', 'PachLogs')
+                self.logs.line_path_logs.setText(config['DEFAULT']['PachLogs'])
+                # print(self.pach_logs)
+            else:
+                pass
+            
+            if config.has_option('COM', 'Port'):
+                # self.settings.edit_port.setText(config.get('COM', 'Port').replace('\'', ''))
+                pass
+            else:
+                # self.settings.edit_buadrate.setText('COM1')
+                pass
+
+            if config.has_option('COM', 'BaudRate'):
+                # self.settings.edit_buadrate.setText(config.getint('COM', 'BaudRate'))
+                self.settings.edit_buadrate.setText(config['COM']['BaudRate'])
+            else:
+                self.settings.edit_buadrate.setText('9600')
+
+            if config.has_option('COM', 'ByteSize'):
+                # print(config.getint('COM', 'ByteSize'))
+                self.settings.edit_bytesize.setText(config['COM']['ByteSize'])
+            else:
+                self.settings.edit_bytesize.setText('8')
+
+            if config.has_option('COM', 'Parity'):
+                parity = {'N': 0, 'E': 1, 'O': 2}
+                self.parity = config.get('COM', 'Parity').replace('\'', '')
+                self.settings.cb_parity.setCurrentIndex(parity.get(self.parity))
+            else:
+                self.settings.cb_parity.setCurrentIndex(0)
+
+            if config.has_option('COM', 'StopBits'):
+                # print(config.getint('COM', 'StopBits'))
+                self.settings.edit_stopbits.setText(config['COM']['StopBits'])
+            else:
+                self.settings.edit_stopbits.setText('1')
+            
+            if config.has_option('COM', 'XOnXOff'):
+                # print(config.getboolean('COM', 'XOnXOff'))
+                self.settings.cb_xonxoff.setChecked(config.getboolean('COM', 'XOnXOff'))
+            else:
+                self.settings.cb_xonxoff.setChecked(False)
+
+        except Exception as e:
+            QMessageBox.warning(self, 'Предупреждение', 'Ошибка чтения настроек из ini-файла:\n' + str(e))
 
  # Обработка закрытия главного окна
     def closeEvent(self, event):
@@ -109,12 +172,19 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
         super().__init__(parent)
         self.setupUi(self)
 
-        # Чтение настроек из ini-файла
-        config = ConfigParser()
-        config.read('settings.ini')
-        if config.has_option('DEFAULT', 'PachLogsError'):
-            # print(config['DEFAULT']['PachLogsError'])
-            pass
+        # Нажатие на кнопку "Отмена"
+        self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
+        # Нажатие на кнопку "Сохранить"
+        self.btn_save.clicked.connect(self.btn_save_clicked)
+    
+    # Закрываем окно без сохранения настроек
+    def btn_cancel_clicked(self):
+        self.close()
+
+    # Сохраняем настройки
+    def btn_save_clicked(self):
+        # self.close()
+        pass
 
 
 class AlertsWindow(QMainWindow, Ui_AlertsWindow):
