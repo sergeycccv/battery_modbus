@@ -963,7 +963,7 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_errors">
+    <widget class="QPushButton" name="btn_alerts">
      <property name="geometry">
       <rect>
        <x>917</x>
@@ -978,7 +978,7 @@
       </font>
      </property>
      <property name="statusTip">
-      <string>Просмотр лога ошибок работы программы и тестирования</string>
+      <string>Просмотр лога работы программы</string>
      </property>
      <property name="text">
       <string/>

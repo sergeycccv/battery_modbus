@@ -4,6 +4,8 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
+from ui_alert import Ui_AlertsWindow
+
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -15,10 +17,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.logs = LogsWindow(self)
         # Создаём окно настроек программы
         self.settings = SettingsPortWindow(self)
+        # Создаём окно просмотра лога программы
+        self.alerts = AlertsWindow(self)
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
         # Нажатие на кнопку "Настройки программы"
         self.tbtn_settings_port.clicked.connect(self.btn_settings_port_clicked)
+        # Нажатие на кнопку "Лог работы программы"
+        self.btn_alerts.clicked.connect(self.btn_alerts_clicked)
 
     def initUI(self):
         for widget in self.findChildren(QLineEdit):
@@ -57,6 +63,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # Показываем окно настроек программы
     def btn_settings_port_clicked(self):
         self.settings.show()
+
+    # Показываем окно просмотра лога программы
+    def btn_alerts_clicked(self):
+        self.alerts.show()
 
  # Обработка закрытия главного окна
     def closeEvent(self, event):
@@ -99,6 +109,12 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
         if config.has_option('DEFAULT', 'PachLogsError'):
             # print(config['DEFAULT']['PachLogsError'])
             pass
+
+
+class AlertsWindow(QMainWindow, Ui_AlertsWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
 
 
 if __name__ == '__main__':
