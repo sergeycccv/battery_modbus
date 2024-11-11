@@ -22,12 +22,6 @@
     <height>601</height>
    </size>
   </property>
-  <property name="font">
-   <font>
-    <pointsize>9</pointsize>
-    <bold>false</bold>
-   </font>
-  </property>
   <property name="windowTitle">
    <string>Тестирование аккумуляторов</string>
   </property>
@@ -51,9 +45,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frm_ch_1">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>10</x>

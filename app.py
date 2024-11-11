@@ -5,6 +5,7 @@ from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
+from ui_settings_ch import Ui_SettingsChWindow
 
 
 
@@ -19,21 +20,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.settings = SettingsPortWindow(self)
         # Создаём окно просмотра лога программы
         self.alerts = AlertsWindow(self)
+        # Создаём окно настроек канала
+        self.settings_ch = SettingsChWindow(self)
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
         # Нажатие на кнопку "Настройки программы"
         self.tbtn_settings_port.clicked.connect(self.btn_settings_port_clicked)
         # Нажатие на кнопку "Лог работы программы"
         self.btn_alerts.clicked.connect(self.btn_alerts_clicked)
+        # Нажатие на кнопку "Настройки канала"
+        self.tbtn_settings_ch_1.clicked.connect(self.btn_settings_ch_clicked)
 
     def initUI(self):
         for widget in self.findChildren(QLineEdit):
-            # if isinstance(widget, QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
-                # widget.setProperty('text', '------')
                 widget.setText('00,000')
-                # print(f'{widget.objectName()} - {widget.text()} - {widget.property("channel")}')
-                # widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
                 if widget.objectName() == 'edit_1_Ustart':
                     widget.setProperty('styleSheet', 'color: rgb(200, 200, 200); background-color: black;')
                 if widget.objectName() == 'edit_1_Ucurrent':
@@ -67,6 +68,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # Показываем окно просмотра лога программы
     def btn_alerts_clicked(self):
         self.alerts.show()
+
+    # Показываем окно настроек канала
+    def btn_settings_ch_clicked(self):
+        self.settings_ch.show()
+
 
  # Обработка закрытия главного окна
     def closeEvent(self, event):
@@ -112,6 +118,12 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
 
 
 class AlertsWindow(QMainWindow, Ui_AlertsWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+
+
+class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
