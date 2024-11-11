@@ -1,4 +1,4 @@
-import sys, os, serial
+import sys, os, serial, glob
 from configparser import ConfigParser
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
 from ui_main import Ui_MainWindow
