@@ -14,8 +14,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.initUI()
 
-        self.path_logs = 'COM1'
-        self.port = ''
+        self.path_logs = ''
+        self.port = 'COM1'
         self.baudrate = 9600
         self.bytesize = 8
         self.parity = 'N' # N - None, E - Even, O - Odd
@@ -206,6 +206,12 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
         super().__init__(parent)
         self.setupUi(self)
 
+        self.buff_baudrate = self.edit_buadrate.text()
+        self.buff_bytesize = self.edit_bytesize.text()
+        self.buff_parity = self.cb_parity.currentIndex()
+        self.buff_stopbits = self.edit_stopbits.text()
+        self.buff_xonxoff = self.cb_xonxoff.isChecked()
+
         # Нажатие на кнопку "Отмена"
         self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
         # Нажатие на кнопку "Сохранить"
@@ -213,6 +219,11 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
     
     # Закрываем окно без сохранения настроек
     def btn_cancel_clicked(self):
+        self.edit_buadrate.setText(self.buff_baudrate)
+        self.edit_bytesize.setText(self.buff_bytesize)
+        self.cb_parity.setCurrentIndex(self.buff_parity)
+        self.edit_stopbits.setText(self.buff_stopbits)
+        self.cb_xonxoff.setChecked(self.buff_xonxoff)
         self.close()
 
     # Сохраняем настройки
@@ -225,6 +236,13 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
         win.xonxoff = self.cb_xonxoff.isChecked()
         win.set_settings_ini_file()
         self.close()
+
+    def showEvent(self, event):
+        self.buff_baudrate = self.edit_buadrate.text()
+        self.buff_bytesize = self.edit_bytesize.text()
+        self.buff_parity = self.cb_parity.currentIndex()
+        self.buff_stopbits = self.edit_stopbits.text()
+        self.buff_xonxoff = self.cb_xonxoff.isChecked()
 
 
 class AlertsWindow(QMainWindow, Ui_AlertsWindow):
