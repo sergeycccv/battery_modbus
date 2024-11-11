@@ -183,6 +183,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         warr.exec()
         button = warr.clickedButton().text()
         if button == '  Закрыть программу  ':
+            win.set_settings_ini_file()
             event.accept()
         if button == 'Нет':
             event.ignore()
@@ -206,11 +207,11 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.buff_baudrate = self.edit_buadrate.text()
-        self.buff_bytesize = self.edit_bytesize.text()
-        self.buff_parity = self.cb_parity.currentIndex()
-        self.buff_stopbits = self.edit_stopbits.text()
-        self.buff_xonxoff = self.cb_xonxoff.isChecked()
+        # self.buff_baudrate = self.edit_buadrate.text()
+        # self.buff_bytesize = self.edit_bytesize.text()
+        # self.buff_parity = self.cb_parity.currentIndex()
+        # self.buff_stopbits = self.edit_stopbits.text()
+        # self.buff_xonxoff = self.cb_xonxoff.isChecked()
 
         # Нажатие на кнопку "Отмена"
         self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
