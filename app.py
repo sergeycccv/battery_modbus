@@ -32,9 +32,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.settings_ch = SettingsChWindow(self)
 
         # Список COM-портов
-        self.list_com.addItems(serial_ports())
-        # Индекс текущего COM-порта
-        self.port = self.list_com.currentText()
+        try:
+            self.list_com.addItems(serial_ports())
+            # Индекс текущего COM-порта
+            self.port = self.list_com.currentText()
+        except Exception as e:
+            QMessageBox.warning(self, 'Предупреждение', 'В системе нет ни одного свободного COM-порта\n' + str(e))
+            # Нужно в цикле постоянно обновлять состояние COM-портов! ########################################################
+            self.list_com.setCurrentIndex(-1)
+            self.port = ''
+        
         # Изменение текущего COM-порта
         self.list_com.currentIndexChanged.connect(self.list_com_changed)
 
@@ -119,8 +126,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.list_com.setCurrentIndex(0)
                     self.port = self.list_com.currentText()
             else:
-                self.port = 'COM1'
                 self.list_com.setCurrentIndex(0)
+                self.port = self.list_com.currentText()
 
             if config.has_option('COM', 'BaudRate'):
                 self.baudrate = config.getint('COM', 'BaudRate')
@@ -214,13 +221,6 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
-        # self.buff_baudrate = self.edit_buadrate.text()
-        # self.buff_bytesize = self.edit_bytesize.text()
-        # self.buff_parity = self.cb_parity.currentIndex()
-        # self.buff_stopbits = self.edit_stopbits.text()
-        # self.buff_xonxoff = self.cb_xonxoff.isChecked()
-
         # Нажатие на кнопку "Отмена"
         self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
         # Нажатие на кнопку "Сохранить"
@@ -228,23 +228,12 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
     
     # Закрываем окно без сохранения настроек
     def btn_cancel_clicked(self):
-        # Восстанавливаем старые настройки
-        self.edit_buadrate.setText(self.buff_baudrate)
-        self.edit_bytesize.setText(self.buff_bytesize)
-        self.cb_parity.setCurrentIndex(self.buff_parity)
-        self.edit_stopbits.setText(self.buff_stopbits)
-        self.cb_xonxoff.setChecked(self.buff_xonxoff)
+        self.isSaved = False
         self.close()
 
     # Сохраняем настройки
     def btn_save_clicked(self):
-        win.baudrate = int(self.edit_buadrate.text())
-        win.bytesize = int(self.edit_bytesize.text())
-        parity = {0:'N', 1:'E', 2:'O'}
-        win.parity = parity.get(self.cb_parity.currentIndex())
-        win.stopbits = int(self.edit_stopbits.text())
-        win.xonxoff = self.cb_xonxoff.isChecked()
-        win.set_settings_ini_file()
+        self.isSaved = True
         self.close()
 
     # При открытии окна "Настройки порта" запоминаем текущие настройки
@@ -254,6 +243,27 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
         self.buff_parity = self.cb_parity.currentIndex()
         self.buff_stopbits = self.edit_stopbits.text()
         self.buff_xonxoff = self.cb_xonxoff.isChecked()
+        # Для сохранения, либо отмены сохранения настроек при закрытии окна
+        self.isSaved = False
+
+    # При закрытии окна "Настройки порта"
+    def closeEvent(self, event):
+        if self.isSaved:
+            # Сохраняем новые настройки
+            win.baudrate = int(self.edit_buadrate.text())
+            win.bytesize = int(self.edit_bytesize.text())
+            parity = {0:'N', 1:'E', 2:'O'}
+            win.parity = parity.get(self.cb_parity.currentIndex())
+            win.stopbits = int(self.edit_stopbits.text())
+            win.xonxoff = self.cb_xonxoff.isChecked()
+            win.set_settings_ini_file()
+        else:
+            # Восстанавливаем старые настройки
+            self.edit_buadrate.setText(self.buff_baudrate)
+            self.edit_bytesize.setText(self.buff_bytesize)
+            self.cb_parity.setCurrentIndex(self.buff_parity)
+            self.edit_stopbits.setText(self.buff_stopbits)
+            self.cb_xonxoff.setChecked(self.buff_xonxoff)
 
 
 class AlertsWindow(QMainWindow, Ui_AlertsWindow):
