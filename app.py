@@ -110,7 +110,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             if config.has_option('COM', 'Port'):
                 self.port = config.get('COM', 'Port')
-                self.list_com.setCurrentText(self.port)
+                item = self.list_com.findText(self.port)
+                # Если порт из ini-файла существует в списке, а значит и в системе
+                if  item != -1:
+                    self.list_com.setCurrentIndex(item)
+                else:
+                    # Иначе выбираем первый из списка
+                    self.list_com.setCurrentIndex(0)
+                    self.port = self.list_com.currentText()
             else:
                 self.port = 'COM1'
                 self.list_com.setCurrentIndex(0)
@@ -154,6 +161,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except Exception as e:
             QMessageBox.warning(self, 'Предупреждение', 'Ошибка чтения настроек из ini-файла:\n' + str(e))
 
+    # Запись настроек в ini-файл
     def set_settings_ini_file(self):
         try:
             config = ConfigParser()
@@ -220,6 +228,7 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
     
     # Закрываем окно без сохранения настроек
     def btn_cancel_clicked(self):
+        # Восстанавливаем старые настройки
         self.edit_buadrate.setText(self.buff_baudrate)
         self.edit_bytesize.setText(self.buff_bytesize)
         self.cb_parity.setCurrentIndex(self.buff_parity)
@@ -238,6 +247,7 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
         win.set_settings_ini_file()
         self.close()
 
+    # При открытии окна "Настройки порта" запоминаем текущие настройки
     def showEvent(self, event):
         self.buff_baudrate = self.edit_buadrate.text()
         self.buff_bytesize = self.edit_bytesize.text()
