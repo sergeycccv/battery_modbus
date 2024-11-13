@@ -1,7 +1,7 @@
-import sys, os, serial, glob
+import sys, os, serial, glob#, datetime
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, 
-    QMessageBox, QLineEdit, QPushButton)
+    QMessageBox, QLineEdit, QPushButton, QFileDialog)
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
@@ -9,6 +9,27 @@ from ui_alert import Ui_AlertsWindow
 from ui_settings_ch import Ui_SettingsChWindow
 
 from PySide6.QtCore import QTimer
+
+
+# class Logger():
+#     def __init__(self):
+#         super().__init__()
+
+#         self.directory = win.path_logs + '\\' + 'system.log'
+#         self.current_datetime = datetime.datetime.now().strftime('%d-%m-%Y %H-%M-%S')
+        
+#         try:
+#             with open(self.directory, 'a', encoding='utf-8') as logfile:
+#                 logfile.write(f'{self.current_datetime} <INFO> Запуск программы тестирования\n')
+#         except Exception as e:
+#             QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи в log-файл:\n' + str(e))
+
+#     def write(self, tag, text):
+#         try:
+#             with open(self.directory, 'a', encoding='utf-8') as logfile:
+#                 logfile.write(f'{self.current_datetime} <{tag}> {text}\n')
+#         except Exception as e:
+#             QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи в log-файл:\n' + str(e))
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -19,7 +40,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.serial = serial.Serial()
 
-        self.path_logs = ''
+        self.path_logs = 'logs'
         self.port = 'COM1'
         self.baudrate = 9600
         self.bytesize = 8
@@ -35,7 +56,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Таймер обновления списка COM-портов
         self.timer_upd_com_list = QTimer()
 
-        # Создаём окно логов
+        # Создаём окно логов тестирования
         self.logs = LogsWindow(self)
         # Создаём окно настроек программы
         self.settings = SettingsPortWindow(self)
@@ -64,6 +85,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Старт таймера обновления списка COM-портов (1 секунда)
         self.timer_upd_com_list.start(1000)
+
+        # Logger.write('INFO', 'Программа работает штатно')
 
     def initUI(self):
         for widget in self.findChildren(QLineEdit):
@@ -166,11 +189,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config = ConfigParser()
             config.read('settings.ini')
             
-            if config.has_option('DEFAULT', 'PathLogs'):
-                self.path_logs = config.get('DEFAULT', 'PathLogs')
+            # Если установлена папка логов в ini-файле и она существует
+            if (config.has_option('GENERAL', 'PathLogs')) and (os.path.isdir(config.get('GENERAL', 'PathLogs'))):
+                # то присваиваем её переменной path_logs
+                self.path_logs = config.get('GENERAL', 'PathLogs')
+                # и устанавливаем её в окне просмотра логов зарядки
                 self.logs.line_path_logs.setText(self.path_logs)
             else:
-                self.path_logs = os.path.abspath(os.curdir)
+                # Иначе устанавливаем папку логов в текущей директории
+                self.path_logs = os.path.abspath(os.curdir) + '\\logs'
                 self.logs.line_path_logs.setText(self.path_logs)
             
             if config.has_option('COM', 'Port'):
@@ -239,7 +266,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config.set('COM', 'Parity', win.parity)
             config.set('COM', 'StopBits', str(win.stopbits))
             config.set('COM', 'XOnXOff', str(win.xonxoff))
-            with open('settings.ini', 'w') as configfile:
+            with open('settings.ini', 'w', encoding='utf-8') as configfile:
                 config.write(configfile)
         except Exception as e:
             QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи настроек в ini-файл:\n' + str(e))
@@ -269,9 +296,31 @@ class LogsWindow(QMainWindow, Ui_LogsWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+        # Редактирование поля "Путь хранения логов"
+        self.line_path_logs.textEdited.connect(self.line_path_logs_textEdited)
+        # Нажатие на кнопку "Выбрать папку"
+        self.tbtn_path_logs.clicked.connect(self.tbtn_path_logs_clicked)
         # Нажатие на кнопку "Закрыть окно"
         self.btn_close.clicked.connect(self.btn_close_clicked)
     
+    # Редактирование поля "Путь хранения логов"
+    # При изменении текста в поле, записываем его в переменную
+    # !!!!!!!!!!!! ВАЖНО !!!!!!!!!!!!
+    # НУЖНО РЕАЛИЗОВАТЬ ПРОВЕРКУ СУЩЕСТВОВАНИЯ ПАПКИ
+    # И ПОКАЗ ФАЙЛОВ И ПАПОК В ПОЛЕ НИЖЕ
+    def line_path_logs_textEdited(self, text):
+        win.path_logs = text
+    
+    # Выбираем папку хранения логов
+    def tbtn_path_logs_clicked(self):
+        directory = QFileDialog.getExistingDirectory(self, 'Выберите папку', win.path_logs)
+        if directory != '':
+            win.path_logs = directory
+            self.line_path_logs.setText(directory)
+            # Записываем настройки в ini-файл
+            win.set_settings_ini_file()
+
     # Закрываем окно логов
     def btn_close_clicked(self):
         self.close()
@@ -368,4 +417,6 @@ def serial_ports():
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = MainWindow()
+    # Создаём логгер
+    # logger = Logger()
     sys.exit(app.exec())
