@@ -1,6 +1,6 @@
 import sys, os, serial, glob
 from configparser import ConfigParser
-from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QPushButton
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
@@ -193,16 +193,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         warr.setText('<p><strong>В данный момент тестируется батарея!</strong></p> \
                      <p>Вы действительно хотите прервать тестирование и закрыть программу?</p>')
         warr.setIcon(warr.Icon.Warning)
-        warr.addButton('Нет', warr.ButtonRole.NoRole)
-        warr.addButton('  Закрыть программу  ', warr.ButtonRole.YesRole)
+        b1 = QPushButton('  Закрыть программу  ')
+        b2 = QPushButton('Нет')
+        warr.addButton(b1, warr.ButtonRole.ActionRole)
+        warr.addButton(b2, warr.ButtonRole.ActionRole)
+        warr.setDefaultButton(b2)
         warr.exec()
-        button = warr.clickedButton().text()
-        # Подумать над оптимальностью этого решения
-        if button == '  Закрыть программу  ':
+        if warr.clickedButton() == b1:
             # Записываем настройки в ini-файл
             win.set_settings_ini_file()
             event.accept()
-        if button == 'Нет':
+        if warr.clickedButton() == b2:
             event.ignore()
 
 

@@ -42,6 +42,7 @@ class Ui_MainWindow(object):
 "	background-color: rgb(210, 210, 210);\n"
 "	padding-left: 5;\n"
 "}")
+        MainWindow.setLocale(QLocale(QLocale.Russian, QLocale.Russia))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.frm_ch_1 = QFrame(self.centralwidget)
