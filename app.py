@@ -17,6 +17,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.initUI()
 
+        self.serial = serial.Serial()
+
         self.path_logs = ''
         self.port = 'COM1'
         self.baudrate = 9600
@@ -27,7 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Список COM-портов
         self.list_com_saved = []
-        # Создаём список COM-портов
+        # Создаём список доступных в системе COM-портов
         self.list_com_update()
 
         # Таймер обновления списка COM-портов
@@ -45,10 +47,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Получаем настройки из ini-файла
         self.get_settings_ini_file()
 
-
         # Изменение текущего COM-порта в списке
         self.list_com.currentIndexChanged.connect(self.list_com_changed)
-        # Обновления списка COM-портов по таймеру
+        # Обновление списка COM-портов по таймеру
         self.timer_upd_com_list.timeout.connect(self.list_com_update)
         # Нажатие на кнопку "Подключиться"
         self.btn_connect.clicked.connect(self.btn_connect_clicked)
@@ -114,10 +115,35 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # Подключение к COM-порту
     def btn_connect_clicked(self):
         try:
-            self.serial = serial.Serial(self.port, self.baudrate, self.bytesize, self.parity, self.stopbits, self.xonxoff)
-        except serial.SerialException as e:
-            QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к COM-порту\n' + str(e))
 
+            if not self.serial.isOpen():
+                self.serial = serial.Serial(self.port, self.baudrate, self.bytesize, self.parity, self.stopbits, self.xonxoff)
+
+                # Стоп таймера обновления списка COM-портов
+                self.timer_upd_com_list.stop()
+                
+                self.list_com.setEnabled(False)
+                self.tbtn_settings_port.setEnabled(False)
+                self.btn_connect.setText('Отключиться')
+
+                self.lbl_messages.setStyleSheet('color: rgb(0, 130, 30); font-weight: normal;')
+                self.lbl_messages.setText('Установлено подключение к порту ' + self.port)
+            else:
+                self.serial.close()
+
+                # Запускаем таймер обновления списка COM-портов
+                self.timer_upd_com_list.start(1000)
+
+                self.list_com.setEnabled(True)
+                self.tbtn_settings_port.setEnabled(True)
+                self.btn_connect.setText('Подключиться')
+
+                self.lbl_messages.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
+                self.lbl_messages.setText('Подключитесь к системе тестирования')
+
+        except serial.SerialException as e:
+            QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к порту ' + self.port + '\n' + str(e))
+        
     # Показываем окно логов
     def btn_logs_clicked(self):
         self.logs.show()
