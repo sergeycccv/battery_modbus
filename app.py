@@ -197,7 +197,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         warr.addButton('  Закрыть программу  ', warr.ButtonRole.YesRole)
         warr.exec()
         button = warr.clickedButton().text()
+        # Подумать над оптимальностью этого решения
         if button == '  Закрыть программу  ':
+            # Записываем настройки в ini-файл
             win.set_settings_ini_file()
             event.accept()
         if button == 'Нет':
@@ -208,7 +210,6 @@ class LogsWindow(QMainWindow, Ui_LogsWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
         # Нажатие на кнопку "Закрыть окно"
         self.btn_close.clicked.connect(self.btn_close_clicked)
     
