@@ -8,6 +8,8 @@ from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
 from ui_settings_ch import Ui_SettingsChWindow
 
+from PySide6.QtCore import QTimer
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -23,6 +25,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.stopbits = 1
         self.xonxoff = False
 
+        # Список COM-портов
+        self.list_com_saved = []
+        # Создаём список COM-портов
+        self.list_com_update()
+
+        # Таймер обновления списка COM-портов
+        self.timer_upd_com_list = QTimer()
+
         # Создаём окно логов
         self.logs = LogsWindow(self)
         # Создаём окно настроек программы
@@ -31,35 +41,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.alerts = AlertsWindow(self)
         # Создаём окно настроек канала
         self.settings_ch = SettingsChWindow(self)
-
-        # Список COM-портов
-        try:
-            self.list_com.addItems(serial_ports())
-            # Индекс текущего COM-порта
-            self.port = self.list_com.currentText()
-        except Exception as e:
-            QMessageBox.warning(self, 'Предупреждение', 'В системе нет ни одного свободного COM-порта\n' + str(e))
-            # Нужно в цикле постоянно обновлять состояние COM-портов! ########################################################
-            self.list_com.setCurrentIndex(-1)
-            self.port = ''
         
-        # Изменение текущего COM-порта
-        self.list_com.currentIndexChanged.connect(self.list_com_changed)
-
+        # Получаем настройки из ini-файла
         self.get_settings_ini_file()
 
-        # Нажатие на кнопку "Просмотр логов"
-        self.btn_logs.clicked.connect(self.btn_logs_clicked)
-        # Нажатие на кнопку "Настройки программы"
+
+        # Изменение текущего COM-порта в списке
+        self.list_com.currentIndexChanged.connect(self.list_com_changed)
+        # Обновления списка COM-портов по таймеру
+        self.timer_upd_com_list.timeout.connect(self.list_com_update)
+        # Нажатие на кнопку "Подключиться"
+        self.btn_connect.clicked.connect(self.btn_connect_clicked)
+        # Нажатие на кнопку "Настройки порта"
         self.tbtn_settings_port.clicked.connect(self.btn_settings_port_clicked)
         # Нажатие на кнопку "Лог работы программы"
         self.btn_alerts.clicked.connect(self.btn_alerts_clicked)
+        # Нажатие на кнопку "Просмотр логов"
+        self.btn_logs.clicked.connect(self.btn_logs_clicked)
         # Нажатие на кнопку "Настройки канала"
         self.tbtn_settings_ch_1.clicked.connect(self.btn_settings_ch_clicked)
 
-    # Изменение текущего COM-порта
-    def list_com_changed(self):
-        self.port = self.list_com.currentText()
+        # Старт таймера обновления списка COM-портов (1 секунда)
+        self.timer_upd_com_list.start(1000)
 
     def initUI(self):
         for widget in self.findChildren(QLineEdit):
@@ -86,6 +89,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if widget.objectName() == 'edit_1_Wcharge':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
         self.show()
+
+    # Изменение текущего COM-порта в списке
+    def list_com_changed(self):
+        self.port = self.list_com.currentText()
+
+    # Обновление списка COM-портов по таймеру
+    def list_com_update(self):
+        try:
+            # Если список COM-портов изменился или пустой
+            if (self.list_com_saved != serial_ports()) or (len(self.list_com_saved) == 0):
+                # Очищаем список
+                self.list_com.clear()
+                # Обновляем список COM-портов
+                self.list_com.addItems(serial_ports())
+                self.port = self.list_com.currentText()
+                # Сохраняем список COM-портов
+                self.list_com_saved = serial_ports()
+        except Exception as e:
+            QMessageBox.warning(self, 'Предупреждение', 'В системе нет ни одного свободного COM-порта\n' + str(e))
+            self.list_com.setCurrentIndex(-1)
+            self.port = ''
+
+    # Подключение к COM-порту
+    def btn_connect_clicked(self):
+        try:
+            self.serial = serial.Serial(self.port, self.baudrate, self.bytesize, self.parity, self.stopbits, self.xonxoff)
+        except serial.SerialException as e:
+            QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к COM-порту\n' + str(e))
 
     # Показываем окно логов
     def btn_logs_clicked(self):
