@@ -1,6 +1,7 @@
 import sys, os, serial, glob
 from configparser import ConfigParser
-from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QLineEdit, QPushButton
+from PySide6.QtWidgets import (QApplication, QMainWindow, 
+    QMessageBox, QLineEdit, QPushButton)
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
@@ -188,22 +189,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
  # Обработка закрытия главного окна
     def closeEvent(self, event):
-        warr = QMessageBox(self)
-        warr.setWindowTitle('Внимание!')
-        warr.setText('<p><strong>В данный момент тестируется батарея!</strong></p> \
+        exit_alert = QMessageBox(self)
+        exit_alert.setWindowTitle('Внимание!')
+        exit_alert.setText('<p><strong>В данный момент тестируется батарея!</strong></p> \
                      <p>Вы действительно хотите прервать тестирование и закрыть программу?</p>')
-        warr.setIcon(warr.Icon.Warning)
-        b1 = QPushButton('  Закрыть программу  ')
-        b2 = QPushButton('Нет')
-        warr.addButton(b1, warr.ButtonRole.ActionRole)
-        warr.addButton(b2, warr.ButtonRole.ActionRole)
-        warr.setDefaultButton(b2)
-        warr.exec()
-        if warr.clickedButton() == b1:
+        exit_alert.setIcon(exit_alert.Icon.Warning)
+        yes_close_btn = QPushButton('  Закрыть программу  ')
+        no_close_btn = QPushButton('Нет')
+        exit_alert.addButton(yes_close_btn, exit_alert.ButtonRole.ActionRole)
+        exit_alert.addButton(no_close_btn, exit_alert.ButtonRole.ActionRole)
+        exit_alert.setDefaultButton(no_close_btn)
+        exit_alert.exec()
+        if exit_alert.clickedButton() == yes_close_btn:
             # Записываем настройки в ini-файл
             win.set_settings_ini_file()
             event.accept()
-        if warr.clickedButton() == b2:
+        if exit_alert.clickedButton() == no_close_btn:
             event.ignore()
 
 
