@@ -705,7 +705,7 @@
       <bool>false</bool>
      </property>
      <property name="text">
-      <string>...</string>
+      <string>1</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -984,9 +984,6 @@
     </widget>
    </widget>
    <widget class="QFrame" name="frm_ch_2">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -1629,7 +1626,7 @@
       <string>Настройки канала 2</string>
      </property>
      <property name="text">
-      <string>...</string>
+      <string>2</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -1737,7 +1734,7 @@
    </widget>
    <widget class="QFrame" name="frm_ch_3">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -2381,7 +2378,7 @@
       <string>Настройки канала 3</string>
      </property>
      <property name="text">
-      <string>...</string>
+      <string>3</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
@@ -2489,7 +2486,7 @@
    </widget>
    <widget class="QFrame" name="frm_ch_4">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -3133,7 +3130,7 @@
       <string>Настройки канала 4</string>
      </property>
      <property name="text">
-      <string>...</string>
+      <string>4</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">

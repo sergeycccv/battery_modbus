@@ -1,14 +1,15 @@
 import sys, os, serial, glob#, datetime
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, 
-    QMessageBox, QLineEdit, QPushButton, QFileDialog, QFileSystemModel)
+    QMessageBox, QLineEdit, QPushButton, QFileDialog, QFileSystemModel,
+    QButtonGroup)
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
 from ui_settings_ch import Ui_SettingsChWindow
 
-from PySide6.QtCore import QTimer, QDir
+from PySide6.QtCore import QTimer
 
 
 # class Logger():
@@ -48,24 +49,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.stopbits = 1
         self.xonxoff = False
 
+        self.i_start_discharge_list = [0.025, 0.025, 0.025, 0.025]
+        self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
+        self.i_stop_charge_list = [0.025, 0.025, 0.025, 0.025]
+
         # Список COM-портов
         self.list_com_saved = []
-        # Создаём список доступных в системе COM-портов
+        # Создание списка доступных в системе COM-портов
         self.list_com_update()
 
         # Таймер обновления списка COM-портов
         self.timer_upd_com_list = QTimer()
 
-        # Создаём окно логов тестирования
+        # Создание окна логов тестирования
         self.logs = LogsWindow(self)
-        # Создаём окно настроек программы
+        # Создание окна настроек программы
         self.settings = SettingsPortWindow(self)
-        # Создаём окно просмотра лога программы
+        # Создание окна просмотра лога программы
         self.alerts = AlertsWindow(self)
-        # Создаём окно настроек канала
+        # Создание окна настроек канала
         self.settings_ch = SettingsChWindow(self)
         
-        # Получаем настройки из ini-файла
+        # Чтение и применение настроек из ini-файла
         self.get_settings_ini_file()
 
         # Изменение текущего COM-порта в списке
@@ -80,15 +85,28 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_alerts.clicked.connect(self.btn_alerts_clicked)
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
-        # Нажатие на кнопку "Настройки канала"
-        self.tbtn_settings_ch_1.clicked.connect(self.btn_settings_ch_clicked)
+        # # Нажатие на кнопку "Настройки канала 1"
+        # self.tbtn_settings_ch_1.clicked.connect(self.btn_settings_ch_clicked)
+        # # Нажатие на кнопку "Настройки канала 2"
+        # self.tbtn_settings_ch_2.clicked.connect(self.btn_settings_ch_clicked)
+        # # Нажатие на кнопку "Настройки канала 3"
+        # self.tbtn_settings_ch_3.clicked.connect(self.btn_settings_ch_clicked)
+        # # Нажатие на кнопку "Настройки канала 4"
+        # self.tbtn_settings_ch_4.clicked.connect(self.btn_settings_ch_clicked)
 
-        # Старт таймера обновления списка COM-портов (1 секунда)
+        # Старт таймера обновления списка COM-портов (1 сек)
         self.timer_upd_com_list.start(1000)
 
-        # Logger.write('INFO', 'Программа работает штатно')
+        # Обработка нажатия на одну из 4-х кнопок tbtn_settings_ch_XX
+        self.button_ch_group = QButtonGroup()
+        self.button_ch_group.addButton(self.tbtn_settings_ch_1)
+        self.button_ch_group.addButton(self.tbtn_settings_ch_2)
+        self.button_ch_group.addButton(self.tbtn_settings_ch_3)
+        self.button_ch_group.addButton(self.tbtn_settings_ch_4)
+        self.button_ch_group.buttonClicked.connect(self.btn_settings_ch_clicked)
 
     def initUI(self):
+        # Установка стиля текста в полях вывода данных тестирования
         for widget in self.findChildren(QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
                 widget.setText('00,000')
@@ -112,6 +130,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
                 if widget.objectName() == 'edit_1_Wcharge':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
+        
         self.show()
 
     # Изменение текущего COM-порта в списке
@@ -154,7 +173,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.serial.close()
 
-                # Запускаем таймер обновления списка COM-портов
+                # Запуск таймера обновления списка COM-портов
                 self.timer_upd_com_list.start(1000)
 
                 self.list_com.setEnabled(True)
@@ -167,21 +186,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except serial.SerialException as e:
             QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к порту ' + self.port + '\n' + str(e))
         
-    # Показываем окно логов
+    # Открытие окна логов
     def btn_logs_clicked(self):
         self.logs.show()
 
-    # Показываем окно настроек порта
+    # Открытие окна настроек порта
     def btn_settings_port_clicked(self):
         self.settings.show()
 
-    # Показываем окно просмотра лога программы
+    # Открытие окна просмотра лога программы
     def btn_alerts_clicked(self):
         self.alerts.show()
-
-    # Показываем окно настроек канала
-    def btn_settings_ch_clicked(self):
-        self.settings_ch.show()
 
     # Чтение настроек из ini-файла
     def get_settings_ini_file(self):
@@ -259,6 +274,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config = ConfigParser()
             config.add_section('GENERAL')
             config.set('GENERAL', 'PathLogs', win.path_logs)
+
             config.add_section('COM')
             config.set('COM', 'Port', win.port)
             config.set('COM', 'BaudRate', str(win.baudrate))
@@ -266,10 +282,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config.set('COM', 'Parity', win.parity)
             config.set('COM', 'StopBits', str(win.stopbits))
             config.set('COM', 'XOnXOff', str(win.xonxoff))
+
+            config.add_section('CH1')
+            config.set('CH1', 'IStartDischarge', str(win.i_start_discharge_list[0]))
+            config.set('CH1', 'UStopDischarge', str(win.u_stop_discharge_list[0]))
+            config.set('CH1', 'IStopCharge', str(win.i_stop_charge_list[0]))
+
+            config.add_section('CH2')
+            config.set('CH2', 'IStartDischarge', str(win.i_start_discharge_list[1]))
+            config.set('CH2', 'UStopDischarge', str(win.u_stop_discharge_list[1]))
+            config.set('CH2', 'IStopCharge', str(win.i_stop_charge_list[1]))
+
+            config.add_section('CH3')
+            config.set('CH3', 'IStartDischarge', str(win.i_start_discharge_list[2]))
+            config.set('CH3', 'UStopDischarge', str(win.u_stop_discharge_list[2]))
+            config.set('CH3', 'IStopCharge', str(win.i_stop_charge_list[2]))
+
+            config.add_section('CH4')
+            config.set('CH4', 'IStartDischarge', str(win.i_start_discharge_list[3]))
+            config.set('CH4', 'UStopDischarge', str(win.u_stop_discharge_list[3]))
+            config.set('CH4', 'IStopCharge', str(win.i_stop_charge_list[3]))
+
             with open('settings.ini', 'w', encoding='utf-8') as configfile:
                 config.write(configfile)
+
         except Exception as e:
             QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи настроек в ini-файл:\n' + str(e))
+
+    # Открытие окна настроек каналов
+    def btn_settings_ch_clicked(self, btn):
+        number_ch = int(btn.text())
+        self.settings_ch.setWindowTitle(f'Настройки канала {number_ch}')
+        self.settings_ch.channel = number_ch
+        self.settings_ch.show()
 
  # Обработка закрытия главного окна
     def closeEvent(self, event):
@@ -312,18 +357,18 @@ class LogsWindow(QMainWindow, Ui_LogsWindow):
         # Нажатие на кнопку "Закрыть окно"
         self.btn_close.clicked.connect(self.btn_close_clicked)
         
-    # Выбираем папку хранения логов
+    # Выбор папки хранения логов
     def tbtn_path_logs_clicked(self):
         directory = QFileDialog.getExistingDirectory(self, 'Выберите папку', win.path_logs)
         if directory != '':
             win.path_logs = directory
             self.line_path_logs.setText(directory)
-            # Показываем содержимое папки
+            # Отображение содержимого папки
             self.showEvent(self)
-            # Записываем настройки в ini-файл
+            # Запись настроек в ini-файл
             win.set_settings_ini_file()
 
-    # Закрываем окно логов
+    # Закрытие окна логов
     def btn_close_clicked(self):
         self.close()
 
@@ -342,17 +387,17 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
         # Нажатие на кнопку "Сохранить"
         self.btn_save.clicked.connect(self.btn_save_clicked)
     
-    # Закрываем окно без сохранения настроек
+    # Закрытие окна без сохранения настроек
     def btn_cancel_clicked(self):
         self.isSaved = False
         self.close()
 
-    # Сохраняем настройки
+    # Сохранение настроек
     def btn_save_clicked(self):
         self.isSaved = True
         self.close()
 
-    # При открытии окна "Настройки порта" запоминаем текущие настройки
+    # При открытии окна "Настройки порта" запомнить текущие настройки
     def showEvent(self, event):
         self.buff_baudrate = self.edit_buadrate.text()
         self.buff_bytesize = self.edit_bytesize.text()
@@ -365,7 +410,7 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
     # При закрытии окна "Настройки порта"
     def closeEvent(self, event):
         if self.isSaved:
-            # Сохраняем новые настройки
+            # Сохранение новых настроек
             win.baudrate = int(self.edit_buadrate.text())
             win.bytesize = int(self.edit_bytesize.text())
             parity = {0:'N', 1:'E', 2:'O'}
@@ -374,7 +419,7 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
             win.xonxoff = self.cb_xonxoff.isChecked()
             win.set_settings_ini_file()
         else:
-            # Восстанавливаем старые настройки
+            # Восстановление старых настроек
             self.edit_buadrate.setText(self.buff_baudrate)
             self.edit_bytesize.setText(self.buff_bytesize)
             self.cb_parity.setCurrentIndex(self.buff_parity)
@@ -392,6 +437,42 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        # Нажатие на кнопку "Отмена"
+        self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
+        # Нажатие на кнопку "OK"
+        self.btn_OK.clicked.connect(self.btn_ok_clicked)
+    
+    # Закрытие окна без сохранения настроек
+    def btn_cancel_clicked(self):
+        self.isSaved = False
+        self.close()
+
+    def btn_ok_clicked(self):
+        self.isSaved = True
+        self.close()
+
+    # При открытии окна "Настройки канала" запомнить текущие настройки
+    def showEvent(self, event):
+        self.buff_i_start_discharge = self.edit_IstartDischarge.text()
+        self.buff_u_stop_discharge = self.edit_UstopDischarge.text()
+        self.buff_i_stop_charge = self.edit_IstopCharge.text()
+        # Для сохранения, либо отмены сохранения настроек при закрытии окна
+        self.isSaved = False
+
+    # При закрытии окна "Настройки канала"
+    def closeEvent(self, event):
+        if self.isSaved:
+            # Сохранение новых настроек
+            number_ch = self.channel
+            win.i_start_discharge_list[number_ch - 1] = float(self.edit_IstartDischarge.text())
+            win.u_stop_discharge_list[number_ch - 1] = float(self.edit_UstopDischarge.text())
+            win.i_stop_charge_list[number_ch - 1] = float(self.edit_IstopCharge.text())
+            win.set_settings_ini_file()
+        else:
+            # Восстановление старых настроек
+            self.edit_IstartDischarge.setText(self.buff_i_start_discharge)
+            self.edit_UstopDischarge.setText(self.buff_u_stop_discharge)
+            self.edit_IstopCharge.setText(self.buff_i_stop_charge)
 
 
 def serial_ports():
@@ -424,6 +505,4 @@ def serial_ports():
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = MainWindow()
-    # Создаём логгер
-    # logger = Logger()
     sys.exit(app.exec())
