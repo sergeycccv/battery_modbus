@@ -265,6 +265,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.xonxoff = False
                 self.settings.cb_xonxoff.setChecked(False)
 
+            # for i in range(0, 3):
+
+            #     if config.has_option('CH1', 'IStartDischarge'):
+            #         self.i_start_discharge_list[0] = config.getfloat('CH1', 'IStartDischarge')
+            #         # self.settings_ch.edit_IstartDischarge.setText(str(self.i_start_discharge_list))
+            #     else:
+            #         self.i_start_discharge_list[0] = 0.025
+            #         # self.settings_ch.edit_IstartDischarge.setText('0.025')
+
+            #     if config.has_option('CH1', 'UStopDischarge'):
+            #         self.u_stop_discharge_list[0] = config.getfloat('CH1', 'UStopDischarge')
+            #         # self.settings_ch.edit_UstopDischarge.setText(str(self.u_stop_discharge_list))
+            #     else:
+            #         self.u_stop_discharge_list[0] = 10.8
+            #         # self.settings_ch.edit_UstopDischarge.setText('10.8')
+
+            #     if config.has_option('CH1', 'IStopCharge'):
+            #         self.i_stop_charge_list[0] = config.getfloat('CH1', 'IStopCharge')
+            #         # self.settings_ch.edit_IstopCharge.setText(str(self.i_stop_charge_list))
+            #     else:
+            #         self.u_stop_discharge_list[0] = 0.025
+            #         # self.settings_ch.edit_IstopCharge.setText('0.025')
+
+
         except Exception as e:
             QMessageBox.warning(self, 'Предупреждение', 'Ошибка чтения настроек из ini-файла:\n' + str(e))
 
@@ -283,25 +307,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config.set('COM', 'StopBits', str(win.stopbits))
             config.set('COM', 'XOnXOff', str(win.xonxoff))
 
-            config.add_section('CH1')
-            config.set('CH1', 'IStartDischarge', str(win.i_start_discharge_list[0]))
-            config.set('CH1', 'UStopDischarge', str(win.u_stop_discharge_list[0]))
-            config.set('CH1', 'IStopCharge', str(win.i_stop_charge_list[0]))
+            # config.add_section('CH1')
+            # config.set('CH1', 'IStartDischarge', str(win.i_start_discharge_list[0]))
+            # config.set('CH1', 'UStopDischarge', str(win.u_stop_discharge_list[0]))
+            # config.set('CH1', 'IStopCharge', str(win.i_stop_charge_list[0]))
 
-            config.add_section('CH2')
-            config.set('CH2', 'IStartDischarge', str(win.i_start_discharge_list[1]))
-            config.set('CH2', 'UStopDischarge', str(win.u_stop_discharge_list[1]))
-            config.set('CH2', 'IStopCharge', str(win.i_stop_charge_list[1]))
+            # config.add_section('CH2')
+            # config.set('CH2', 'IStartDischarge', str(win.i_start_discharge_list[1]))
+            # config.set('CH2', 'UStopDischarge', str(win.u_stop_discharge_list[1]))
+            # config.set('CH2', 'IStopCharge', str(win.i_stop_charge_list[1]))
 
-            config.add_section('CH3')
-            config.set('CH3', 'IStartDischarge', str(win.i_start_discharge_list[2]))
-            config.set('CH3', 'UStopDischarge', str(win.u_stop_discharge_list[2]))
-            config.set('CH3', 'IStopCharge', str(win.i_stop_charge_list[2]))
+            # config.add_section('CH3')
+            # config.set('CH3', 'IStartDischarge', str(win.i_start_discharge_list[2]))
+            # config.set('CH3', 'UStopDischarge', str(win.u_stop_discharge_list[2]))
+            # config.set('CH3', 'IStopCharge', str(win.i_stop_charge_list[2]))
 
-            config.add_section('CH4')
-            config.set('CH4', 'IStartDischarge', str(win.i_start_discharge_list[3]))
-            config.set('CH4', 'UStopDischarge', str(win.u_stop_discharge_list[3]))
-            config.set('CH4', 'IStopCharge', str(win.i_stop_charge_list[3]))
+            # config.add_section('CH4')
+            # config.set('CH4', 'IStartDischarge', str(win.i_start_discharge_list[3]))
+            # config.set('CH4', 'UStopDischarge', str(win.u_stop_discharge_list[3]))
+            # config.set('CH4', 'IStopCharge', str(win.i_stop_charge_list[3]))
 
             with open('settings.ini', 'w', encoding='utf-8') as configfile:
                 config.write(configfile)
@@ -467,7 +491,7 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
             win.i_start_discharge_list[number_ch - 1] = float(self.edit_IstartDischarge.text())
             win.u_stop_discharge_list[number_ch - 1] = float(self.edit_UstopDischarge.text())
             win.i_stop_charge_list[number_ch - 1] = float(self.edit_IstopCharge.text())
-            win.set_settings_ini_file()
+            # win.set_settings_ini_file()
         else:
             # Восстановление старых настроек
             self.edit_IstartDischarge.setText(self.buff_i_start_discharge)
