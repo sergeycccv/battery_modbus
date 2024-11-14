@@ -9,20 +9,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>400</height>
+    <width>800</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>550</width>
-    <height>400</height>
+    <width>800</width>
+    <height>580</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>550</width>
-    <height>400</height>
+    <width>800</width>
+    <height>580</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -41,7 +41,7 @@
      <rect>
       <x>9</x>
       <y>9</y>
-      <width>532</width>
+      <width>782</width>
       <height>61</height>
      </rect>
     </property>
@@ -69,15 +69,18 @@
       <rect>
        <x>143</x>
        <y>20</y>
-       <width>351</width>
+       <width>601</width>
        <height>22</height>
       </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QToolButton" name="tbtn_path_logs">
      <property name="geometry">
       <rect>
-       <x>492</x>
+       <x>742</x>
        <y>19</y>
        <width>30</width>
        <height>24</height>
@@ -93,8 +96,8 @@
      <rect>
       <x>9</x>
       <y>80</y>
-      <width>532</width>
-      <height>311</height>
+      <width>782</width>
+      <height>491</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -103,29 +106,13 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QListView" name="list_file_logs">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>321</width>
-       <height>291</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Shape::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Plain</enum>
-     </property>
-    </widget>
     <widget class="QPushButton" name="btn_view_log">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>10</y>
+       <x>591</x>
+       <y>9</y>
        <width>181</width>
-       <height>24</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -135,10 +122,10 @@
     <widget class="QPushButton" name="btn_make_graph">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>40</y>
+       <x>591</x>
+       <y>50</y>
        <width>181</width>
-       <height>24</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -148,10 +135,10 @@
     <widget class="QPushButton" name="btn_close">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>278</y>
+       <x>590</x>
+       <y>441</y>
        <width>181</width>
-       <height>24</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="text">
@@ -161,34 +148,21 @@
     <widget class="QPushButton" name="btn_save_graph">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>70</y>
+       <x>591</x>
+       <y>90</y>
        <width>181</width>
-       <height>24</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>Сохранить график</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_update_list">
-     <property name="geometry">
-      <rect>
-       <x>340</x>
-       <y>248</y>
-       <width>181</width>
-       <height>24</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Обновить список</string>
-     </property>
-    </widget>
     <widget class="QFrame" name="frame_3">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>143</y>
+       <x>591</x>
+       <y>175</y>
        <width>181</width>
        <height>16</height>
       </rect>
@@ -203,8 +177,8 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>155</y>
+       <x>591</x>
+       <y>187</y>
        <width>181</width>
        <height>71</height>
       </rect>
@@ -222,10 +196,10 @@
     <widget class="QPushButton" name="btn_save_graph_2">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>100</y>
+       <x>591</x>
+       <y>130</y>
        <width>181</width>
-       <height>24</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
@@ -235,8 +209,8 @@
     <widget class="QFrame" name="frame_4">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>218</y>
+       <x>591</x>
+       <y>250</y>
        <width>181</width>
        <height>16</height>
       </rect>
@@ -246,6 +220,25 @@
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Sunken</enum>
+     </property>
+    </widget>
+    <widget class="QTreeView" name="list_file_logs">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>571</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <property name="locale">
+      <locale language="Russian" country="Russia"/>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
      </property>
     </widget>
    </widget>

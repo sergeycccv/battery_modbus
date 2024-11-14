@@ -1,14 +1,14 @@
 import sys, os, serial, glob#, datetime
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, 
-    QMessageBox, QLineEdit, QPushButton, QFileDialog)
+    QMessageBox, QLineEdit, QPushButton, QFileDialog, QFileSystemModel)
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
 from ui_settings_ch import Ui_SettingsChWindow
 
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, QDir
 
 
 # class Logger():
@@ -296,34 +296,41 @@ class LogsWindow(QMainWindow, Ui_LogsWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        
+        # Настройка модели файловой системы для отображения содержимого папки
+        self.file_model = QFileSystemModel()
+        self.file_model.setNameFilters(['*.log', '*.txt']) # фильтр по расширению
+        self.file_model.setNameFilterDisables(False)
+        self.list_file_logs.setModel(self.file_model)
+        self.list_file_logs.hideColumn(1)
+        self.list_file_logs.setColumnWidth(0, 320)
+        self.list_file_logs.setColumnWidth(2, 140)
+        self.list_file_logs.setColumnWidth(3, 90)
 
-        # Редактирование поля "Путь хранения логов"
-        self.line_path_logs.textEdited.connect(self.line_path_logs_textEdited)
         # Нажатие на кнопку "Выбрать папку"
         self.tbtn_path_logs.clicked.connect(self.tbtn_path_logs_clicked)
         # Нажатие на кнопку "Закрыть окно"
         self.btn_close.clicked.connect(self.btn_close_clicked)
-    
-    # Редактирование поля "Путь хранения логов"
-    # При изменении текста в поле, записываем его в переменную
-    # !!!!!!!!!!!! ВАЖНО !!!!!!!!!!!!
-    # НУЖНО РЕАЛИЗОВАТЬ ПРОВЕРКУ СУЩЕСТВОВАНИЯ ПАПКИ
-    # И ПОКАЗ ФАЙЛОВ И ПАПОК В ПОЛЕ НИЖЕ
-    def line_path_logs_textEdited(self, text):
-        win.path_logs = text
-    
+        
     # Выбираем папку хранения логов
     def tbtn_path_logs_clicked(self):
         directory = QFileDialog.getExistingDirectory(self, 'Выберите папку', win.path_logs)
         if directory != '':
             win.path_logs = directory
             self.line_path_logs.setText(directory)
+            # Показываем содержимое папки
+            self.showEvent(self)
             # Записываем настройки в ini-файл
             win.set_settings_ini_file()
 
     # Закрываем окно логов
     def btn_close_clicked(self):
         self.close()
+
+    def showEvent(self, event):
+        # Показ содержимого папки логов
+        self.file_model.setRootPath(win.path_logs)
+        self.list_file_logs.setRootIndex(self.file_model.index(win.path_logs))
 
 
 class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
