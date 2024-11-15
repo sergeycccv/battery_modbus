@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
+    <width>400</width>
     <height>250</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>350</width>
+    <width>400</width>
     <height>250</height>
    </size>
   </property>
@@ -32,146 +32,208 @@
    <iconset resource="res.qrc">
     <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true"> #lbl_info {
+	background-color: rgb(210, 210, 210);
+	padding-left: 5;
+}</string>
+  </property>
   <property name="channel" stdset="0">
    <number>-1</number>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="btn_OK">
+   <widget class="QPushButton" name="btn_write">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>179</y>
-      <width>75</width>
-      <height>24</height>
+      <x>295</x>
+      <y>10</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>OK</string>
+     <string>Записать</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_cancel">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>179</y>
-      <width>75</width>
-      <height>24</height>
+      <x>295</x>
+      <y>210</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Отмена</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="edit_IstartDischarge">
+   <widget class="QPushButton" name="btn_read">
     <property name="geometry">
      <rect>
-      <x>171</x>
-      <y>51</y>
-      <width>113</width>
-      <height>22</height>
+      <x>295</x>
+      <y>50</y>
+      <width>91</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="inputMask">
-     <string>0.000</string>
-    </property>
     <property name="text">
-     <string>0.025</string>
+     <string>Прочитать</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lbl_001">
+   <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>52</y>
-      <width>101</width>
-      <height>20</height>
+      <x>10</x>
+      <y>10</y>
+      <width>270</width>
+      <height>231</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <bold>true</bold>
-     </font>
+    <property name="frameShape">
+     <enum>QFrame::Shape::Box</enum>
     </property>
-    <property name="text">
-     <string>I старт разряда</string>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="edit_UstopDischarge">
-    <property name="geometry">
-     <rect>
-      <x>171</x>
-      <y>89</y>
-      <width>113</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="inputMask">
-     <string>00.0</string>
-    </property>
-    <property name="text">
-     <string>10.8</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbl_002">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>90</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>U стоп разряда</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="edit_IstopCharge">
-    <property name="geometry">
-     <rect>
-      <x>171</x>
-      <y>129</y>
-      <width>113</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="inputMask">
-     <string notr="true">0.000</string>
-    </property>
-    <property name="text">
-     <string>0.025</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbl_003">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>130</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>I стоп заряда</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-    </property>
+    <widget class="QLineEdit" name="edit_UstopDischarge">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>125</y>
+       <width>113</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="inputMask">
+      <string>00.0</string>
+     </property>
+     <property name="text">
+      <string>10.8</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_001">
+     <property name="geometry">
+      <rect>
+       <x>19</x>
+       <y>88</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>I старт разряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_003">
+     <property name="geometry">
+      <rect>
+       <x>19</x>
+       <y>166</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>I стоп заряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edit_IstopCharge">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>165</y>
+       <width>113</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="inputMask">
+      <string notr="true">0.000</string>
+     </property>
+     <property name="text">
+      <string>0.025</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edit_IstartDischarge">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>87</y>
+       <width>113</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="inputMask">
+      <string>0.000</string>
+     </property>
+     <property name="text">
+      <string>0.025</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_002">
+     <property name="geometry">
+      <rect>
+       <x>19</x>
+       <y>126</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>U стоп разряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_info">
+     <property name="geometry">
+      <rect>
+       <x>36</x>
+       <y>30</y>
+       <width>201</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Sunken</enum>
+     </property>
+     <property name="text">
+      <string>Прочитано из канала</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

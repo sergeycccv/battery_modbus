@@ -496,15 +496,23 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
         self.setupUi(self)
         # Нажатие на кнопку "Отмена"
         self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
-        # Нажатие на кнопку "OK"
-        self.btn_OK.clicked.connect(self.btn_ok_clicked)
+        # Нажатие на кнопку "Записать"
+        self.btn_write.clicked.connect(self.btn_write_clicked)
+        # Нажатие на кнопку "Прочитать"
+        self.btn_read.clicked.connect(self.btn_read_clicked)
     
     # Закрытие окна без сохранения настроек
     def btn_cancel_clicked(self):
         self.isSaved = False
         self.close()
 
-    def btn_ok_clicked(self):
+    def btn_read_clicked(self):
+        # Вывод информационного сообщения
+        self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
+        self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
+
+    # Закрытие окна с записью настроек
+    def btn_write_clicked(self):
         self.isSaved = True
         self.close()
 
@@ -518,6 +526,12 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
         self.edit_IstartDischarge.setText(str(win.i_start_discharge_list[self.channel - 1]))
         self.edit_UstopDischarge.setText(str(win.u_stop_discharge_list[self.channel - 1]))
         self.edit_IstopCharge.setText(str(win.i_stop_charge_list[self.channel - 1]))
+
+        # Вывод информационного сообщения
+        self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
+        self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
+        # self.lbl_info.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
+        # self.lbl_info.setText('Не прочитано из канала ' + str(self.channel))
 
         # Для сохранения, либо отмены сохранения настроек при закрытии окна
         self.isSaved = False
