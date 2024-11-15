@@ -14,13 +14,23 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Общий лог тестирования</string>
+   <string>Лог работы программы</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
     <normaloff>:/ICO/Alert24.png</normaloff>:/ICO/Alert24.png</iconset>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QPlainTextEdit" name="text_log">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources>
   <include location="res.qrc"/>

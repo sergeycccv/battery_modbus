@@ -15,7 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QMainWindow, QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QMainWindow, QPlainTextEdit,
+    QSizePolicy, QWidget)
 import res_rc
 
 class Ui_AlertsWindow(object):
@@ -29,6 +30,14 @@ class Ui_AlertsWindow(object):
         AlertsWindow.setWindowIcon(icon)
         self.centralwidget = QWidget(AlertsWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.gridLayout = QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.text_log = QPlainTextEdit(self.centralwidget)
+        self.text_log.setObjectName(u"text_log")
+        self.text_log.setReadOnly(True)
+
+        self.gridLayout.addWidget(self.text_log, 0, 0, 1, 1)
+
         AlertsWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(AlertsWindow)
@@ -37,6 +46,6 @@ class Ui_AlertsWindow(object):
     # setupUi
 
     def retranslateUi(self, AlertsWindow):
-        AlertsWindow.setWindowTitle(QCoreApplication.translate("AlertsWindow", u"\u041e\u0431\u0449\u0438\u0439 \u043b\u043e\u0433 \u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f", None))
+        AlertsWindow.setWindowTitle(QCoreApplication.translate("AlertsWindow", u"\u041b\u043e\u0433 \u0440\u0430\u0431\u043e\u0442\u044b \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u044b", None))
     # retranslateUi
 

@@ -712,7 +712,7 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_satus_ch_1">
+    <widget class="QLabel" name="lbl_status_ch_1">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -797,7 +797,7 @@
     <zorder>edit_1_Wcharge</zorder>
     <zorder>btn_start_test_1</zorder>
     <zorder>tbtn_settings_ch_1</zorder>
-    <zorder>lbl_satus_ch_1</zorder>
+    <zorder>lbl_status_ch_1</zorder>
    </widget>
    <widget class="QFrame" name="frm_top">
     <property name="geometry">
@@ -1750,7 +1750,7 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_satus_ch_3">
+    <widget class="QLabel" name="lbl_status_ch_3">
      <property name="geometry">
       <rect>
        <x>51</x>
@@ -2457,7 +2457,7 @@
      </property>
     </widget>
     <zorder>frm_back_ch_3</zorder>
-    <zorder>lbl_satus_ch_3</zorder>
+    <zorder>lbl_status_ch_3</zorder>
     <zorder>lbl_14</zorder>
     <zorder>edit_3_number</zorder>
     <zorder>lbl_16</zorder>
