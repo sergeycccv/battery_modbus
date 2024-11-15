@@ -109,7 +109,7 @@
      </rect>
     </property>
     <property name="inputMask">
-     <string>00.000</string>
+     <string>00.0</string>
     </property>
     <property name="text">
      <string>10.8</string>

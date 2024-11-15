@@ -477,9 +477,15 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
 
     # При открытии окна "Настройки канала" запомнить текущие настройки
     def showEvent(self, event):
-        self.buff_i_start_discharge = self.edit_IstartDischarge.text()
-        self.buff_u_stop_discharge = self.edit_UstopDischarge.text()
-        self.buff_i_stop_charge = self.edit_IstopCharge.text()
+        # Запомнить текущие настройки
+        self.buff_i_start_discharge = win.i_start_discharge_list
+        self.buff_u_stop_discharge = win.u_stop_discharge_list
+        self.buff_i_stop_charge = win.i_stop_charge_list
+
+        self.edit_IstartDischarge.setText(str(win.i_start_discharge_list[self.channel - 1]))
+        self.edit_UstopDischarge.setText(str(win.u_stop_discharge_list[self.channel - 1]))
+        self.edit_IstopCharge.setText(str(win.i_stop_charge_list[self.channel - 1]))
+
         # Для сохранения, либо отмены сохранения настроек при закрытии окна
         self.isSaved = False
 
@@ -487,16 +493,15 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
     def closeEvent(self, event):
         if self.isSaved:
             # Сохранение новых настроек
-            number_ch = self.channel
-            win.i_start_discharge_list[number_ch - 1] = float(self.edit_IstartDischarge.text())
-            win.u_stop_discharge_list[number_ch - 1] = float(self.edit_UstopDischarge.text())
-            win.i_stop_charge_list[number_ch - 1] = float(self.edit_IstopCharge.text())
+            win.i_start_discharge_list[self.channel - 1] = float(self.edit_IstartDischarge.text())
+            win.u_stop_discharge_list[self.channel - 1] = float(self.edit_UstopDischarge.text())
+            win.i_stop_charge_list[self.channel - 1] = float(self.edit_IstopCharge.text())
             # win.set_settings_ini_file()
         else:
             # Восстановление старых настроек
-            self.edit_IstartDischarge.setText(self.buff_i_start_discharge)
-            self.edit_UstopDischarge.setText(self.buff_u_stop_discharge)
-            self.edit_IstopCharge.setText(self.buff_i_stop_charge)
+            self.edit_IstartDischarge.setText(str(self.buff_i_start_discharge[self.channel - 1]))
+            self.edit_UstopDischarge.setText(str(self.buff_u_stop_discharge[self.channel - 1]))
+            self.edit_IstopCharge.setText(str(self.buff_i_stop_charge[self.channel - 1]))
 
 
 def serial_ports():
