@@ -86,36 +86,61 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Вывод информационных сообщений
     def insert_text_to_log(self, level, text):
-        numberToLevel = {
-           50 : 'CRITICAL',
-           40 : 'ERROR',
-           30 : 'WARNING',
-           20 : 'INFO',
-           10 : 'DEBUG',
-           0 : 'NOTSET',
-        }
-        level_txt = numberToLevel[level]
-        if level_txt == 'CRITICAL' or level_txt == 'ERROR':
+        # number_to_level = {
+        #    50 : 'CRITICAL',
+        #    40 : 'ERROR',
+        #    30 : 'WARNING',
+        #    20 : 'INFO',
+        #    10 : 'DEBUG',
+        #    0 : 'NOTSET',
+        # }
+        # level_txt = number_to_level[level]
+        # if level_txt == 'CRITICAL' or level_txt == 'ERROR':
+        #     # Вывод сообщения в лог
+        #     self.logger.log(level, text)
+        #     # Вывод сообщения в окно логов
+        #     self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
+        #     # Вывод сообщения в окне программы
+        #     self.lbl_messages.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
+        #     self.lbl_messages.setText(text)
+        # elif level_txt == 'WARNING':
+        #     # Вывод сообщения в лог
+        #     self.logger.log(level, text)
+        #     # Вывод сообщения в окно логов
+        #     self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
+        #     # Вывод сообщения в окне программы
+        #     self.lbl_messages.setStyleSheet('color: rgb(0, 130, 30); font-weight: normal;')
+        #     self.lbl_messages.setText(text)
+        # elif level_txt == 'INFO':
+        #     # Вывод сообщения в лог
+        #     self.logger.log(level, text)
+        #     # Вывод сообщения в окно логов
+        #     self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
+        
+        # CRITICAL или ERROR
+        if level == 50 or level == 40:
             # Вывод сообщения в лог
             self.logger.log(level, text)
             # Вывод сообщения в окно логов
-            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
+            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + str(level) + ' - ' + text)
             # Вывод сообщения в окне программы
             self.lbl_messages.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
             self.lbl_messages.setText(text)
-        elif level_txt == 'WARNING':
+        # WARNING
+        elif level == 30:
             # Вывод сообщения в лог
             self.logger.log(level, text)
             # Вывод сообщения в окно логов
-            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
+            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + str(level) + ' - ' + text)
             # Вывод сообщения в окне программы
             self.lbl_messages.setStyleSheet('color: rgb(0, 130, 30); font-weight: normal;')
             self.lbl_messages.setText(text)
-        elif level_txt == 'INFO':
+        elif level == 20:
             # Вывод сообщения в лог
             self.logger.log(level, text)
             # Вывод сообщения в окно логов
-            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
+            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + str(level) + ' - ' + text)
+
 
     def initUI(self):
         # Установка стиля текста в полях вывода данных тестирования
