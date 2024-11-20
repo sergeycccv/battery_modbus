@@ -22,11 +22,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.path_logs = 'logs'
         self.port = 'COM1'
-        self.baudrate = 9600
-        self.bytesize = 8
+        self.baud_rate = 9600
+        self.byte_size = 8
         self.parity = 'N' # N - None, E - Even, O - Odd
-        self.stopbits = 1
-        self.xonxoff = False
+        self.stop_bits = 1
+        self.x_on_x_off = False
 
         self.i_start_discharge_list = [0.025, 0.025, 0.025, 0.025]
         self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
@@ -61,21 +61,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Нажатие на кнопку "Подключиться"
         self.btn_connect.clicked.connect(self.btn_connect_clicked)
         # Нажатие на кнопку "Настройки порта"
-        self.tbtn_settings_port.clicked.connect(self.btn_settings_port_clicked)
+        self.btn_settings_port.clicked.connect(self.btn_settings_port_clicked)
         # Нажатие на кнопку "Лог работы программы"
         self.btn_alerts.clicked.connect(self.btn_alerts_clicked)
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
 
-        # Обработка нажатия на одну из 4-х кнопок tbtn_settings_ch_XX
+        # Обработка нажатия на одну из 4-х кнопок btn_settings_ch_XX
         self.button_ch_group = QButtonGroup()
-        self.button_ch_group.addButton(self.tbtn_settings_ch_1)
-        self.button_ch_group.addButton(self.tbtn_settings_ch_2)
-        self.button_ch_group.addButton(self.tbtn_settings_ch_3)
-        self.button_ch_group.addButton(self.tbtn_settings_ch_4)
+        self.button_ch_group.addButton(self.btn_settings_ch_1)
+        self.button_ch_group.addButton(self.btn_settings_ch_2)
+        self.button_ch_group.addButton(self.btn_settings_ch_3)
+        self.button_ch_group.addButton(self.btn_settings_ch_4)
         self.button_ch_group.buttonClicked.connect(self.btn_settings_ch_clicked)
 
-        # Запуск системмы логгирования
+        # Запуск системы логирования
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%d.%m.%Y %H:%M:%S')
@@ -86,7 +86,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Вывод информационных сообщений
     def insert_text_to_log(self, level, text):
-        numberToLavel = {
+        numberToLevel = {
            50 : 'CRITICAL',
            40 : 'ERROR',
            30 : 'WARNING',
@@ -94,7 +94,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
            10 : 'DEBUG',
            0 : 'NOTSET',
         }
-        level_txt = numberToLavel[level]
+        level_txt = numberToLevel[level]
         if level_txt == 'CRITICAL' or level_txt == 'ERROR':
             # Вывод сообщения в лог
             self.logger.log(level, text)
@@ -166,7 +166,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setCurrentIndex(-1)
                 self.port = ''
                 self.list_com.setEnabled(False)
-                self.tbtn_settings_port.setEnabled(False)
+                self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setEnabled(False)
                 self.frm_ch_1.setEnabled(False)
                 self.frm_ch_2.setEnabled(False)
@@ -175,7 +175,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.lbl_messages.setText('Подключитесь к системе тестирования')
                 self.list_com.setEnabled(True)
-                self.tbtn_settings_port.setEnabled(True)
+                self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setEnabled(True)
                 self.frm_ch_1.setEnabled(True)
                 self.frm_ch_2.setEnabled(True)
@@ -187,13 +187,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
 
             if not self.serial.isOpen():
-                self.serial = serial.Serial(self.port, self.baudrate, self.bytesize, self.parity, self.stopbits, self.xonxoff)
+                self.serial = serial.Serial(self.port, self.baud_rate, self.byte_size, self.parity, self.stop_bits, self.x_on_x_off)
 
                 # Стоп таймера обновления списка COM-портов
                 self.timer_upd_com_list.stop()
                 
                 self.list_com.setEnabled(False)
-                self.tbtn_settings_port.setEnabled(False)
+                self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setText('Отключиться')
 
                 self.insert_text_to_log(logging.WARNING, 'Установлено подключение к порту ' + self.port)
@@ -204,7 +204,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.timer_upd_com_list.start(1000)
 
                 self.list_com.setEnabled(True)
-                self.tbtn_settings_port.setEnabled(True)
+                self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setText('Подключиться')
 
                 self.lbl_messages.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
@@ -234,9 +234,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config.read('settings.ini')
             
             # Если установлена папка логов в ini-файле и она существует
-            if (config.has_option('GENERAL', 'PathLogs')) and (os.path.isdir(config.get('GENERAL', 'PathLogs'))):
+            if (config.has_option('GENERAL', 'path_logs')) and (os.path.isdir(config.get('GENERAL', 'path_logs'))):
                 # то присваиваем её переменной path_logs
-                self.path_logs = config.get('GENERAL', 'PathLogs')
+                self.path_logs = config.get('GENERAL', 'path_logs')
                 # и устанавливаем её в окне просмотра логов зарядки
                 self.logs.line_path_logs.setText(self.path_logs)
             else:
@@ -258,19 +258,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setCurrentIndex(0)
                 self.port = self.list_com.currentText()
 
-            if config.has_option('COM', 'BaudRate'):
-                self.baudrate = config.getint('COM', 'BaudRate')
-                self.settings.edit_buadrate.setText(str(self.baudrate))
+            if config.has_option('COM', 'baud_rate'):
+                self.baud_rate = config.getint('COM', 'baud_rate')
+                self.settings.edit_baud_rate.setText(str(self.baud_rate))
             else:
-                self.baudrate = 9600
-                self.settings.edit_buadrate.setText('9600')
+                self.baud_rate = 9600
+                self.settings.edit_baud_rate.setText('9600')
 
-            if config.has_option('COM', 'ByteSize'):
-                self.bytesize = config.getint('COM', 'ByteSize')
-                self.settings.edit_bytesize.setText(str(self.bytesize))
+            if config.has_option('COM', 'byte_size'):
+                self.byte_size = config.getint('COM', 'byte_size')
+                self.settings.edit_byte_size.setText(str(self.byte_size))
             else:
-                self.bytesize = 8
-                self.settings.edit_bytesize.setText('8')
+                self.byte_size = 8
+                self.settings.edit_byte_size.setText('8')
 
             if config.has_option('COM', 'Parity'):
                 parity = {'N': 0, 'E': 1, 'O': 2}
@@ -280,42 +280,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.parity = 'N'
                 self.settings.cb_parity.setCurrentIndex(0)
 
-            if config.has_option('COM', 'StopBits'):
-                self.stopbits = config.getint('COM', 'StopBits')
-                self.settings.edit_stopbits.setText(str(self.stopbits))
+            if config.has_option('COM', 'stop_bits'):
+                self.stop_bits = config.getint('COM', 'stop_bits')
+                self.settings.edit_stop_bits.setText(str(self.stop_bits))
             else:
-                self.stopbits = 1
-                self.settings.edit_stopbits.setText('1')
+                self.stop_bits = 1
+                self.settings.edit_stop_bits.setText('1')
             
-            if config.has_option('COM', 'XOnXOff'):
-                self.xonxoff = config.getboolean('COM', 'XOnXOff')
-                self.settings.cb_xonxoff.setChecked(self.xonxoff)
+            if config.has_option('COM', 'x_on_x_off'):
+                self.x_on_x_off = config.getboolean('COM', 'x_on_x_off')
+                self.settings.cb_x_on_x_off.setChecked(self.x_on_x_off)
             else:
-                self.xonxoff = False
-                self.settings.cb_xonxoff.setChecked(False)
+                self.x_on_x_off = False
+                self.settings.cb_x_on_x_off.setChecked(False)
 
             # for i in range(0, 3):
 
-            #     if config.has_option('CH1', 'IStartDischarge'):
-            #         self.i_start_discharge_list[0] = config.getfloat('CH1', 'IStartDischarge')
-            #         # self.settings_ch.edit_IstartDischarge.setText(str(self.i_start_discharge_list))
+            #     if config.has_option('CH1', 'i_start_discharge'):
+            #         self.i_start_discharge_list[0] = config.getfloat('CH1', 'i_start_discharge')
+            #         # self.settings_ch.edit_i_start_discharge.setText(str(self.i_start_discharge_list))
             #     else:
             #         self.i_start_discharge_list[0] = 0.025
-            #         # self.settings_ch.edit_IstartDischarge.setText('0.025')
+            #         # self.settings_ch.edit_i_start_discharge.setText('0.025')
 
-            #     if config.has_option('CH1', 'UStopDischarge'):
-            #         self.u_stop_discharge_list[0] = config.getfloat('CH1', 'UStopDischarge')
-            #         # self.settings_ch.edit_UstopDischarge.setText(str(self.u_stop_discharge_list))
+            #     if config.has_option('CH1', 'u_stop_discharge'):
+            #         self.u_stop_discharge_list[0] = config.getfloat('CH1', 'u_stop_discharge')
+            #         # self.settings_ch.edit_u_stop_discharge.setText(str(self.u_stop_discharge_list))
             #     else:
             #         self.u_stop_discharge_list[0] = 10.8
-            #         # self.settings_ch.edit_UstopDischarge.setText('10.8')
+            #         # self.settings_ch.edit_u_stop_discharge.setText('10.8')
 
-            #     if config.has_option('CH1', 'IStopCharge'):
-            #         self.i_stop_charge_list[0] = config.getfloat('CH1', 'IStopCharge')
-            #         # self.settings_ch.edit_IstopCharge.setText(str(self.i_stop_charge_list))
+            #     if config.has_option('CH1', 'i_stop_charge'):
+            #         self.i_stop_charge_list[0] = config.getfloat('CH1', 'i_stop_charge')
+            #         # self.settings_ch.edit_i_stop_charge.setText(str(self.i_stop_charge_list))
             #     else:
             #         self.u_stop_discharge_list[0] = 0.025
-            #         # self.settings_ch.edit_IstopCharge.setText('0.025')
+            #         # self.settings_ch.edit_i_stop_charge.setText('0.025')
 
 
         except Exception as e:
@@ -327,38 +327,38 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             config = ConfigParser()
             config.add_section('GENERAL')
-            config.set('GENERAL', 'PathLogs', win.path_logs)
+            config.set('GENERAL', 'path_logs', win.path_logs)
 
             config.add_section('COM')
             config.set('COM', 'Port', win.port)
-            config.set('COM', 'BaudRate', str(win.baudrate))
-            config.set('COM', 'ByteSize', str(win.bytesize))
+            config.set('COM', 'baud_rate', str(win.baud_rate))
+            config.set('COM', 'byte_size', str(win.byte_size))
             config.set('COM', 'Parity', win.parity)
-            config.set('COM', 'StopBits', str(win.stopbits))
-            config.set('COM', 'XOnXOff', str(win.xonxoff))
+            config.set('COM', 'stop_bits', str(win.stop_bits))
+            config.set('COM', 'x_on_x_off', str(win.x_on_x_off))
 
             # config.add_section('CH1')
-            # config.set('CH1', 'IStartDischarge', str(win.i_start_discharge_list[0]))
-            # config.set('CH1', 'UStopDischarge', str(win.u_stop_discharge_list[0]))
-            # config.set('CH1', 'IStopCharge', str(win.i_stop_charge_list[0]))
+            # config.set('CH1', 'i_start_discharge', str(win.i_start_discharge_list[0]))
+            # config.set('CH1', 'u_stop_discharge', str(win.u_stop_discharge_list[0]))
+            # config.set('CH1', 'i_stop_charge', str(win.i_stop_charge_list[0]))
 
             # config.add_section('CH2')
-            # config.set('CH2', 'IStartDischarge', str(win.i_start_discharge_list[1]))
-            # config.set('CH2', 'UStopDischarge', str(win.u_stop_discharge_list[1]))
-            # config.set('CH2', 'IStopCharge', str(win.i_stop_charge_list[1]))
+            # config.set('CH2', 'i_start_discharge', str(win.i_start_discharge_list[1]))
+            # config.set('CH2', 'u_stop_discharge', str(win.u_stop_discharge_list[1]))
+            # config.set('CH2', 'i_stop_charge', str(win.i_stop_charge_list[1]))
 
             # config.add_section('CH3')
-            # config.set('CH3', 'IStartDischarge', str(win.i_start_discharge_list[2]))
-            # config.set('CH3', 'UStopDischarge', str(win.u_stop_discharge_list[2]))
-            # config.set('CH3', 'IStopCharge', str(win.i_stop_charge_list[2]))
+            # config.set('CH3', 'i_start_discharge', str(win.i_start_discharge_list[2]))
+            # config.set('CH3', 'u_stop_discharge', str(win.u_stop_discharge_list[2]))
+            # config.set('CH3', 'i_stop_charge', str(win.i_stop_charge_list[2]))
 
             # config.add_section('CH4')
-            # config.set('CH4', 'IStartDischarge', str(win.i_start_discharge_list[3]))
-            # config.set('CH4', 'UStopDischarge', str(win.u_stop_discharge_list[3]))
-            # config.set('CH4', 'IStopCharge', str(win.i_stop_charge_list[3]))
+            # config.set('CH4', 'i_start_discharge', str(win.i_start_discharge_list[3]))
+            # config.set('CH4', 'u_stop_discharge', str(win.u_stop_discharge_list[3]))
+            # config.set('CH4', 'i_stop_charge', str(win.i_stop_charge_list[3]))
 
-            with open('settings.ini', 'w', encoding='utf-8') as configfile:
-                config.write(configfile)
+            with open('settings.ini', 'w', encoding='utf-8') as config_file:
+                config.write(config_file)
 
         except Exception as e:
             # QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи настроек в ini-файл:\n' + str(e))
@@ -366,8 +366,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Открытие окна настроек каналов
     def btn_settings_ch_clicked(self, btn):
+        # Получение номера канала из текста кнопки
         number_ch = int(btn.text())
-        self.settings_ch.setWindowTitle(f'Настройки канала {number_ch}')
+        # self.settings_ch.setWindowTitle(f'Настройки канала {number_ch}')
         self.settings_ch.channel = number_ch
         self.settings_ch.show()
 
@@ -410,12 +411,12 @@ class LogsWindow(QMainWindow, Ui_LogsWindow):
         self.list_file_logs.setColumnWidth(3, 90)
 
         # Нажатие на кнопку "Выбрать папку"
-        self.tbtn_path_logs.clicked.connect(self.tbtn_path_logs_clicked)
+        self.btn_path_logs.clicked.connect(self.btn_path_logs_clicked)
         # Нажатие на кнопку "Закрыть окно"
         self.btn_close.clicked.connect(self.btn_close_clicked)
         
     # Выбор папки хранения логов
-    def tbtn_path_logs_clicked(self):
+    def btn_path_logs_clicked(self):
         directory = QFileDialog.getExistingDirectory(self, 'Выберите папку', win.path_logs)
         if directory != '':
             win.path_logs = directory
@@ -456,11 +457,11 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
 
     # При открытии окна "Настройки порта" запомнить текущие настройки
     def showEvent(self, event):
-        self.buff_baudrate = self.edit_buadrate.text()
-        self.buff_bytesize = self.edit_bytesize.text()
+        self.buff_baud_rate = self.edit_baud_rate.text()
+        self.buff_byte_size = self.edit_byte_size.text()
         self.buff_parity = self.cb_parity.currentIndex()
-        self.buff_stopbits = self.edit_stopbits.text()
-        self.buff_xonxoff = self.cb_xonxoff.isChecked()
+        self.buff_stop_bits = self.edit_stop_bits.text()
+        self.buff_x_on_x_off = self.cb_x_on_x_off.isChecked()
         # Для сохранения, либо отмены сохранения настроек при закрытии окна
         self.isSaved = False
 
@@ -468,20 +469,20 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
     def closeEvent(self, event):
         if self.isSaved:
             # Сохранение новых настроек
-            win.baudrate = int(self.edit_buadrate.text())
-            win.bytesize = int(self.edit_bytesize.text())
+            win.baud_rate = int(self.edit_baud_rate.text())
+            win.byte_size = int(self.edit_byte_size.text())
             parity = {0:'N', 1:'E', 2:'O'}
             win.parity = parity.get(self.cb_parity.currentIndex())
-            win.stopbits = int(self.edit_stopbits.text())
-            win.xonxoff = self.cb_xonxoff.isChecked()
+            win.stop_bits = int(self.edit_stop_bits.text())
+            win.x_on_x_off = self.cb_x_on_x_off.isChecked()
             win.set_settings_ini_file()
         else:
             # Восстановление старых настроек
-            self.edit_buadrate.setText(self.buff_baudrate)
-            self.edit_bytesize.setText(self.buff_bytesize)
+            self.edit_baud_rate.setText(self.buff_baud_rate)
+            self.edit_byte_size.setText(self.buff_byte_size)
             self.cb_parity.setCurrentIndex(self.buff_parity)
-            self.edit_stopbits.setText(self.buff_stopbits)
-            self.cb_xonxoff.setChecked(self.buff_xonxoff)
+            self.edit_stop_bits.setText(self.buff_stop_bits)
+            self.cb_x_on_x_off.setChecked(self.buff_x_on_x_off)
 
 
 class AlertsWindow(QMainWindow, Ui_AlertsWindow):
@@ -501,20 +502,21 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
         # Нажатие на кнопку "Прочитать"
         self.btn_read.clicked.connect(self.btn_read_clicked)
     
-    # Закрытие окна без сохранения настроек
+    # Закрытие окна без записи настроек
     def btn_cancel_clicked(self):
         self.isSaved = False
         self.close()
 
+    # Чтение настроек канала из прибора
     def btn_read_clicked(self):
         # Вывод информационного сообщения
         self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
         self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
 
-    # Закрытие окна с записью настроек
+    # Запись настроек канала в прибор
     def btn_write_clicked(self):
         self.isSaved = True
-        self.close()
+        # self.close()
 
     # При открытии окна "Настройки канала" запомнить текущие настройки
     def showEvent(self, event):
@@ -523,9 +525,9 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
         self.buff_u_stop_discharge = win.u_stop_discharge_list
         self.buff_i_stop_charge = win.i_stop_charge_list
 
-        self.edit_IstartDischarge.setText(str(win.i_start_discharge_list[self.channel - 1]))
-        self.edit_UstopDischarge.setText(str(win.u_stop_discharge_list[self.channel - 1]))
-        self.edit_IstopCharge.setText(str(win.i_stop_charge_list[self.channel - 1]))
+        self.edit_i_start_discharge.setText(str(win.i_start_discharge_list[self.channel - 1]))
+        self.edit_u_stop_discharge.setText(str(win.u_stop_discharge_list[self.channel - 1]))
+        self.edit_i_stop_charge.setText(str(win.i_stop_charge_list[self.channel - 1]))
 
         # Вывод информационного сообщения
         self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
@@ -540,15 +542,15 @@ class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
     def closeEvent(self, event):
         if self.isSaved:
             # Сохранение новых настроек
-            win.i_start_discharge_list[self.channel - 1] = float(self.edit_IstartDischarge.text())
-            win.u_stop_discharge_list[self.channel - 1] = float(self.edit_UstopDischarge.text())
-            win.i_stop_charge_list[self.channel - 1] = float(self.edit_IstopCharge.text())
+            win.i_start_discharge_list[self.channel - 1] = float(self.edit_i_start_discharge.text())
+            win.u_stop_discharge_list[self.channel - 1] = float(self.edit_u_stop_discharge.text())
+            win.i_stop_charge_list[self.channel - 1] = float(self.edit_i_stop_charge.text())
             # win.set_settings_ini_file()
         else:
             # Восстановление старых настроек
-            self.edit_IstartDischarge.setText(str(self.buff_i_start_discharge[self.channel - 1]))
-            self.edit_UstopDischarge.setText(str(self.buff_u_stop_discharge[self.channel - 1]))
-            self.edit_IstopCharge.setText(str(self.buff_i_stop_charge[self.channel - 1]))
+            self.edit_i_start_discharge.setText(str(self.buff_i_start_discharge[self.channel - 1]))
+            self.edit_u_stop_discharge.setText(str(self.buff_u_stop_discharge[self.channel - 1]))
+            self.edit_i_stop_charge.setText(str(self.buff_i_stop_charge[self.channel - 1]))
 
 
 def serial_ports():

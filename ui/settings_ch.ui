@@ -96,7 +96,7 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLineEdit" name="edit_UstopDischarge">
+    <widget class="QLineEdit" name="edit_u_stop_discharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -154,7 +154,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_IstopCharge">
+    <widget class="QLineEdit" name="edit_i_stop_charge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -170,7 +170,7 @@
       <string>0.025</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_IstartDischarge">
+    <widget class="QLineEdit" name="edit_i_start_discharge">
      <property name="geometry">
       <rect>
        <x>130</x>

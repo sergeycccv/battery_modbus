@@ -46,7 +46,7 @@
      <string>Отмена</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="cb_xonxoff">
+   <widget class="QCheckBox" name="cb_x_on_x_off">
     <property name="geometry">
      <rect>
       <x>152</x>
@@ -142,7 +142,7 @@
      <string>Сохранить</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="edit_stopbits">
+   <widget class="QLineEdit" name="edit_stop_bits">
     <property name="geometry">
      <rect>
       <x>152</x>
@@ -155,7 +155,7 @@
      <string>1</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="edit_bytesize">
+   <widget class="QLineEdit" name="edit_byte_size">
     <property name="geometry">
      <rect>
       <x>152</x>
@@ -181,7 +181,7 @@
      <string>Биты данных</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="edit_buadrate">
+   <widget class="QLineEdit" name="edit_baud_rate">
     <property name="geometry">
      <rect>
       <x>152</x>

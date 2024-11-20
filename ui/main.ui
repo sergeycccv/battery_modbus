@@ -686,7 +686,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_ch_1">
+    <widget class="QToolButton" name="btn_settings_ch_1">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -796,7 +796,7 @@
     <zorder>edit_1_Wrecharge</zorder>
     <zorder>edit_1_Wcharge</zorder>
     <zorder>btn_start_test_1</zorder>
-    <zorder>tbtn_settings_ch_1</zorder>
+    <zorder>btn_settings_ch_1</zorder>
     <zorder>lbl_status_ch_1</zorder>
    </widget>
    <widget class="QFrame" name="frm_top">
@@ -934,7 +934,7 @@
       <string>Выбор COM-порта</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_port">
+    <widget class="QToolButton" name="btn_settings_port">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -1610,7 +1610,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_ch_2">
+    <widget class="QToolButton" name="btn_settings_ch_2">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -1729,7 +1729,7 @@
     <zorder>edit_2_Wrecharge</zorder>
     <zorder>edit_2_Wcharge</zorder>
     <zorder>btn_start_test_2</zorder>
-    <zorder>tbtn_settings_ch_2</zorder>
+    <zorder>btn_settings_ch_2</zorder>
     <zorder>lbl_ico_ch_2</zorder>
    </widget>
    <widget class="QFrame" name="frm_ch_3">
@@ -2362,7 +2362,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_ch_3">
+    <widget class="QToolButton" name="btn_settings_ch_3">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -2481,7 +2481,7 @@
     <zorder>edit_3_Wrecharge</zorder>
     <zorder>edit_3_Wcharge</zorder>
     <zorder>btn_start_test_3</zorder>
-    <zorder>tbtn_settings_ch_3</zorder>
+    <zorder>btn_settings_ch_3</zorder>
     <zorder>lbl_ico_ch_3</zorder>
    </widget>
    <widget class="QFrame" name="frm_ch_4">
@@ -3114,7 +3114,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="tbtn_settings_ch_4">
+    <widget class="QToolButton" name="btn_settings_ch_4">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -3233,7 +3233,7 @@
     <zorder>edit_4_Wrecharge</zorder>
     <zorder>edit_4_Wcharge</zorder>
     <zorder>btn_start_test_4</zorder>
-    <zorder>tbtn_settings_ch_4</zorder>
+    <zorder>btn_settings_ch_4</zorder>
     <zorder>lbl_ico_ch_4</zorder>
    </widget>
   </widget>
@@ -3254,7 +3254,7 @@
  </widget>
  <tabstops>
   <tabstop>btn_connect</tabstop>
-  <tabstop>tbtn_settings_ch_1</tabstop>
+  <tabstop>btn_settings_ch_1</tabstop>
   <tabstop>edit_1_number</tabstop>
   <tabstop>edit_2_number</tabstop>
   <tabstop>edit_3_number</tabstop>
@@ -3268,7 +3268,7 @@
   <tabstop>edit_1_Wcharge</tabstop>
   <tabstop>edit_1_Wdischarge</tabstop>
   <tabstop>list_com</tabstop>
-  <tabstop>tbtn_settings_port</tabstop>
+  <tabstop>btn_settings_port</tabstop>
   <tabstop>edit_1_Wrecharge</tabstop>
   <tabstop>edit_2_Ustart</tabstop>
   <tabstop>edit_1_Ustart</tabstop>
@@ -3282,7 +3282,7 @@
   <tabstop>edit_2_Wrecharge</tabstop>
   <tabstop>edit_2_Wcharge</tabstop>
   <tabstop>btn_start_test_2</tabstop>
-  <tabstop>tbtn_settings_ch_2</tabstop>
+  <tabstop>btn_settings_ch_2</tabstop>
   <tabstop>edit_1_Ccharge</tabstop>
   <tabstop>edit_3_Ustart</tabstop>
   <tabstop>edit_3_Ucurrent</tabstop>
@@ -3295,7 +3295,7 @@
   <tabstop>edit_3_Wrecharge</tabstop>
   <tabstop>edit_3_Wcharge</tabstop>
   <tabstop>btn_start_test_3</tabstop>
-  <tabstop>tbtn_settings_ch_3</tabstop>
+  <tabstop>btn_settings_ch_3</tabstop>
   <tabstop>edit_4_Ustart</tabstop>
   <tabstop>edit_1_Crecharge</tabstop>
   <tabstop>edit_4_Ucurrent</tabstop>
@@ -3308,7 +3308,7 @@
   <tabstop>edit_4_Wrecharge</tabstop>
   <tabstop>edit_4_Wcharge</tabstop>
   <tabstop>btn_start_test_4</tabstop>
-  <tabstop>tbtn_settings_ch_4</tabstop>
+  <tabstop>btn_settings_ch_4</tabstop>
  </tabstops>
  <resources>
   <include location="res.qrc"/>
