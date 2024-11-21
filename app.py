@@ -18,7 +18,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.initUI()
 
-        self.serial = serial.Serial()
+        # Создание окна логов тестирования
+        self.logs = LogsWindow(self)
+        # Создание окна настроек программы
+        self.settings = SettingsPortWindow(self)
+        # Создание окна настроек канала
+        self.settings_ch = SettingsChWindow(self)
+        # Создание окна просмотра лога программы
+        self.alerts = AlertsWindow(self)
 
         self.path_logs = 'logs'
         self.port = 'COM1'
@@ -32,6 +39,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
         self.i_stop_charge_list = [0.025, 0.025, 0.025, 0.025]
 
+        # Количество попыток обнаружения COM-портов
+        self.count_location_ports = 0
+
+        # Чтение и применение настроек из ini-файла
+        self.get_settings_ini_file()
+
+        # Запуск системы логирования
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s | %(process)s | %(levelname)s | %(message)s', datefmt='%d-%m-%Y %H-%M-%S')
+        handler = logging.handlers.RotatingFileHandler(self.path_logs + '\\log.txt', encoding='utf-8', maxBytes=5000000, backupCount=5)
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
+        self.insert_text_to_log(logging.INFO, 'Программа тестирования запущена')
+
+        self.serial = serial.Serial()
+
         # Список COM-портов
         self.list_com_saved = []
         # Создание списка доступных в системе COM-портов
@@ -39,18 +63,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Таймер обновления списка COM-портов
         self.timer_upd_com_list = QTimer()
-
-        # Создание окна логов тестирования
-        self.logs = LogsWindow(self)
-        # Создание окна настроек программы
-        self.settings = SettingsPortWindow(self)
-        # Создание окна просмотра лога программы
-        self.alerts = AlertsWindow(self)
-        # Создание окна настроек канала
-        self.settings_ch = SettingsChWindow(self)
-        
-        # Чтение и применение настроек из ini-файла
-        self.get_settings_ini_file()
 
         # Изменение текущего COM-порта в списке
         self.list_com.currentIndexChanged.connect(self.list_com_changed)
@@ -75,72 +87,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_ch_group.addButton(self.btn_settings_ch_4)
         self.button_ch_group.buttonClicked.connect(self.btn_settings_ch_clicked)
 
-        # Запуск системы логирования
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%d.%m.%Y %H:%M:%S')
-        handler = logging.handlers.RotatingFileHandler(self.path_logs + '\\log.txt', encoding='utf-8', maxBytes=5000000, backupCount=5)
-        handler.setFormatter(formatter)
-        self.logger.addHandler(handler)
-        self.insert_text_to_log(logging.INFO, 'Программа запущена')
-
     # Вывод информационных сообщений
     def insert_text_to_log(self, level, text):
-        # number_to_level = {
-        #    50 : 'CRITICAL',
-        #    40 : 'ERROR',
-        #    30 : 'WARNING',
-        #    20 : 'INFO',
-        #    10 : 'DEBUG',
-        #    0 : 'NOTSET',
-        # }
-        # level_txt = number_to_level[level]
-        # if level_txt == 'CRITICAL' or level_txt == 'ERROR':
-        #     # Вывод сообщения в лог
-        #     self.logger.log(level, text)
-        #     # Вывод сообщения в окно логов
-        #     self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
-        #     # Вывод сообщения в окне программы
-        #     self.lbl_messages.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
-        #     self.lbl_messages.setText(text)
-        # elif level_txt == 'WARNING':
-        #     # Вывод сообщения в лог
-        #     self.logger.log(level, text)
-        #     # Вывод сообщения в окно логов
-        #     self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
-        #     # Вывод сообщения в окне программы
-        #     self.lbl_messages.setStyleSheet('color: rgb(0, 130, 30); font-weight: normal;')
-        #     self.lbl_messages.setText(text)
-        # elif level_txt == 'INFO':
-        #     # Вывод сообщения в лог
-        #     self.logger.log(level, text)
-        #     # Вывод сообщения в окно логов
-        #     self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + level_txt + ' - ' + text)
-        
-        # CRITICAL или ERROR
-        if level == 50 or level == 40:
-            # Вывод сообщения в лог
-            self.logger.log(level, text)
+        # Вывод сообщения в лог
+        self.logger.log(level, text)
+
+        # Текущая дата для формирования сообщения в окне логов
+        datetime_mess = datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S')
+
+        if level == 50 or level == 40 or level == 0: # CRITICAL, ERROR или NOTSET
             # Вывод сообщения в окно логов
-            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + str(level) + ' - ' + text)
+            self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a style="color: rgb(255, 55, 30); font-weight: bold;">' + datetime_mess + ' > '  + text + '</a>')
             # Вывод сообщения в окне программы
             self.lbl_messages.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
             self.lbl_messages.setText(text)
-        # WARNING
-        elif level == 30:
-            # Вывод сообщения в лог
-            self.logger.log(level, text)
+        elif level == 30: # WARNING
             # Вывод сообщения в окно логов
-            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + str(level) + ' - ' + text)
+            self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a style="color: rgb(0, 130, 30); font-weight: normal;">' + datetime_mess + ' > '  + text + '</a>')
             # Вывод сообщения в окне программы
             self.lbl_messages.setStyleSheet('color: rgb(0, 130, 30); font-weight: normal;')
             self.lbl_messages.setText(text)
-        elif level == 20:
-            # Вывод сообщения в лог
-            self.logger.log(level, text)
+        elif level == 20: # INFO
             # Вывод сообщения в окно логов
-            self.alerts.text_log.appendPlainText(datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S') + ' - ' + str(level) + ' - ' + text)
-
+            if self.alerts.text_log.toPlainText() == '':
+                self.alerts.text_log.setHtml('<a>' + datetime_mess + ' > '  + text + '</a>')
+            else:
+                self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a>' + datetime_mess + ' > '  + text + '</a>')
 
     def initUI(self):
         # Установка стиля текста в полях вывода данных тестирования
@@ -185,8 +157,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.port = self.list_com.currentText()
             # Сохраняем список COM-портов
             self.list_com_saved = serial_ports()
+
             if len(self.list_com_saved) == 0:
-                self.insert_text_to_log(logging.ERROR, 'В системе нет ни одного свободного COM-порта')
+                if self.count_location_ports == 0:
+                    self.insert_text_to_log(logging.ERROR, 'В системе нет ни одного свободного COM-порта')
+
+                self.count_location_ports += 1
                 
                 self.list_com.setCurrentIndex(-1)
                 self.port = ''
@@ -198,7 +174,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.frm_ch_3.setEnabled(False)
                 self.frm_ch_4.setEnabled(False)
             else:
-                self.lbl_messages.setText('Подключитесь к системе тестирования')
+                self.insert_text_to_log(logging.WARNING, f'В системе обнаружены свободные COM-порты: {', '.join(self.list_com_saved)}')
+                self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
+
+                self.count_location_ports = 0
+
                 self.list_com.setEnabled(True)
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setEnabled(True)
@@ -232,9 +212,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setText('Подключиться')
 
-                self.lbl_messages.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
-                self.insert_text_to_log(logging.INFO, 'Отключение от порта ' + self.port)
-                self.lbl_messages.setText('Подключитесь к системе тестирования')
+                self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
+                self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
 
         except serial.SerialException as e:
             # QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к порту ' + self.port + '\n' + str(e))
@@ -413,7 +392,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if exit_alert.clickedButton() == yes_close_btn:
             # Записываем настройки в ini-файл
             win.set_settings_ini_file()
-            # self.logger.info('Программа закрыта')
             self.insert_text_to_log(logging.INFO, 'Программа закрыта')
             event.accept()
         if exit_alert.clickedButton() == no_close_btn:
@@ -501,6 +479,15 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
             win.stop_bits = int(self.edit_stop_bits.text())
             win.x_on_x_off = self.cb_x_on_x_off.isChecked()
             win.set_settings_ini_file()
+            settings_port_before = '«' + str(self.buff_baud_rate) + '», ' + '«' + str(self.buff_byte_size) + \
+                                '», ' + '«' + str(self.buff_parity) + '», ' + '«' + str(self.buff_stop_bits) + \
+                                '», ' + '«' + str(self.buff_x_on_x_off) + '»'
+            settings_port_after = '«' + str(win.baud_rate) + '», ' + '«' + str(win.byte_size) + \
+                                '», ' + '«' + str(win.parity) + '», ' + '«' + str(win.stop_bits) + \
+                                '», ' + '«' + str(win.x_on_x_off) + '»'
+            MainWindow.insert_text_to_log(win, logging.INFO, 'Были изменены настройки порта. До сохранения: ' + \
+                                          settings_port_before + '. После сохранения: ' + settings_port_after)
+
         else:
             # Восстановление старых настроек
             self.edit_baud_rate.setText(self.buff_baud_rate)

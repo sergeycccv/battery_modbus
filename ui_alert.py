@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QMainWindow, QPlainTextEdit,
-    QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QMainWindow, QSizePolicy,
+    QTextBrowser, QWidget)
 import res_rc
 
 class Ui_AlertsWindow(object):
@@ -32,9 +32,11 @@ class Ui_AlertsWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.text_log = QPlainTextEdit(self.centralwidget)
+        self.text_log = QTextBrowser(self.centralwidget)
         self.text_log.setObjectName(u"text_log")
-        self.text_log.setReadOnly(True)
+        font = QFont()
+        font.setPointSize(11)
+        self.text_log.setFont(font)
 
         self.gridLayout.addWidget(self.text_log, 0, 0, 1, 1)
 
