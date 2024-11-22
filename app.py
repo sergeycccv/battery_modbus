@@ -1,15 +1,14 @@
 import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
-from PySide6.QtWidgets import (QApplication, QMainWindow, 
-    QMessageBox, QLineEdit, QPushButton, QFileDialog, QFileSystemModel,
-    QButtonGroup)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
+                               QLineEdit, QPushButton, QFileDialog, 
+                               QFileSystemModel, QButtonGroup)
+from PySide6.QtCore import QTimer
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
 from ui_settings_ch import Ui_SettingsChWindow
-
-from PySide6.QtCore import QTimer
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -51,23 +50,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.path_logs = os.path.abspath(os.curdir) + '\\logs'
         # Назначаем папку логов в окне просмотра логов тестирования
         self.logs.line_path_logs.setText(self.path_logs)
-
         # Количество попыток обнаружения COM-портов
         self.count_location_ports = 0
-
         # Чтение и применение настроек из ini-файла
         self.get_settings_ini_file()
-
         self.serial = serial.Serial()
-
         # Список COM-портов
         self.list_com_saved = []
         # Создание списка доступных в системе COM-портов
         self.list_com_update()
-
         # Таймер обновления списка COM-портов
         self.timer_upd_com_list = QTimer()
-
         # Изменение текущего COM-порта в списке
         self.list_com.currentIndexChanged.connect(self.list_com_changed)
         # Обновление списка COM-портов по таймеру
@@ -95,10 +88,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def insert_text_to_log(self, level, text):
         # Вывод сообщения в лог
         self.logger.log(level, text)
-
         # Текущая дата для формирования сообщения в окне логов
         datetime_mess = datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S')
-
         if level == 50 or level == 40 or level == 0: # CRITICAL, ERROR или NOTSET
             # Вывод сообщения в окно логов
             self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a style="color: rgb(255, 55, 30); font-weight: bold;">' + datetime_mess + ' > '  + text + '</a>')
@@ -143,7 +134,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
                 if widget.objectName() == 'edit_1_Wcharge':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
-        
         self.show()
 
     # Изменение текущего COM-порта в списке
@@ -161,13 +151,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.port = self.list_com.currentText()
             # Сохраняем список COM-портов
             self.list_com_saved = serial_ports()
-
             if len(self.list_com_saved) == 0:
                 if self.count_location_ports == 0:
                     self.insert_text_to_log(logging.ERROR, 'В системе нет ни одного свободного COM-порта')
-
                 self.count_location_ports += 1
-                
                 self.list_com.setCurrentIndex(-1)
                 self.port = ''
                 self.list_com.setEnabled(False)
@@ -180,9 +167,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.insert_text_to_log(logging.WARNING, f'В системе обнаружены свободные COM-порты: {', '.join(self.list_com_saved)}')
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
-
                 self.count_location_ports = 0
-
                 self.list_com.setEnabled(True)
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setEnabled(True)
@@ -194,32 +179,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # Подключение к COM-порту
     def btn_connect_clicked(self):
         try:
-
             if not self.serial.isOpen():
-
                 self.serial = serial.Serial(self.port, self.baud_rate, self.byte_size, self.parity, self.stop_bits, self.x_on_x_off)
-
                 # Стоп таймера обновления списка COM-портов
                 self.timer_upd_com_list.stop()
-                
                 self.list_com.setEnabled(False)
                 self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setText('Отключиться')
-
                 self.insert_text_to_log(logging.WARNING, 'Установлено подключение к порту ' + self.port)
             else:
                 self.serial.close()
-
                 # Запуск таймера обновления списка COM-портов
                 self.timer_upd_com_list.start(1000)
-
                 self.list_com.setEnabled(True)
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setText('Подключиться')
-
                 self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
-
         except Exception as e:
             # QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к порту ' + self.port + '\n' + str(e))
             self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + '. ' + str(e).replace('\n', ' '))
@@ -284,32 +260,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.x_on_x_off = config.getboolean('COM', 'x_on_x_off')
             self.settings.cb_x_on_x_off.setChecked(self.x_on_x_off)
 
-            # for i in range(0, 3):
-
-            #     if config.has_option('CH1', 'i_start_discharge'):
-            #         self.i_start_discharge_list[0] = config.getfloat('CH1', 'i_start_discharge')
-            #         # self.settings_ch.edit_i_start_discharge.setText(str(self.i_start_discharge_list))
-            #     else:
-            #         self.i_start_discharge_list[0] = 0.025
-            #         # self.settings_ch.edit_i_start_discharge.setText('0.025')
-
-            #     if config.has_option('CH1', 'u_stop_discharge'):
-            #         self.u_stop_discharge_list[0] = config.getfloat('CH1', 'u_stop_discharge')
-            #         # self.settings_ch.edit_u_stop_discharge.setText(str(self.u_stop_discharge_list))
-            #     else:
-            #         self.u_stop_discharge_list[0] = 10.8
-            #         # self.settings_ch.edit_u_stop_discharge.setText('10.8')
-
-            #     if config.has_option('CH1', 'i_stop_charge'):
-            #         self.i_stop_charge_list[0] = config.getfloat('CH1', 'i_stop_charge')
-            #         # self.settings_ch.edit_i_stop_charge.setText(str(self.i_stop_charge_list))
-            #     else:
-            #         self.u_stop_discharge_list[0] = 0.025
-            #         # self.settings_ch.edit_i_stop_charge.setText('0.025')
-
-
         except Exception as e:
-            # QMessageBox.warning(self, 'Предупреждение', 'Ошибка чтения настроек из ini-файла:\n' + str(e))
             self.insert_text_to_log(logging.ERROR, 'Ошибка чтения настроек из ini-файла. ' + str(e).replace('\n', ' '))
 
     # Запись настроек в ini-файл
@@ -327,31 +278,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config.set('COM', 'stop_bits', str(win.stop_bits))
             config.set('COM', 'x_on_x_off', str(win.x_on_x_off))
 
-            # config.add_section('CH1')
-            # config.set('CH1', 'i_start_discharge', str(win.i_start_discharge_list[0]))
-            # config.set('CH1', 'u_stop_discharge', str(win.u_stop_discharge_list[0]))
-            # config.set('CH1', 'i_stop_charge', str(win.i_stop_charge_list[0]))
-
-            # config.add_section('CH2')
-            # config.set('CH2', 'i_start_discharge', str(win.i_start_discharge_list[1]))
-            # config.set('CH2', 'u_stop_discharge', str(win.u_stop_discharge_list[1]))
-            # config.set('CH2', 'i_stop_charge', str(win.i_stop_charge_list[1]))
-
-            # config.add_section('CH3')
-            # config.set('CH3', 'i_start_discharge', str(win.i_start_discharge_list[2]))
-            # config.set('CH3', 'u_stop_discharge', str(win.u_stop_discharge_list[2]))
-            # config.set('CH3', 'i_stop_charge', str(win.i_stop_charge_list[2]))
-
-            # config.add_section('CH4')
-            # config.set('CH4', 'i_start_discharge', str(win.i_start_discharge_list[3]))
-            # config.set('CH4', 'u_stop_discharge', str(win.u_stop_discharge_list[3]))
-            # config.set('CH4', 'i_stop_charge', str(win.i_stop_charge_list[3]))
-
             with open('settings.ini', 'w', encoding='utf-8') as config_file:
                 config.write(config_file)
 
         except Exception as e:
-            # QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи настроек в ini-файл:\n' + str(e))
             self.insert_text_to_log(logging.ERROR, 'Ошибка записи настроек в ini-файл. ' + '. ' + str(e).replace('\n', ' '))
 
     # Открытие окна настроек каналов
@@ -364,24 +294,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
  # Обработка закрытия главного окна
     def closeEvent(self, event):
-        exit_alert = QMessageBox(self)
-        exit_alert.setWindowTitle('Внимание!')
-        exit_alert.setText('<p><strong>В данный момент тестируется батарея!</strong></p> \
-                     <p>Вы действительно хотите прервать тестирование и закрыть программу?</p>')
-        exit_alert.setIcon(exit_alert.Icon.Warning)
-        yes_close_btn = QPushButton('  Закрыть программу  ')
-        no_close_btn = QPushButton('Нет')
-        exit_alert.addButton(yes_close_btn, exit_alert.ButtonRole.ActionRole)
-        exit_alert.addButton(no_close_btn, exit_alert.ButtonRole.ActionRole)
-        exit_alert.setDefaultButton(no_close_btn)
-        exit_alert.exec()
-        if exit_alert.clickedButton() == yes_close_btn:
-            # Записываем настройки в ini-файл
-            win.set_settings_ini_file()
-            self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
-            event.accept()
-        if exit_alert.clickedButton() == no_close_btn:
-            event.ignore()
+        if self.serial.isOpen():
+            exit_alert = QMessageBox(self)
+            exit_alert.setWindowTitle('Внимание!')
+            exit_alert.setText('<p><strong>В данный момент тестируется батарея!</strong></p> \
+                        <p>Вы действительно хотите прервать тестирование и закрыть программу?</p>')
+            exit_alert.setIcon(exit_alert.Icon.Warning)
+            yes_close_btn = QPushButton('  Закрыть программу  ')
+            no_close_btn = QPushButton('Нет')
+            exit_alert.addButton(yes_close_btn, exit_alert.ButtonRole.ActionRole)
+            exit_alert.addButton(no_close_btn, exit_alert.ButtonRole.ActionRole)
+            exit_alert.setDefaultButton(no_close_btn)
+            exit_alert.exec()
+            if exit_alert.clickedButton() == yes_close_btn:
+                self.serial.close()
+                self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
+                # Записываем настройки в ini-файл
+                win.set_settings_ini_file()
+                self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
+                event.accept()
+                return
+            if exit_alert.clickedButton() == no_close_btn:
+                event.ignore()
+                return
+        self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
 
 
 class LogsWindow(QMainWindow, Ui_LogsWindow):
