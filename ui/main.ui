@@ -180,7 +180,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Ustart">
+    <widget class="QLineEdit" name="edit_1_u_start">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -230,7 +230,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Ucurrent">
+    <widget class="QLineEdit" name="edit_1_u_current">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -280,7 +280,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Icurrent">
+    <widget class="QLineEdit" name="edit_1_i_current">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -330,7 +330,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Pcurrent">
+    <widget class="QLineEdit" name="edit_1_p_current">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -402,7 +402,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Wdischarge">
+    <widget class="QLineEdit" name="edit_1_w_discharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -430,7 +430,7 @@
       <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Ccharge">
+    <widget class="QLineEdit" name="edit_1_c_charge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -458,7 +458,7 @@
       <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Crecharge">
+    <widget class="QLineEdit" name="edit_1_c_recharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -555,7 +555,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Cdischarge">
+    <widget class="QLineEdit" name="edit_1_c_discharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -605,7 +605,7 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Wrecharge">
+    <widget class="QLineEdit" name="edit_1_w_recharge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -633,7 +633,7 @@
       <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_Wcharge">
+    <widget class="QLineEdit" name="edit_1_w_charge">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -776,25 +776,25 @@
     <zorder>lbl_001</zorder>
     <zorder>edit_1_number</zorder>
     <zorder>lbl_003</zorder>
-    <zorder>edit_1_Ustart</zorder>
+    <zorder>edit_1_u_start</zorder>
     <zorder>lbl_004</zorder>
-    <zorder>edit_1_Ucurrent</zorder>
+    <zorder>edit_1_u_current</zorder>
     <zorder>lbl_005</zorder>
-    <zorder>edit_1_Icurrent</zorder>
+    <zorder>edit_1_i_current</zorder>
     <zorder>lbl_006</zorder>
-    <zorder>edit_1_Pcurrent</zorder>
+    <zorder>edit_1_p_current</zorder>
     <zorder>lbl_007</zorder>
     <zorder>lbl_009</zorder>
-    <zorder>edit_1_Wdischarge</zorder>
-    <zorder>edit_1_Ccharge</zorder>
-    <zorder>edit_1_Crecharge</zorder>
+    <zorder>edit_1_w_discharge</zorder>
+    <zorder>edit_1_c_charge</zorder>
+    <zorder>edit_1_c_recharge</zorder>
     <zorder>lbl_011</zorder>
     <zorder>lbl_010</zorder>
     <zorder>lbl_012</zorder>
-    <zorder>edit_1_Cdischarge</zorder>
+    <zorder>edit_1_c_discharge</zorder>
     <zorder>lbl_008</zorder>
-    <zorder>edit_1_Wrecharge</zorder>
-    <zorder>edit_1_Wcharge</zorder>
+    <zorder>edit_1_w_recharge</zorder>
+    <zorder>edit_1_w_charge</zorder>
     <zorder>btn_start_test_1</zorder>
     <zorder>btn_settings_ch_1</zorder>
     <zorder>lbl_status_ch_1</zorder>
@@ -3260,18 +3260,18 @@
   <tabstop>edit_3_number</tabstop>
   <tabstop>edit_4_number</tabstop>
   <tabstop>btn_logs</tabstop>
-  <tabstop>edit_1_Cdischarge</tabstop>
-  <tabstop>edit_1_Ucurrent</tabstop>
-  <tabstop>edit_1_Icurrent</tabstop>
-  <tabstop>edit_1_Pcurrent</tabstop>
+  <tabstop>edit_1_c_discharge</tabstop>
+  <tabstop>edit_1_u_current</tabstop>
+  <tabstop>edit_1_i_current</tabstop>
+  <tabstop>edit_1_p_current</tabstop>
   <tabstop>btn_start_test_1</tabstop>
-  <tabstop>edit_1_Wcharge</tabstop>
-  <tabstop>edit_1_Wdischarge</tabstop>
+  <tabstop>edit_1_w_charge</tabstop>
+  <tabstop>edit_1_w_discharge</tabstop>
   <tabstop>list_com</tabstop>
   <tabstop>btn_settings_port</tabstop>
-  <tabstop>edit_1_Wrecharge</tabstop>
+  <tabstop>edit_1_w_recharge</tabstop>
   <tabstop>edit_2_Ustart</tabstop>
-  <tabstop>edit_1_Ustart</tabstop>
+  <tabstop>edit_1_u_start</tabstop>
   <tabstop>edit_2_Ucurrent</tabstop>
   <tabstop>edit_2_Icurrent</tabstop>
   <tabstop>edit_2_Pcurrent</tabstop>
@@ -3283,7 +3283,7 @@
   <tabstop>edit_2_Wcharge</tabstop>
   <tabstop>btn_start_test_2</tabstop>
   <tabstop>btn_settings_ch_2</tabstop>
-  <tabstop>edit_1_Ccharge</tabstop>
+  <tabstop>edit_1_c_charge</tabstop>
   <tabstop>edit_3_Ustart</tabstop>
   <tabstop>edit_3_Ucurrent</tabstop>
   <tabstop>edit_3_Icurrent</tabstop>
@@ -3297,7 +3297,7 @@
   <tabstop>btn_start_test_3</tabstop>
   <tabstop>btn_settings_ch_3</tabstop>
   <tabstop>edit_4_Ustart</tabstop>
-  <tabstop>edit_1_Crecharge</tabstop>
+  <tabstop>edit_1_c_recharge</tabstop>
   <tabstop>edit_4_Ucurrent</tabstop>
   <tabstop>edit_4_Icurrent</tabstop>
   <tabstop>edit_4_Pcurrent</tabstop>

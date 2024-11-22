@@ -114,25 +114,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for widget in self.findChildren(QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
                 widget.setText('00,000')
-                if widget.objectName() == 'edit_1_Ustart':
+                if widget.objectName() == 'edit_1_u_start':
                     widget.setProperty('styleSheet', 'color: rgb(200, 200, 200); background-color: black;')
-                if widget.objectName() == 'edit_1_Ucurrent':
+                if widget.objectName() == 'edit_1_u_current':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
-                if widget.objectName() == 'edit_1_Icurrent':
+                if widget.objectName() == 'edit_1_i_current':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
-                if widget.objectName() == 'edit_1_Pcurrent':
+                if widget.objectName() == 'edit_1_p_current':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
-                if widget.objectName() == 'edit_1_Crecharge':
+                if widget.objectName() == 'edit_1_c_recharge':
                     widget.setProperty('styleSheet', 'color: rgb(200, 200, 200); background-color: black;')
-                if widget.objectName() == 'edit_1_Wrecharge':
+                if widget.objectName() == 'edit_1_w_recharge':
                     widget.setProperty('styleSheet', 'color: rgb(200, 200, 200); background-color: black;')
-                if widget.objectName() == 'edit_1_Cdischarge':
+                if widget.objectName() == 'edit_1_c_discharge':
                     widget.setProperty('styleSheet', 'color: rgb(255, 140, 140); background-color: black;')
-                if widget.objectName() == 'edit_1_Wdischarge':
+                if widget.objectName() == 'edit_1_w_discharge':
                     widget.setProperty('styleSheet', 'color: rgb(255, 140, 140); background-color: black;')
-                if widget.objectName() == 'edit_1_Ccharge':
+                if widget.objectName() == 'edit_1_c_charge':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
-                if widget.objectName() == 'edit_1_Wcharge':
+                if widget.objectName() == 'edit_1_w_charge':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
         self.show()
 
