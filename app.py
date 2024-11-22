@@ -1,9 +1,20 @@
+'''
+pip uninstall -y PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6
+
+pip uninstall -y PySide6 PySide6-Addons PySide6-Essential shiboken6
+
+pip install PyQt6==6.7.1 PyQt6-Qt6==6.7.1 PyQt6-WebEngine-Qt6==6.7.1 PyQt6-WebEngine
+
+pip install PySide6-Essentials==6.7.1 PySide6==6.7.1 PySide6-Addons==6.7.1 shiboken6==6.7.1
+'''
+
 import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
                                QFileSystemModel, QButtonGroup)
 from PySide6.QtCore import QTimer
+from PyQt6.QtGui import QFontDatabase, QFont
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
@@ -45,6 +56,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.logger.addHandler(handler)
 
         self.insert_text_to_log(logging.INFO, 'Программа тестирования запущена')
+
+        
+        font_path = 'awesomefont.ttf'
+        QFontDatabase.addApplicationFont(font_path)
+        font_family = QFontDatabase.applicationFontFamilies(0)
+        self.font_awesome = QFont(font_family)  
+        self.font_awesome.setPointSize(12)
+
+
 
         # Папка хранения логов тестирования
         self.path_logs = os.path.abspath(os.curdir) + '\\logs'
@@ -115,7 +135,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
                 widget.setText('00,000')
                 if widget.objectName() == 'edit_1_u_start':
-                    widget.setProperty('styleSheet', 'color: rgb(200, 200, 200); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{MainWindow.font_awesome}"; color: rgb(200, 200, 200); background-color: black;')
                 if widget.objectName() == 'edit_1_u_current':
                     widget.setProperty('styleSheet', 'color: rgb(0, 255, 30); background-color: black;')
                 if widget.objectName() == 'edit_1_i_current':
