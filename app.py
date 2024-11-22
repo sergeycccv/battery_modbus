@@ -18,6 +18,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.initUI()
 
+        self.port = 'COM1'
+        self.baud_rate = 9600
+        self.byte_size = 8
+        self.parity = 'N' # N - None, E - Even, O - Odd
+        self.stop_bits = 1.0
+        self.x_on_x_off = False
+        self.i_start_discharge_list = [0.025, 0.025, 0.025, 0.025]
+        self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
+        self.i_stop_charge_list = [0.025, 0.025, 0.025, 0.025]
+
         # Создание окна логов тестирования
         self.logs = LogsWindow(self)
         # Создание окна настроек программы
@@ -27,32 +37,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Создание окна просмотра лога программы
         self.alerts = AlertsWindow(self)
 
-        self.path_logs = 'logs'
-        self.port = 'COM1'
-        self.baud_rate = 9600
-        self.byte_size = 8
-        self.parity = 'N' # N - None, E - Even, O - Odd
-        self.stop_bits = 1
-        self.x_on_x_off = False
+        # Запуск системы логирования
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s | %(process)s | %(levelname)s | %(message)s', datefmt='%d-%m-%Y %H-%M-%S')
+        handler = logging.handlers.RotatingFileHandler('log.txt', encoding='utf-8', maxBytes=5000000, backupCount=5)
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
 
-        self.i_start_discharge_list = [0.025, 0.025, 0.025, 0.025]
-        self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
-        self.i_stop_charge_list = [0.025, 0.025, 0.025, 0.025]
+        self.insert_text_to_log(logging.INFO, 'Программа тестирования запущена')
+
+        # Папка хранения логов тестирования
+        self.path_logs = os.path.abspath(os.curdir) + '\\logs'
+        # Назначаем папку логов в окне просмотра логов тестирования
+        self.logs.line_path_logs.setText(self.path_logs)
 
         # Количество попыток обнаружения COM-портов
         self.count_location_ports = 0
 
         # Чтение и применение настроек из ini-файла
         self.get_settings_ini_file()
-
-        # Запуск системы логирования
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s | %(process)s | %(levelname)s | %(message)s', datefmt='%d-%m-%Y %H-%M-%S')
-        handler = logging.handlers.RotatingFileHandler(self.path_logs + '\\log.txt', encoding='utf-8', maxBytes=5000000, backupCount=5)
-        handler.setFormatter(formatter)
-        self.logger.addHandler(handler)
-        self.insert_text_to_log(logging.INFO, 'Программа тестирования запущена')
 
         self.serial = serial.Serial()
 
@@ -192,6 +196,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
 
             if not self.serial.isOpen():
+
                 self.serial = serial.Serial(self.port, self.baud_rate, self.byte_size, self.parity, self.stop_bits, self.x_on_x_off)
 
                 # Стоп таймера обновления списка COM-портов
@@ -215,9 +220,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
 
-        except serial.SerialException as e:
+        except Exception as e:
             # QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к порту ' + self.port + '\n' + str(e))
-            self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + '. «' + str(e) + '»')
+            self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + '. ' + str(e).replace('\n', ' '))
         
     # Открытие окна логов зарядки
     def btn_logs_clicked(self):
@@ -237,16 +242,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config = ConfigParser()
             config.read('settings.ini')
             
-            # Если установлена папка логов в ini-файле и она существует
+            # Если назначена папка логов в ini-файле и она существует
             if (config.has_option('GENERAL', 'path_logs')) and (os.path.isdir(config.get('GENERAL', 'path_logs'))):
                 # то присваиваем её переменной path_logs
                 self.path_logs = config.get('GENERAL', 'path_logs')
-                # и устанавливаем её в окне просмотра логов зарядки
-                self.logs.line_path_logs.setText(self.path_logs)
             else:
-                # Иначе устанавливаем папку логов в текущей директории
+                # Иначе указываем папку логов в текущей директории
                 self.path_logs = os.path.abspath(os.curdir) + '\\logs'
-                self.logs.line_path_logs.setText(self.path_logs)
+            # Назначаем папку логов в окне просмотра логов зарядки
+            self.logs.line_path_logs.setText(self.path_logs)
             
             if config.has_option('COM', 'Port'):
                 self.port = config.get('COM', 'Port')
@@ -254,49 +258,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # Если порт из ini-файла существует в списке, а значит и в системе
                 if  item != -1:
                     self.list_com.setCurrentIndex(item)
-                else:
-                    # Иначе выбираем первый из списка
-                    self.list_com.setCurrentIndex(0)
-                    self.port = self.list_com.currentText()
             else:
+                # Иначе выбираем первый из списка
                 self.list_com.setCurrentIndex(0)
                 self.port = self.list_com.currentText()
 
             if config.has_option('COM', 'baud_rate'):
                 self.baud_rate = config.getint('COM', 'baud_rate')
-                self.settings.edit_baud_rate.setText(str(self.baud_rate))
-            else:
-                self.baud_rate = 9600
-                self.settings.edit_baud_rate.setText('9600')
+            self.settings.cb_baud_rate.setCurrentText(str(self.baud_rate))
 
             if config.has_option('COM', 'byte_size'):
                 self.byte_size = config.getint('COM', 'byte_size')
-                self.settings.edit_byte_size.setText(str(self.byte_size))
-            else:
-                self.byte_size = 8
-                self.settings.edit_byte_size.setText('8')
+            self.settings.cb_byte_size.setCurrentText(str(self.byte_size))
 
+            parity = {'N': 0, 'E': 1, 'O': 2}
             if config.has_option('COM', 'Parity'):
-                parity = {'N': 0, 'E': 1, 'O': 2}
                 self.parity = config.get('COM', 'Parity')
-                self.settings.cb_parity.setCurrentIndex(parity.get(self.parity))
-            else:
-                self.parity = 'N'
-                self.settings.cb_parity.setCurrentIndex(0)
+            self.settings.cb_parity.setCurrentIndex(parity.get(self.parity))
 
             if config.has_option('COM', 'stop_bits'):
-                self.stop_bits = config.getint('COM', 'stop_bits')
-                self.settings.edit_stop_bits.setText(str(self.stop_bits))
-            else:
-                self.stop_bits = 1
-                self.settings.edit_stop_bits.setText('1')
+                self.stop_bits = config.getfloat('COM', 'stop_bits')
+            self.settings.cb_stop_bits.setCurrentText(str(self.stop_bits))
             
             if config.has_option('COM', 'x_on_x_off'):
                 self.x_on_x_off = config.getboolean('COM', 'x_on_x_off')
-                self.settings.cb_x_on_x_off.setChecked(self.x_on_x_off)
-            else:
-                self.x_on_x_off = False
-                self.settings.cb_x_on_x_off.setChecked(False)
+            self.settings.cb_x_on_x_off.setChecked(self.x_on_x_off)
 
             # for i in range(0, 3):
 
@@ -324,7 +310,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
             # QMessageBox.warning(self, 'Предупреждение', 'Ошибка чтения настроек из ini-файла:\n' + str(e))
-            self.insert_text_to_log(logging.ERROR, 'Ошибка чтения настроек из ini-файла. ' + '«' + str(e) + '»')
+            self.insert_text_to_log(logging.ERROR, 'Ошибка чтения настроек из ini-файла. ' + str(e).replace('\n', ' '))
 
     # Запись настроек в ini-файл
     def set_settings_ini_file(self):
@@ -366,7 +352,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
             # QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи настроек в ini-файл:\n' + str(e))
-            self.insert_text_to_log(logging.ERROR, 'Ошибка записи настроек в ini-файл. ' + '«' + str(e) + '»')
+            self.insert_text_to_log(logging.ERROR, 'Ошибка записи настроек в ini-файл. ' + '. ' + str(e).replace('\n', ' '))
 
     # Открытие окна настроек каналов
     def btn_settings_ch_clicked(self, btn):
@@ -392,7 +378,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if exit_alert.clickedButton() == yes_close_btn:
             # Записываем настройки в ini-файл
             win.set_settings_ini_file()
-            self.insert_text_to_log(logging.INFO, 'Программа закрыта')
+            self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
             event.accept()
         if exit_alert.clickedButton() == no_close_btn:
             event.ignore()
@@ -460,10 +446,10 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
 
     # При открытии окна "Настройки порта" запомнить текущие настройки
     def showEvent(self, event):
-        self.buff_baud_rate = self.edit_baud_rate.text()
-        self.buff_byte_size = self.edit_byte_size.text()
+        self.buff_baud_rate = self.cb_baud_rate.currentText()
+        self.buff_byte_size = self.cb_byte_size.currentText()
         self.buff_parity = self.cb_parity.currentIndex()
-        self.buff_stop_bits = self.edit_stop_bits.text()
+        self.buff_stop_bits = self.cb_stop_bits.currentText()
         self.buff_x_on_x_off = self.cb_x_on_x_off.isChecked()
         # Для сохранения, либо отмены сохранения настроек при закрытии окна
         self.isSaved = False
@@ -472,11 +458,11 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
     def closeEvent(self, event):
         if self.isSaved:
             # Сохранение новых настроек
-            win.baud_rate = int(self.edit_baud_rate.text())
-            win.byte_size = int(self.edit_byte_size.text())
+            win.baud_rate = int(self.cb_baud_rate.currentText())
+            win.byte_size = int(self.cb_byte_size.currentText())
             parity = {0:'N', 1:'E', 2:'O'}
             win.parity = parity.get(self.cb_parity.currentIndex())
-            win.stop_bits = int(self.edit_stop_bits.text())
+            win.stop_bits = float(self.cb_stop_bits.currentText())
             win.x_on_x_off = self.cb_x_on_x_off.isChecked()
             win.set_settings_ini_file()
             settings_port_before = '«' + str(self.buff_baud_rate) + '», ' + '«' + str(self.buff_byte_size) + \
@@ -490,10 +476,10 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
 
         else:
             # Восстановление старых настроек
-            self.edit_baud_rate.setText(self.buff_baud_rate)
-            self.edit_byte_size.setText(self.buff_byte_size)
+            self.cb_baud_rate.setCurrentText(self.buff_baud_rate)
+            self.cb_byte_size.setCurrentText(self.buff_byte_size)
             self.cb_parity.setCurrentIndex(self.buff_parity)
-            self.edit_stop_bits.setText(self.buff_stop_bits)
+            self.cb_stop_bits.setCurrentText(self.buff_stop_bits)
             self.cb_x_on_x_off.setChecked(self.buff_x_on_x_off)
 
 

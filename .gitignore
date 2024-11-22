@@ -2,3 +2,4 @@ __pycache__/
 temp/
 settings.ini
 logs/
+log.txt
