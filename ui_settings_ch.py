@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'settings_ch.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.8.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -28,13 +28,13 @@ class Ui_SettingsChWindow(object):
         SettingsChWindow.setMinimumSize(QSize(350, 250))
         SettingsChWindow.setMaximumSize(QSize(400, 250))
         icon = QIcon()
-        icon.addFile(u":/ICO/Gear24.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/ICO/Gear24.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         SettingsChWindow.setWindowIcon(icon)
         SettingsChWindow.setStyleSheet(u" #lbl_info {\n"
 "	background-color: rgb(210, 210, 210);\n"
 "	padding-left: 5;\n"
 "}")
-        SettingsChWindow.setProperty("channel", -1)
+        SettingsChWindow.setProperty(u"channel", -1)
         self.centralwidget = QWidget(SettingsChWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.btn_write = QPushButton(self.centralwidget)

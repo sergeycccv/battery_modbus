@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'logs.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.8.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -29,7 +29,7 @@ class Ui_LogsWindow(object):
         LogsWindow.setMinimumSize(QSize(800, 580))
         LogsWindow.setMaximumSize(QSize(800, 580))
         icon = QIcon()
-        icon.addFile(u":/ICO/Charge24.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/ICO/Charge24.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         LogsWindow.setWindowIcon(icon)
         LogsWindow.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         self.centralwidget = QWidget(LogsWindow)

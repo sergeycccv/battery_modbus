@@ -130,26 +130,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for widget in self.findChildren(QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
                 widget.setText('10.284')
-                if widget.objectName() == 'edit_1_u_start':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 3px; color: rgb(255, 255, 255); background-color: black;')
-                if widget.objectName() == 'edit_1_u_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
-                if widget.objectName() == 'edit_1_i_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
-                if widget.objectName() == 'edit_1_p_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
-                if widget.objectName() == 'edit_1_c_recharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(255, 255, 255); background-color: black;')
-                if widget.objectName() == 'edit_1_w_recharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(255, 255, 255); background-color: black;')
-                if widget.objectName() == 'edit_1_c_discharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(255, 0, 0); background-color: black;')
-                if widget.objectName() == 'edit_1_w_discharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(255, 0, 0); background-color: black;')
-                if widget.objectName() == 'edit_1_c_charge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
-                if widget.objectName() == 'edit_1_w_charge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
+                if widget.objectName() == 'u_start_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 255, 255); background-color: black;')
+                if widget.objectName() == 'u_current_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                if widget.objectName() == 'i_current_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                if widget.objectName() == 'p_current_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                if widget.objectName() == 'c_recharge_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 255, 255); background-color: black;')
+                if widget.objectName() == 'w_recharge_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 255, 255); background-color: black;')
+                if widget.objectName() == 'c_discharge_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 0, 0); background-color: black;')
+                if widget.objectName() == 'w_discharge_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 0, 0); background-color: black;')
+                if widget.objectName() == 'c_charge_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                if widget.objectName() == 'w_charge_ch1':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
         self.show()
 
     # Изменение текущего COM-порта в списке
@@ -187,10 +187,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(True)
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setEnabled(True)
-                self.frm_ch_1.setEnabled(True)
-                self.frm_ch_2.setEnabled(True)
-                self.frm_ch_3.setEnabled(True)
-                self.frm_ch_4.setEnabled(True)
+                self.frm_ch1.setEnabled(True)
+                self.frm_ch2.setEnabled(True)
+                self.frm_ch3.setEnabled(True)
+                self.frm_ch4.setEnabled(True)
 
     # Подключение к COM-порту
     def btn_connect_clicked(self):
