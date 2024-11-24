@@ -9,14 +9,14 @@ import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
-                               QFileSystemModel, QButtonGroup, QFrame)
+                               QFileSystemModel) #QButtonGroup, QFrame
 from PySide6.QtCore import QTimer
 import PySide6.QtGui #import QFontDatabase, QFont
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
-from ui_settings_ch import Ui_SettingsChWindow
+# from ui_settings_ch import Ui_SettingsChWindow
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -39,7 +39,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Создание окна настроек программы
         self.settings = SettingsPortWindow(self)
         # Создание окна настроек канала
-        self.settings_ch = SettingsChWindow(self)
+        # self.settings_ch = SettingsChWindow(self)
         # Создание окна просмотра лога программы
         self.alerts = AlertsWindow(self)
 
@@ -84,14 +84,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
 
         # Обработка нажатия на одну из 4-х кнопок btn_settings_ch_XX
-        self.button_ch_group = QButtonGroup()
-        self.button_ch_group.addButton(self.btn_settings_ch_1)
-        self.button_ch_group.addButton(self.btn_settings_ch_2)
-        self.button_ch_group.addButton(self.btn_settings_ch_3)
-        self.button_ch_group.addButton(self.btn_settings_ch_4)
-        self.button_ch_group.buttonClicked.connect(self.btn_settings_ch_clicked)
+        # self.button_ch_group = QButtonGroup()
+        # self.button_ch_group.addButton(self.btn_settings_ch_1)
+        # self.button_ch_group.addButton(self.btn_settings_ch_2)
+        # self.button_ch_group.addButton(self.btn_settings_ch_3)
+        # self.button_ch_group.addButton(self.btn_settings_ch_4)
+        # self.button_ch_group.buttonClicked.connect(self.btn_settings_ch_clicked)
 
-                
         # Установка шрифта для вывода параметров тестирования
         font_path = 'ticking_timebomb.ttf'
         p = PySide6.QtGui.QFontDatabase.addApplicationFont(font_path)
@@ -365,12 +364,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.insert_text_to_log(logging.ERROR, 'Ошибка записи настроек в ini-файл. ' + '. ' + str(e).replace('\n', ' '))
 
     # Открытие окна настроек каналов
-    def btn_settings_ch_clicked(self, btn):
-        # Получение номера канала из текста кнопки
-        number_ch = int(btn.text())
-        # self.settings_ch.setWindowTitle(f'Настройки канала {number_ch}')
-        self.settings_ch.channel = number_ch
-        self.settings_ch.show()
+    # def btn_settings_ch_clicked(self, btn):
+    #     # Получение номера канала из текста кнопки
+    #     number_ch = int(btn.text())
+    #     # self.settings_ch.setWindowTitle(f'Настройки канала {number_ch}')
+    #     self.settings_ch.channel = number_ch
+    #     self.settings_ch.show()
 
  # Обработка закрытия главного окна
     def closeEvent(self, event):
@@ -505,66 +504,66 @@ class AlertsWindow(QMainWindow, Ui_AlertsWindow):
         self.setupUi(self)
 
 
-class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-        # Нажатие на кнопку "Отмена"
-        self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
-        # Нажатие на кнопку "Записать"
-        self.btn_write.clicked.connect(self.btn_write_clicked)
-        # Нажатие на кнопку "Прочитать"
-        self.btn_read.clicked.connect(self.btn_read_clicked)
+# class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
+#     def __init__(self, parent=None):
+#         super().__init__(parent)
+#         self.setupUi(self)
+#         # Нажатие на кнопку "Отмена"
+#         self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
+#         # Нажатие на кнопку "Записать"
+#         self.btn_write.clicked.connect(self.btn_write_clicked)
+#         # Нажатие на кнопку "Прочитать"
+#         self.btn_read.clicked.connect(self.btn_read_clicked)
     
-    # Закрытие окна без записи настроек
-    def btn_cancel_clicked(self):
-        self.isSaved = False
-        self.close()
+#     # Закрытие окна без записи настроек
+#     def btn_cancel_clicked(self):
+#         self.isSaved = False
+#         self.close()
 
-    # Чтение настроек канала из прибора
-    def btn_read_clicked(self):
-        # Вывод информационного сообщения
-        self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
-        self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
+#     # Чтение настроек канала из прибора
+#     def btn_read_clicked(self):
+#         # Вывод информационного сообщения
+#         self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
+#         self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
 
-    # Запись настроек канала в прибор
-    def btn_write_clicked(self):
-        self.isSaved = True
-        # self.close()
+#     # Запись настроек канала в прибор
+#     def btn_write_clicked(self):
+#         self.isSaved = True
+#         # self.close()
 
-    # При открытии окна "Настройки канала" запомнить текущие настройки
-    def showEvent(self, event):
-        # Запомнить текущие настройки
-        self.buff_i_start_discharge = win.i_start_discharge_list
-        self.buff_u_stop_discharge = win.u_stop_discharge_list
-        self.buff_i_stop_charge = win.i_stop_charge_list
+#     # При открытии окна "Настройки канала" запомнить текущие настройки
+#     def showEvent(self, event):
+#         # Запомнить текущие настройки
+#         self.buff_i_start_discharge = win.i_start_discharge_list
+#         self.buff_u_stop_discharge = win.u_stop_discharge_list
+#         self.buff_i_stop_charge = win.i_stop_charge_list
 
-        self.edit_i_start_discharge.setText(str(win.i_start_discharge_list[self.channel - 1]))
-        self.edit_u_stop_discharge.setText(str(win.u_stop_discharge_list[self.channel - 1]))
-        self.edit_i_stop_charge.setText(str(win.i_stop_charge_list[self.channel - 1]))
+#         self.edit_i_start_discharge.setText(str(win.i_start_discharge_list[self.channel - 1]))
+#         self.edit_u_stop_discharge.setText(str(win.u_stop_discharge_list[self.channel - 1]))
+#         self.edit_i_stop_charge.setText(str(win.i_stop_charge_list[self.channel - 1]))
 
-        # Вывод информационного сообщения
-        self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
-        self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
-        # self.lbl_info.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
-        # self.lbl_info.setText('Не прочитано из канала ' + str(self.channel))
+#         # Вывод информационного сообщения
+#         self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
+#         self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
+#         # self.lbl_info.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
+#         # self.lbl_info.setText('Не прочитано из канала ' + str(self.channel))
 
-        # Для сохранения, либо отмены сохранения настроек при закрытии окна
-        self.isSaved = False
+#         # Для сохранения, либо отмены сохранения настроек при закрытии окна
+#         self.isSaved = False
 
-    # При закрытии окна "Настройки канала"
-    def closeEvent(self, event):
-        if self.isSaved:
-            # Сохранение новых настроек
-            win.i_start_discharge_list[self.channel - 1] = float(self.edit_i_start_discharge.text())
-            win.u_stop_discharge_list[self.channel - 1] = float(self.edit_u_stop_discharge.text())
-            win.i_stop_charge_list[self.channel - 1] = float(self.edit_i_stop_charge.text())
-            # win.set_settings_ini_file()
-        else:
-            # Восстановление старых настроек
-            self.edit_i_start_discharge.setText(str(self.buff_i_start_discharge[self.channel - 1]))
-            self.edit_u_stop_discharge.setText(str(self.buff_u_stop_discharge[self.channel - 1]))
-            self.edit_i_stop_charge.setText(str(self.buff_i_stop_charge[self.channel - 1]))
+#     # При закрытии окна "Настройки канала"
+#     def closeEvent(self, event):
+#         if self.isSaved:
+#             # Сохранение новых настроек
+#             win.i_start_discharge_list[self.channel - 1] = float(self.edit_i_start_discharge.text())
+#             win.u_stop_discharge_list[self.channel - 1] = float(self.edit_u_stop_discharge.text())
+#             win.i_stop_charge_list[self.channel - 1] = float(self.edit_i_stop_charge.text())
+#             # win.set_settings_ini_file()
+#         else:
+#             # Восстановление старых настроек
+#             self.edit_i_start_discharge.setText(str(self.buff_i_start_discharge[self.channel - 1]))
+#             self.edit_u_stop_discharge.setText(str(self.buff_u_stop_discharge[self.channel - 1]))
+#             self.edit_i_stop_charge.setText(str(self.buff_i_stop_charge[self.channel - 1]))
 
 
 def serial_ports():

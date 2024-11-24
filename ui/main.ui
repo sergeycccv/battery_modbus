@@ -739,7 +739,7 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
-     <widget class="QToolButton" name="btn_settings_ch_1">
+     <widget class="QToolButton" name="btn_read_settings_ch1">
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -1172,7 +1172,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="btn_settings_ch_2">
+    <widget class="QToolButton" name="btn_read_settings_ch2">
      <property name="geometry">
       <rect>
        <x>184</x>
@@ -1919,7 +1919,7 @@
     <zorder>frm_back_ch2</zorder>
     <zorder>lbl_status_ch2</zorder>
     <zorder>btn_start_test_ch2</zorder>
-    <zorder>btn_settings_ch_2</zorder>
+    <zorder>btn_read_settings_ch2</zorder>
     <zorder>lbl_ico_ch2</zorder>
     <zorder>w_discharge_ch2</zorder>
     <zorder>lbl_12</zorder>
@@ -2028,7 +2028,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="btn_settings_ch_3">
+    <widget class="QToolButton" name="btn_read_settings_ch3">
      <property name="geometry">
       <rect>
        <x>184</x>
@@ -2775,7 +2775,7 @@
     <zorder>frm_back_ch3</zorder>
     <zorder>lbl_status_ch3</zorder>
     <zorder>btn_start_test_ch3</zorder>
-    <zorder>btn_settings_ch_3</zorder>
+    <zorder>btn_read_settings_ch3</zorder>
     <zorder>lbl_ico_ch3</zorder>
     <zorder>w_discharge_ch3</zorder>
     <zorder>lbl_14</zorder>
@@ -2884,7 +2884,7 @@
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
     </widget>
-    <widget class="QToolButton" name="btn_settings_ch_4">
+    <widget class="QToolButton" name="btn_read_settings_ch4">
      <property name="geometry">
       <rect>
        <x>184</x>
@@ -3631,7 +3631,7 @@
     <zorder>frm_back_ch4</zorder>
     <zorder>lbl_status_ch4</zorder>
     <zorder>btn_start_test_ch4</zorder>
-    <zorder>btn_settings_ch_4</zorder>
+    <zorder>btn_read_settings_ch4</zorder>
     <zorder>lbl_ico_ch4</zorder>
     <zorder>w_discharge_ch4</zorder>
     <zorder>lbl_24</zorder>
@@ -3672,7 +3672,7 @@
  </widget>
  <tabstops>
   <tabstop>btn_connect</tabstop>
-  <tabstop>btn_settings_ch_1</tabstop>
+  <tabstop>btn_read_settings_ch1</tabstop>
   <tabstop>edit_number_ch1</tabstop>
   <tabstop>edit_number_ch2</tabstop>
   <tabstop>edit_number_ch3</tabstop>
@@ -3690,13 +3690,13 @@
   <tabstop>w_recharge_ch1</tabstop>
   <tabstop>u_start_ch1</tabstop>
   <tabstop>btn_start_test_ch2</tabstop>
-  <tabstop>btn_settings_ch_2</tabstop>
+  <tabstop>btn_read_settings_ch2</tabstop>
   <tabstop>c_charge_ch1</tabstop>
   <tabstop>btn_start_test_ch3</tabstop>
-  <tabstop>btn_settings_ch_3</tabstop>
+  <tabstop>btn_read_settings_ch3</tabstop>
   <tabstop>c_recharge_ch1</tabstop>
   <tabstop>btn_start_test_ch4</tabstop>
-  <tabstop>btn_settings_ch_4</tabstop>
+  <tabstop>btn_read_settings_ch4</tabstop>
  </tabstops>
  <resources>
   <include location="res.qrc"/>
