@@ -45,3 +45,25 @@
             # config.set('CH4', 'i_stop_charge', str(win.i_stop_charge_list[3]))
 
             # QMessageBox.warning(self, 'Предупреждение', 'Ошибка записи настроек в ini-файл:\n' + str(e))
+
+
+                # if widget.objectName() == 'u_start_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                # if widget.objectName() == 'u_current_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                # if widget.objectName() == 'i_current_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                # if widget.objectName() == 'p_current_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                # if widget.objectName() == 'c_recharge_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                # if widget.objectName() == 'w_recharge_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                # if widget.objectName() == 'c_discharge_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
+                # if widget.objectName() == 'w_discharge_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
+                # if widget.objectName() == 'c_charge_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                # if widget.objectName() == 'w_charge_ch1':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))

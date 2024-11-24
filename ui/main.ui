@@ -48,6 +48,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frm_ch1">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -652,7 +655,7 @@
     </widget>
     <widget class="QPushButton" name="btn_start_test_ch1">
      <property name="enabled">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -683,7 +686,7 @@
     </widget>
     <widget class="QLabel" name="lbl_status_ch1">
      <property name="enabled">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -718,7 +721,7 @@
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>ПОДКЛЮЧЕН</string>
+      <string>НЕ ПОДКЛЮЧЕН</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1090,6 +1093,9 @@
     </widget>
    </widget>
    <widget class="QFrame" name="frm_ch2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -1946,6 +1952,9 @@
     <zorder>w_recharge_ch2</zorder>
    </widget>
    <widget class="QFrame" name="frm_ch3">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>570</x>
@@ -2802,6 +2811,9 @@
     <zorder>w_recharge_ch3</zorder>
    </widget>
    <widget class="QFrame" name="frm_ch4">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>850</x>

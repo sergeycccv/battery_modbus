@@ -1,19 +1,10 @@
-'''
-Не устанавливай расширение code runner
-pip uninstall -y PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6
-pip uninstall -y PySide6 PySide6-Addons PySide6-Essential shiboken6
-pip install PyQt6==6.7.1 PyQt6-Qt6==6.7.1 PyQt6-WebEngine-Qt6==6.7.1 PyQt6-WebEngine
-pip install PySide6-Essentials==6.7.1 PySide6==6.7.1 PySide6-Addons==6.7.1 shiboken6==6.7.1
-'''
-
 import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
-                               QFileSystemModel, QButtonGroup) #, QFrame
+                               QFileSystemModel, QButtonGroup)
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QFontDatabase
-# import PySide6.QtGui #import QFontDatabase, QFont
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
@@ -39,8 +30,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.logs = LogsWindow(self)
         # Создание окна настроек программы
         self.settings = SettingsPortWindow(self)
-        # Создание окна настроек канала
-        # self.settings_ch = SettingsChWindow(self)
         # Создание окна просмотра лога программы
         self.alerts = AlertsWindow(self)
 
@@ -179,26 +168,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
                 widget.setText('00.000')
                 # канал 1
-                if widget.objectName() == 'u_start_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
-                if widget.objectName() == 'u_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
-                if widget.objectName() == 'i_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
-                if widget.objectName() == 'p_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
-                if widget.objectName() == 'c_recharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
-                if widget.objectName() == 'w_recharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
-                if widget.objectName() == 'c_discharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
-                if widget.objectName() == 'w_discharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
-                if widget.objectName() == 'c_charge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
-                if widget.objectName() == 'w_charge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                colorize_indicator('ch1')
                 # канал 2
                 colorize_indicator('ch2')
                 # канал 3
