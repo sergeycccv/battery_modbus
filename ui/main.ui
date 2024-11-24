@@ -973,6 +973,9 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="statusTip">
+      <string>Информационные сообщения</string>
+     </property>
      <property name="frameShape">
       <enum>QFrame::Shape::Box</enum>
      </property>

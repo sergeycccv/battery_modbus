@@ -97,11 +97,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_ch_start_test_group.addButton(self.btn_start_test_ch4)
         self.button_ch_start_test_group.buttonClicked.connect(self.button_ch_start_test_clicked)
 
-        # Установка шрифта для вывода параметров тестирования
-        font_path = 'ticking_timebomb.ttf'
-        p = QFontDatabase.addApplicationFont(font_path)
-        self.font_digits = QFontDatabase.applicationFontFamilies(p)[0]
-
         self.initUI()
 
 
@@ -140,6 +135,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return styleSheet
 
     def initUI(self):
+        # Установка шрифта для вывода параметров тестирования
+        font_path = 'ticking_timebomb.ttf'
+        p = QFontDatabase.addApplicationFont(font_path)
+        self.font_digits = QFontDatabase.applicationFontFamilies(p)[0]
+
         def colorize_indicator(channel: str):
             for _ in range(10):
                 if widget.objectName() == f'u_start_{channel}':
