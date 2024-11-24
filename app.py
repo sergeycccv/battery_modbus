@@ -1,4 +1,5 @@
 '''
+Не устанавливай расширение code runner
 pip uninstall -y PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6
 pip uninstall -y PySide6 PySide6-Addons PySide6-Essential shiboken6
 pip install PyQt6==6.7.1 PyQt6-Qt6==6.7.1 PyQt6-WebEngine-Qt6==6.7.1 PyQt6-WebEngine
@@ -11,12 +12,12 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox,
                                QLineEdit, QPushButton, QFileDialog, 
                                QFileSystemModel, QButtonGroup) #, QFrame
 from PySide6.QtCore import QTimer
-import PySide6.QtGui #import QFontDatabase, QFont
+from PySide6.QtGui import QFontDatabase
+# import PySide6.QtGui #import QFontDatabase, QFont
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
-# from ui_settings_ch import Ui_SettingsChWindow
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -107,30 +108,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_ch_start_test_group.addButton(self.btn_start_test_ch4)
         self.button_ch_start_test_group.buttonClicked.connect(self.button_ch_start_test_clicked)
 
-
-
-        # Обработка нажатия на одну из 4-х кнопок btn_read_settings_chX
-        # self.btn_read_settings_ch1.clicked.connect(self.btn_read_settings_ch1_clicked)
-        # self.btn_read_settings_ch2.clicked.connect(self.btn_read_settings_ch2_clicked)
-        # self.btn_read_settings_ch3.clicked.connect(self.btn_read_settings_ch3_clicked)
-        # self.btn_read_settings_ch4.clicked.connect(self.btn_read_settings_ch4_clicked)
-        
-        # Обработка нажатия на одну из 4-х кнопок btn_write_settings_chX
-        # self.btn_write_settings_ch1.clicked.connect(self.btn_write_settings_ch1_clicked)
-        # self.btn_write_settings_ch2.clicked.connect(self.btn_write_settings_ch2_clicked)
-        # self.btn_write_settings_ch3.clicked.connect(self.btn_write_settings_ch3_clicked)
-        # self.btn_write_settings_ch4.clicked.connect(self.btn_write_settings_ch4_clicked)
-
-        # Обработка нажатия на одну из 4-х кнопок btn_start_test_chX
-        # self.btn_start_test_ch1.clicked.connect(self.btn_start_test_ch1_clicked)
-        # self.btn_start_test_ch2.clicked.connect(self.btn_start_test_ch2_clicked)
-        # self.btn_start_test_ch3.clicked.connect(self.btn_start_test_ch3_clicked)
-        # self.btn_start_test_ch4.clicked.connect(self.btn_start_test_ch4_clicked)
-
         # Установка шрифта для вывода параметров тестирования
         font_path = 'ticking_timebomb.ttf'
-        p = PySide6.QtGui.QFontDatabase.addApplicationFont(font_path)
-        self.font_digits = PySide6.QtGui.QFontDatabase.applicationFontFamilies(p)[0]
+        p = QFontDatabase.addApplicationFont(font_path)
+        self.font_digits = QFontDatabase.applicationFontFamilies(p)[0]
 
         self.initUI()
 
@@ -606,68 +587,6 @@ class AlertsWindow(QMainWindow, Ui_AlertsWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
-
-# class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
-#     def __init__(self, parent=None):
-#         super().__init__(parent)
-#         self.setupUi(self)
-#         # Нажатие на кнопку "Отмена"
-#         self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
-#         # Нажатие на кнопку "Записать"
-#         self.btn_write.clicked.connect(self.btn_write_clicked)
-#         # Нажатие на кнопку "Прочитать"
-#         self.btn_read.clicked.connect(self.btn_read_clicked)
-    
-#     # Закрытие окна без записи настроек
-#     def btn_cancel_clicked(self):
-#         self.isSaved = False
-#         self.close()
-
-#     # Чтение настроек канала из прибора
-#     def btn_read_clicked(self):
-#         # Вывод информационного сообщения
-#         self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
-#         self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
-
-#     # Запись настроек канала в прибор
-#     def btn_write_clicked(self):
-#         self.isSaved = True
-#         # self.close()
-
-#     # При открытии окна "Настройки канала" запомнить текущие настройки
-#     def showEvent(self, event):
-#         # Запомнить текущие настройки
-#         self.buff_i_start_discharge = win.i_start_discharge_list
-#         self.buff_u_stop_discharge = win.u_stop_discharge_list
-#         self.buff_i_stop_charge = win.i_stop_charge_list
-
-#         self.edit_i_start_discharge.setText(str(win.i_start_discharge_list[self.channel - 1]))
-#         self.edit_u_stop_discharge.setText(str(win.u_stop_discharge_list[self.channel - 1]))
-#         self.edit_i_stop_charge.setText(str(win.i_stop_charge_list[self.channel - 1]))
-
-#         # Вывод информационного сообщения
-#         self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
-#         self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
-#         # self.lbl_info.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
-#         # self.lbl_info.setText('Не прочитано из канала ' + str(self.channel))
-
-#         # Для сохранения, либо отмены сохранения настроек при закрытии окна
-#         self.isSaved = False
-
-#     # При закрытии окна "Настройки канала"
-#     def closeEvent(self, event):
-#         if self.isSaved:
-#             # Сохранение новых настроек
-#             win.i_start_discharge_list[self.channel - 1] = float(self.edit_i_start_discharge.text())
-#             win.u_stop_discharge_list[self.channel - 1] = float(self.edit_u_stop_discharge.text())
-#             win.i_stop_charge_list[self.channel - 1] = float(self.edit_i_stop_charge.text())
-#             # win.set_settings_ini_file()
-#         else:
-#             # Восстановление старых настроек
-#             self.edit_i_start_discharge.setText(str(self.buff_i_start_discharge[self.channel - 1]))
-#             self.edit_u_stop_discharge.setText(str(self.buff_u_stop_discharge[self.channel - 1]))
-#             self.edit_i_stop_charge.setText(str(self.buff_i_stop_charge[self.channel - 1]))
 
 
 def serial_ports():
