@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'settings_port.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.0
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -28,7 +28,7 @@ class Ui_SettingsPortWindow(object):
         SettingsPortWindow.setMinimumSize(QSize(270, 270))
         SettingsPortWindow.setMaximumSize(QSize(270, 270))
         icon = QIcon()
-        icon.addFile(u":/ICO/Gear24.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/ICO/Gear24.png", QSize(), QIcon.Normal, QIcon.Off)
         SettingsPortWindow.setWindowIcon(icon)
         self.centralwidget = QWidget(SettingsPortWindow)
         self.centralwidget.setObjectName(u"centralwidget")

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'alert.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.0
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -26,7 +26,7 @@ class Ui_AlertsWindow(object):
         AlertsWindow.setWindowModality(Qt.WindowModality.ApplicationModal)
         AlertsWindow.resize(900, 700)
         icon = QIcon()
-        icon.addFile(u":/ICO/Alert24.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/ICO/Alert24.png", QSize(), QIcon.Normal, QIcon.Off)
         AlertsWindow.setWindowIcon(icon)
         self.centralwidget = QWidget(AlertsWindow)
         self.centralwidget.setObjectName(u"centralwidget")

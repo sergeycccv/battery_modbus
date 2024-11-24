@@ -1,10 +1,7 @@
 '''
 pip uninstall -y PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6
-
 pip uninstall -y PySide6 PySide6-Addons PySide6-Essential shiboken6
-
 pip install PyQt6==6.7.1 PyQt6-Qt6==6.7.1 PyQt6-WebEngine-Qt6==6.7.1 PyQt6-WebEngine
-
 pip install PySide6-Essentials==6.7.1 PySide6==6.7.1 PySide6-Addons==6.7.1 shiboken6==6.7.1
 '''
 
@@ -14,7 +11,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox,
                                QLineEdit, QPushButton, QFileDialog, 
                                QFileSystemModel, QButtonGroup)
 from PySide6.QtCore import QTimer
-from PyQt6.QtGui import QFontDatabase, QFont
+import PySide6.QtGui #import QFontDatabase, QFont
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
@@ -95,13 +92,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_ch_group.buttonClicked.connect(self.btn_settings_ch_clicked)
 
                 
-        # Установка шрифта для вывода информационных сообщений
-        # font_path = 'MOSCOW2024.otf'
-        font_path = '7fonts.ru_SFDigitalReadoutMediumOblique.ttf'
-        p = QFontDatabase.addApplicationFont(font_path)
-        self.font_digits = QFontDatabase.applicationFontFamilies(p)[0]
-        # self.font_awesome = QFont(self.font_digits)  
-        # self.font_awesome.setPointSize(16)
+        # Установка шрифта для вывода параметров тестирования
+        font_path = 'ticking_timebomb.ttf'
+        p = PySide6.QtGui.QFontDatabase.addApplicationFont(font_path)
+        self.font_digits = PySide6.QtGui.QFontDatabase.applicationFontFamilies(p)[0]
 
         self.initUI()
 
@@ -135,27 +129,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Установка стиля текста в полях вывода данных тестирования
         for widget in self.findChildren(QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
-                widget.setText('10.234')
+                widget.setText('10.284')
                 if widget.objectName() == 'edit_1_u_start':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 22px; color: rgb(200, 200, 200); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 3px; color: rgb(255, 255, 255); background-color: black;')
                 if widget.objectName() == 'edit_1_u_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
                 if widget.objectName() == 'edit_1_i_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
                 if widget.objectName() == 'edit_1_p_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
                 if widget.objectName() == 'edit_1_c_recharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(200, 200, 200); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(255, 255, 255); background-color: black;')
                 if widget.objectName() == 'edit_1_w_recharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(200, 200, 200); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(255, 255, 255); background-color: black;')
                 if widget.objectName() == 'edit_1_c_discharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(255, 140, 140); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(255, 0, 0); background-color: black;')
                 if widget.objectName() == 'edit_1_w_discharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(255, 140, 140); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(255, 0, 0); background-color: black;')
                 if widget.objectName() == 'edit_1_c_charge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
                 if widget.objectName() == 'edit_1_w_charge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; color: rgb(0, 255, 0); background-color: black;')
         self.show()
 
     # Изменение текущего COM-порта в списке
