@@ -9,7 +9,7 @@ import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
-                               QFileSystemModel, QButtonGroup)
+                               QFileSystemModel, QButtonGroup, QFrame)
 from PySide6.QtCore import QTimer
 import PySide6.QtGui #import QFontDatabase, QFont
 from ui_main import Ui_MainWindow
@@ -59,13 +59,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.logs.line_path_logs.setText(self.path_logs)
         # Количество попыток обнаружения COM-портов
         self.count_location_ports = 0
-        # Чтение и применение настроек из ini-файла
-        self.get_settings_ini_file()
-        self.serial = serial.Serial()
         # Список COM-портов
         self.list_com_saved = []
         # Создание списка доступных в системе COM-портов
         self.list_com_update()
+        # Чтение и применение настроек из ini-файла
+        self.get_settings_ini_file()
+        self.serial = serial.Serial()
         # Таймер обновления списка COM-портов
         self.timer_upd_com_list = QTimer()
         # Изменение текущего COM-порта в списке
@@ -129,7 +129,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Установка стиля текста в полях вывода данных тестирования
         for widget in self.findChildren(QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
-                widget.setText('10.284')
+                widget.setText('00.000')
+                # канал 1
                 if widget.objectName() == 'u_start_ch1':
                     widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 255, 255); background-color: black;')
                 if widget.objectName() == 'u_current_ch1':
@@ -150,6 +151,69 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
                 if widget.objectName() == 'w_charge_ch1':
                     widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                # канал 2
+                if widget.objectName() == 'u_start_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'u_current_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'i_current_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'p_current_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_recharge_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_recharge_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_discharge_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_discharge_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_charge_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_charge_ch2':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                # канал 3
+                if widget.objectName() == 'u_start_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'u_current_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'i_current_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'p_current_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_recharge_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_recharge_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_discharge_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_discharge_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_charge_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_charge_ch3':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                # канал 4
+                if widget.objectName() == 'u_start_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'u_current_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'i_current_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'p_current_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_recharge_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_recharge_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_discharge_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_discharge_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'c_charge_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                if widget.objectName() == 'w_charge_ch4':
+                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
         self.show()
 
     # Изменение текущего COM-порта в списке
@@ -176,10 +240,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(False)
                 self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setEnabled(False)
-                self.frm_ch_1.setEnabled(False)
-                self.frm_ch_2.setEnabled(False)
-                self.frm_ch_3.setEnabled(False)
-                self.frm_ch_4.setEnabled(False)
+                # self.frm_ch_1.setEnabled(False)
+                # self.frm_ch_2.setEnabled(False)
+                # self.frm_ch_3.setEnabled(False)
+                # self.frm_ch_4.setEnabled(False)
             else:
                 self.insert_text_to_log(logging.WARNING, f'В системе обнаружены свободные COM-порты: {', '.join(self.list_com_saved)}')
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
@@ -187,10 +251,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(True)
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setEnabled(True)
-                self.frm_ch1.setEnabled(True)
-                self.frm_ch2.setEnabled(True)
-                self.frm_ch3.setEnabled(True)
-                self.frm_ch4.setEnabled(True)
+                # self.frm_ch1.setEnabled(True)
+                # self.frm_ch2.setEnabled(True)
+                # self.frm_ch3.setEnabled(True)
+                # self.frm_ch4.setEnabled(True)
 
     # Подключение к COM-порту
     def btn_connect_clicked(self):
@@ -325,14 +389,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if exit_alert.clickedButton() == yes_close_btn:
                 self.serial.close()
                 self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
-                # Записываем настройки в ini-файл
-                win.set_settings_ini_file()
                 self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
                 event.accept()
                 return
             if exit_alert.clickedButton() == no_close_btn:
                 event.ignore()
                 return
+        # Записываем настройки в ini-файл
+        win.set_settings_ini_file()
         self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
 
 
