@@ -9,7 +9,7 @@ import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
-                               QFileSystemModel) #QButtonGroup, QFrame
+                               QFileSystemModel, QButtonGroup) #, QFrame
 from PySide6.QtCore import QTimer
 import PySide6.QtGui #import QFontDatabase, QFont
 from ui_main import Ui_MainWindow
@@ -83,13 +83,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
 
-        # Обработка нажатия на одну из 4-х кнопок btn_settings_ch_XX
-        # self.button_ch_group = QButtonGroup()
-        # self.button_ch_group.addButton(self.btn_settings_ch_1)
-        # self.button_ch_group.addButton(self.btn_settings_ch_2)
-        # self.button_ch_group.addButton(self.btn_settings_ch_3)
-        # self.button_ch_group.addButton(self.btn_settings_ch_4)
-        # self.button_ch_group.buttonClicked.connect(self.btn_settings_ch_clicked)
+        # Обработка нажатия на одну из 4-х кнопок btn_read_settings_chX.clicked (прочитать настройки канала)
+        self.button_ch_read_settings_group = QButtonGroup()
+        self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch1)
+        self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch2)
+        self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch3)
+        self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch4)
+        self.button_ch_read_settings_group.buttonClicked.connect(self.button_ch_read_settings_clicked)
+
+        # Обработка нажатия на одну из 4-х кнопок btn_write_settings_chX.clicked (записать настройки канала)
+        self.button_ch_write_settings_group = QButtonGroup()
+        self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch1)
+        self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch2)
+        self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch3)
+        self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch4)
+        self.button_ch_write_settings_group.buttonClicked.connect(self.button_ch_write_settings_clicked)
+
+        # Обработка нажатия на одну из 4-х кнопок btn_start_test_chX.clicked (записать настройки канала)
+        self.button_ch_start_test_group = QButtonGroup()
+        self.button_ch_start_test_group.addButton(self.btn_start_test_ch1)
+        self.button_ch_start_test_group.addButton(self.btn_start_test_ch2)
+        self.button_ch_start_test_group.addButton(self.btn_start_test_ch3)
+        self.button_ch_start_test_group.addButton(self.btn_start_test_ch4)
+        self.button_ch_start_test_group.buttonClicked.connect(self.button_ch_start_test_clicked)
+
+
+
+        # Обработка нажатия на одну из 4-х кнопок btn_read_settings_chX
+        # self.btn_read_settings_ch1.clicked.connect(self.btn_read_settings_ch1_clicked)
+        # self.btn_read_settings_ch2.clicked.connect(self.btn_read_settings_ch2_clicked)
+        # self.btn_read_settings_ch3.clicked.connect(self.btn_read_settings_ch3_clicked)
+        # self.btn_read_settings_ch4.clicked.connect(self.btn_read_settings_ch4_clicked)
+        
+        # Обработка нажатия на одну из 4-х кнопок btn_write_settings_chX
+        # self.btn_write_settings_ch1.clicked.connect(self.btn_write_settings_ch1_clicked)
+        # self.btn_write_settings_ch2.clicked.connect(self.btn_write_settings_ch2_clicked)
+        # self.btn_write_settings_ch3.clicked.connect(self.btn_write_settings_ch3_clicked)
+        # self.btn_write_settings_ch4.clicked.connect(self.btn_write_settings_ch4_clicked)
+
+        # Обработка нажатия на одну из 4-х кнопок btn_start_test_chX
+        # self.btn_start_test_ch1.clicked.connect(self.btn_start_test_ch1_clicked)
+        # self.btn_start_test_ch2.clicked.connect(self.btn_start_test_ch2_clicked)
+        # self.btn_start_test_ch3.clicked.connect(self.btn_start_test_ch3_clicked)
+        # self.btn_start_test_ch4.clicked.connect(self.btn_start_test_ch4_clicked)
 
         # Установка шрифта для вывода параметров тестирования
         font_path = 'ticking_timebomb.ttf'
@@ -124,95 +160,70 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a>' + datetime_mess + ' > '  + text + '</a>')
 
+    # Установка styleSheet для индикаторов
+    def set_styleSheet_indicator(self, color: str):
+        styleSheet = f'font-family: "{self.font_digits}"; ' + \
+                     f'color: rgb({color}); ' + \
+                      'font-size: 18px; '+ \
+                      'padding-top: 2px; ' + \
+                      'background-color: black;'
+        return styleSheet
+
     def initUI(self):
+        def colorize_indicator(channel: str):
+            for _ in range(10):
+                if widget.objectName() == f'u_start_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'u_current_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'i_current_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'p_current_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'c_recharge_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'w_recharge_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'c_discharge_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'w_discharge_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'c_charge_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                if widget.objectName() == f'w_charge_{channel}':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+
         # Установка стиля текста в полях вывода данных тестирования
         for widget in self.findChildren(QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
                 widget.setText('00.000')
                 # канал 1
                 if widget.objectName() == 'u_start_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 255, 255); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 if widget.objectName() == 'u_current_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 if widget.objectName() == 'i_current_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 if widget.objectName() == 'p_current_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 if widget.objectName() == 'c_recharge_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 255, 255); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 if widget.objectName() == 'w_recharge_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 255, 255); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 if widget.objectName() == 'c_discharge_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 0, 0); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
                 if widget.objectName() == 'w_discharge_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(255, 0, 0); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
                 if widget.objectName() == 'c_charge_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 if widget.objectName() == 'w_charge_ch1':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(0, 255, 0); background-color: black;')
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 # канал 2
-                if widget.objectName() == 'u_start_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'u_current_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'i_current_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'p_current_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_recharge_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_recharge_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_discharge_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_discharge_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_charge_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_charge_ch2':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                colorize_indicator('ch2')
                 # канал 3
-                if widget.objectName() == 'u_start_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'u_current_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'i_current_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'p_current_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_recharge_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_recharge_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_discharge_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_discharge_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_charge_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_charge_ch3':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                colorize_indicator('ch3')
                 # канал 4
-                if widget.objectName() == 'u_start_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'u_current_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'i_current_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'p_current_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_recharge_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_recharge_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_discharge_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_discharge_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'c_charge_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
-                if widget.objectName() == 'w_charge_ch4':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 18px; padding-top: 2px; color: rgb(100, 100, 100); background-color: black;')
+                colorize_indicator('ch4')
         self.show()
 
     # Изменение текущего COM-порта в списке
@@ -276,7 +287,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
         except Exception as e:
-            # QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к порту ' + self.port + '\n' + str(e))
             self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + '. ' + str(e).replace('\n', ' '))
         
     # Открытие окна логов зарядки
@@ -363,15 +373,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except Exception as e:
             self.insert_text_to_log(logging.ERROR, 'Ошибка записи настроек в ini-файл. ' + '. ' + str(e).replace('\n', ' '))
 
-    # Открытие окна настроек каналов
-    # def btn_settings_ch_clicked(self, btn):
-    #     # Получение номера канала из текста кнопки
-    #     number_ch = int(btn.text())
-    #     # self.settings_ch.setWindowTitle(f'Настройки канала {number_ch}')
-    #     self.settings_ch.channel = number_ch
-    #     self.settings_ch.show()
-
- # Обработка закрытия главного окна
+    # Обработка закрытия главного окна
     def closeEvent(self, event):
         if self.serial.isOpen():
             exit_alert = QMessageBox(self)
@@ -398,6 +400,108 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         win.set_settings_ini_file()
         self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
 
+
+    # Обработка нажатия на одну из кнопок btn_read_settings_chX (прочитать настройки канала)
+    def button_ch_read_settings_clicked(self, btn):
+        # Получение номера канала из текста кнопки
+        number_ch = int(btn.text())
+        # Вызов функции, соответствующей кнопке
+        self.btn_read_settings_channel(number_ch)
+
+    # Прочитать настройки канала
+    def btn_read_settings_channel(self, channel: int):
+        QMessageBox.warning(self, 'Предупреждение', 'Чтение настроек канала ' + str(channel))
+
+    def btn_read_settings_ch1_clicked(self):
+        self.btn_read_settings_channel(1)
+
+    def btn_read_settings_ch2_clicked(self):
+        self.btn_read_settings_channel(2)
+
+    def btn_read_settings_ch3_clicked(self):
+        self.btn_read_settings_channel(3)
+    
+    def btn_read_settings_ch4_clicked(self):
+        self.btn_read_settings_channel(4)
+    
+
+    # Обработка нажатия на одну из кнопок btn_write_settings_chX (записать настройки канала)
+    def button_ch_write_settings_clicked(self, btn):
+        # Получение номера канала из текста кнопки
+        number_ch = int(btn.text())
+        # Вызов функции, соответствующей кнопке
+        self.btn_write_settings_channel(number_ch)
+
+    # Записать настройки канала
+    def btn_write_settings_channel(self, channel: int):
+        # Запоминаем старые настройки
+        buff_i_start_discharge = self.i_start_discharge_list[channel - 1]
+        buff_u_stop_discharge = self.u_stop_discharge_list[channel - 1]
+        buff_i_stop_charge = self.i_stop_charge_list[channel - 1]
+
+        # Записываем новые настройки
+        match channel:
+            case 1:
+                self.i_start_discharge_list[channel - 1] = float(self.edit_i_start_discharge_ch1.text())
+                self.u_stop_discharge_list[channel - 1] = float(self.edit_u_stop_discharge_ch1.text())
+                self.i_stop_charge_list[channel - 1] = float(self.edit_i_stop_charge_ch1.text())
+            case 2:
+                self.i_start_discharge_list[channel - 1] = float(self.edit_i_start_discharge_ch2.text())
+                self.u_stop_discharge_list[channel - 1] = float(self.edit_u_stop_discharge_ch2.text())
+                self.i_stop_charge_list[channel - 1] = float(self.edit_i_stop_charge_ch2.text())
+            case 3:
+                self.i_start_discharge_list[channel - 1] = float(self.edit_i_start_discharge_ch3.text())
+                self.u_stop_discharge_list[channel - 1] = float(self.edit_u_stop_discharge_ch3.text())
+                self.i_stop_charge_list[channel - 1] = float(self.edit_i_stop_charge_ch3.text())
+            case 4:
+                self.i_start_discharge_list[channel - 1] = float(self.edit_i_start_discharge_ch4.text())
+                self.u_stop_discharge_list[channel - 1] = float(self.edit_u_stop_discharge_ch4.text())
+                self.i_stop_charge_list[channel - 1] = float(self.edit_i_stop_charge_ch4.text())
+
+        settings_channel_before = '«' + str(buff_i_start_discharge) + '», ' + \
+                                  '«' + str(buff_u_stop_discharge) + \
+                                  '», ' + '«' + str(buff_i_stop_charge) + '»'
+        settings_channel_after = '«' + str(self.i_start_discharge_list[channel - 1]) + '», ' + \
+                                 '«' + str(self.u_stop_discharge_list[channel - 1]) + \
+                                 '», ' + '«' + str(self.i_stop_charge_list[channel - 1]) + '»'
+        MainWindow.insert_text_to_log(win, logging.INFO, 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
+                                        settings_channel_before + '. После сохранения: ' + settings_channel_after)
+
+    def btn_write_settings_ch1_clicked(self):
+        self.btn_write_settings_channel(1)
+    
+    def btn_write_settings_ch2_clicked(self):
+        self.btn_write_settings_channel(2)
+    
+    def btn_write_settings_ch3_clicked(self):
+        self.btn_write_settings_channel(3)
+    
+    def btn_write_settings_ch4_clicked(self):
+        self.btn_write_settings_channel(4)
+    
+    
+    # Обработка нажатия на одну из кнопок btn_start_test_chX (запустить тестирование канала)
+    def button_ch_start_test_clicked(self, btn):
+        # Получение номера канала из objectName кнопки
+        number_ch = int(btn.objectName().split('btn_start_test_ch')[1])
+        # Вызов функции, соответствующей кнопке
+        self.btn_start_test_channel(number_ch)
+
+    # Запустить тестирование АКБ в канале
+    def btn_start_test_channel(self, channel: int):
+        QMessageBox.warning(self, 'Предупреждение', 'Запуск тестирования канала ' + str(channel))
+    
+    def btn_start_test_ch1_clicked(self):
+        self.btn_start_test_channel(1)
+    
+    def btn_start_test_ch2_clicked(self):
+        self.btn_start_test_channel(2)
+    
+    def btn_start_test_ch3_clicked(self):
+        self.btn_start_test_channel(3)
+    
+    def btn_start_test_ch4_clicked(self):
+        self.btn_start_test_channel(4)
 
 class LogsWindow(QMainWindow, Ui_LogsWindow):
     def __init__(self, parent=None):

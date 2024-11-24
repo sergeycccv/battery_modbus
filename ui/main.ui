@@ -677,6 +677,9 @@
       <iconset resource="res.qrc">
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
+     <property name="channel" stdset="0">
+      <number>1</number>
+     </property>
     </widget>
     <widget class="QLabel" name="lbl_status_ch1">
      <property name="enabled">
@@ -739,7 +742,7 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
-     <widget class="QToolButton" name="btn_read_settings_ch1">
+     <widget class="QToolButton" name="btn_write_settings_ch1">
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -784,7 +787,7 @@
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QToolButton" name="btn_write_settings_ch1">
+     <widget class="QToolButton" name="btn_read_settings_ch1">
       <property name="geometry">
        <rect>
         <x>144</x>
@@ -1087,9 +1090,6 @@
     </widget>
    </widget>
    <widget class="QFrame" name="frm_ch2">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -1171,8 +1171,11 @@
       <iconset resource="res.qrc">
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
+     <property name="channel" stdset="0">
+      <number>2</number>
+     </property>
     </widget>
-    <widget class="QToolButton" name="btn_read_settings_ch2">
+    <widget class="QToolButton" name="btn_write_settings_ch2">
      <property name="geometry">
       <rect>
        <x>184</x>
@@ -1290,7 +1293,7 @@
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QToolButton" name="btn_write_settings_ch2">
+     <widget class="QToolButton" name="btn_read_settings_ch2">
       <property name="geometry">
        <rect>
         <x>144</x>
@@ -1309,7 +1312,7 @@
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>1</string>
+       <string>2</string>
       </property>
       <property name="icon">
        <iconset resource="res.qrc">
@@ -1919,7 +1922,7 @@
     <zorder>frm_back_ch2</zorder>
     <zorder>lbl_status_ch2</zorder>
     <zorder>btn_start_test_ch2</zorder>
-    <zorder>btn_read_settings_ch2</zorder>
+    <zorder>btn_write_settings_ch2</zorder>
     <zorder>lbl_ico_ch2</zorder>
     <zorder>w_discharge_ch2</zorder>
     <zorder>lbl_12</zorder>
@@ -1943,9 +1946,6 @@
     <zorder>w_recharge_ch2</zorder>
    </widget>
    <widget class="QFrame" name="frm_ch3">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>570</x>
@@ -2027,8 +2027,11 @@
       <iconset resource="res.qrc">
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
+     <property name="channel" stdset="0">
+      <number>3</number>
+     </property>
     </widget>
-    <widget class="QToolButton" name="btn_read_settings_ch3">
+    <widget class="QToolButton" name="btn_write_settings_ch3">
      <property name="geometry">
       <rect>
        <x>184</x>
@@ -2146,7 +2149,7 @@
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QToolButton" name="btn_write_settings_ch3">
+     <widget class="QToolButton" name="btn_read_settings_ch3">
       <property name="geometry">
        <rect>
         <x>145</x>
@@ -2165,7 +2168,7 @@
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>1</string>
+       <string>3</string>
       </property>
       <property name="icon">
        <iconset resource="res.qrc">
@@ -2775,7 +2778,7 @@
     <zorder>frm_back_ch3</zorder>
     <zorder>lbl_status_ch3</zorder>
     <zorder>btn_start_test_ch3</zorder>
-    <zorder>btn_read_settings_ch3</zorder>
+    <zorder>btn_write_settings_ch3</zorder>
     <zorder>lbl_ico_ch3</zorder>
     <zorder>w_discharge_ch3</zorder>
     <zorder>lbl_14</zorder>
@@ -2799,9 +2802,6 @@
     <zorder>w_recharge_ch3</zorder>
    </widget>
    <widget class="QFrame" name="frm_ch4">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
     <property name="geometry">
      <rect>
       <x>850</x>
@@ -2883,8 +2883,11 @@
       <iconset resource="res.qrc">
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
+     <property name="channel" stdset="0">
+      <number>4</number>
+     </property>
     </widget>
-    <widget class="QToolButton" name="btn_read_settings_ch4">
+    <widget class="QToolButton" name="btn_write_settings_ch4">
      <property name="geometry">
       <rect>
        <x>184</x>
@@ -3002,7 +3005,7 @@
        <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QToolButton" name="btn_write_settings_ch4">
+     <widget class="QToolButton" name="btn_read_settings_ch4">
       <property name="geometry">
        <rect>
         <x>145</x>
@@ -3021,7 +3024,7 @@
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>1</string>
+       <string>4</string>
       </property>
       <property name="icon">
        <iconset resource="res.qrc">
@@ -3631,7 +3634,7 @@
     <zorder>frm_back_ch4</zorder>
     <zorder>lbl_status_ch4</zorder>
     <zorder>btn_start_test_ch4</zorder>
-    <zorder>btn_read_settings_ch4</zorder>
+    <zorder>btn_write_settings_ch4</zorder>
     <zorder>lbl_ico_ch4</zorder>
     <zorder>w_discharge_ch4</zorder>
     <zorder>lbl_24</zorder>
@@ -3672,7 +3675,7 @@
  </widget>
  <tabstops>
   <tabstop>btn_connect</tabstop>
-  <tabstop>btn_read_settings_ch1</tabstop>
+  <tabstop>btn_write_settings_ch1</tabstop>
   <tabstop>edit_number_ch1</tabstop>
   <tabstop>edit_number_ch2</tabstop>
   <tabstop>edit_number_ch3</tabstop>
@@ -3690,13 +3693,13 @@
   <tabstop>w_recharge_ch1</tabstop>
   <tabstop>u_start_ch1</tabstop>
   <tabstop>btn_start_test_ch2</tabstop>
-  <tabstop>btn_read_settings_ch2</tabstop>
+  <tabstop>btn_write_settings_ch2</tabstop>
   <tabstop>c_charge_ch1</tabstop>
   <tabstop>btn_start_test_ch3</tabstop>
-  <tabstop>btn_read_settings_ch3</tabstop>
+  <tabstop>btn_write_settings_ch3</tabstop>
   <tabstop>c_recharge_ch1</tabstop>
   <tabstop>btn_start_test_ch4</tabstop>
-  <tabstop>btn_read_settings_ch4</tabstop>
+  <tabstop>btn_write_settings_ch4</tabstop>
  </tabstops>
  <resources>
   <include location="res.qrc"/>
