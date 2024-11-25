@@ -740,6 +740,9 @@
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <widget class="QToolButton" name="btn_write_settings_ch1">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -1179,6 +1182,9 @@
      </property>
     </widget>
     <widget class="QToolButton" name="btn_write_settings_ch2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>184</x>
@@ -2038,6 +2044,9 @@
      </property>
     </widget>
     <widget class="QToolButton" name="btn_write_settings_ch3">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>184</x>
@@ -2897,6 +2906,9 @@
      </property>
     </widget>
     <widget class="QToolButton" name="btn_write_settings_ch4">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>184</x>

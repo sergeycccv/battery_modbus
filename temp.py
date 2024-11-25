@@ -67,3 +67,6 @@
                 #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 # if widget.objectName() == 'w_charge_ch1':
                 #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+
+
+        # self.findChild(QToolButton, f'btn_write_settings_ch{channel}').setEnabled(False)

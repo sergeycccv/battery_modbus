@@ -2,7 +2,7 @@ import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
-                               QFileSystemModel, QButtonGroup)
+                               QFileSystemModel, QButtonGroup, QToolButton)
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QFontDatabase
 from ui_main import Ui_MainWindow
@@ -74,7 +74,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
 
-        # Обработка нажатия на одну из 4-х кнопок btn_read_settings_chX.clicked (прочитать настройки канала)
+        # Обработка нажатия на одну из 4-х кнопок btn_read_settings_chX (прочитать настройки канала)
         self.button_ch_read_settings_group = QButtonGroup()
         self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch1)
         self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch2)
@@ -82,7 +82,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch4)
         self.button_ch_read_settings_group.buttonClicked.connect(self.button_ch_read_settings_clicked)
 
-        # Обработка нажатия на одну из 4-х кнопок btn_write_settings_chX.clicked (записать настройки канала)
+        # Обработка нажатия на одну из 4-х кнопок btn_write_settings_chX (записать настройки канала)
         self.button_ch_write_settings_group = QButtonGroup()
         self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch1)
         self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch2)
@@ -90,13 +90,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch4)
         self.button_ch_write_settings_group.buttonClicked.connect(self.button_ch_write_settings_clicked)
 
-        # Обработка нажатия на одну из 4-х кнопок btn_start_test_chX.clicked (записать настройки канала)
+        # Обработка нажатия на одну из 4-х кнопок btn_start_test_chX (начать тестирование канала)
         self.button_ch_start_test_group = QButtonGroup()
         self.button_ch_start_test_group.addButton(self.btn_start_test_ch1)
         self.button_ch_start_test_group.addButton(self.btn_start_test_ch2)
         self.button_ch_start_test_group.addButton(self.btn_start_test_ch3)
         self.button_ch_start_test_group.addButton(self.btn_start_test_ch4)
         self.button_ch_start_test_group.buttonClicked.connect(self.button_ch_start_test_clicked)
+
+        # Обработка изменения текста в полях ввода настроек тестирования
+        self.edit_i_start_discharge_ch1.textChanged.connect(self.edit_i_start_discharge_ch1_changed)
+        self.edit_u_stop_discharge_ch1.textChanged.connect(self.edit_u_stop_discharge_ch1_changed)
+        self.edit_i_stop_charge_ch1.textChanged.connect(self.edit_i_stop_charge_ch1_changed)
+
+        self.edit_i_start_discharge_ch2.textChanged.connect(self.edit_i_start_discharge_ch2_changed)
+        self.edit_u_stop_discharge_ch2.textChanged.connect(self.edit_u_stop_discharge_ch2_changed)
+        self.edit_i_stop_charge_ch2.textChanged.connect(self.edit_i_stop_charge_ch2_changed)
+
+        self.edit_i_start_discharge_ch3.textChanged.connect(self.edit_i_start_discharge_ch3_changed)
+        self.edit_u_stop_discharge_ch3.textChanged.connect(self.edit_u_stop_discharge_ch3_changed)
+        self.edit_i_stop_charge_ch3.textChanged.connect(self.edit_i_stop_charge_ch3_changed)
+
+        self.edit_i_start_discharge_ch4.textChanged.connect(self.edit_i_start_discharge_ch4_changed)
+        self.edit_u_stop_discharge_ch4.textChanged.connect(self.edit_u_stop_discharge_ch4_changed)
+        self.edit_i_stop_charge_ch4.textChanged.connect(self.edit_i_stop_charge_ch4_changed)
 
         # Обработка изменения текста в полях ввода инвентарных номеров АКБ
         self.edit_number_ch1.textChanged.connect(self.edit_number_ch1_changed)
@@ -451,24 +468,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         settings_channel_after = '«' + str(self.i_start_discharge_list[channel - 1]) + '», ' + \
                                  '«' + str(self.u_stop_discharge_list[channel - 1]) + \
                                  '», ' + '«' + str(self.i_stop_charge_list[channel - 1]) + '»'
+        # Делаем недоступной кнопку «Записать настройки канала»
+        self.settings_channel_changed(channel)
         MainWindow.insert_text_to_log(win, logging.INFO, 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
                                         settings_channel_before + '. После сохранения: ' + settings_channel_after)
         QMessageBox.information(self, 'Информация', 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
                                         settings_channel_before + '. После сохранения: ' + settings_channel_after)
 
-    def btn_write_settings_ch1_clicked(self):
-        self.btn_write_settings_channel(1)
-    
-    def btn_write_settings_ch2_clicked(self):
-        self.btn_write_settings_channel(2)
-    
-    def btn_write_settings_ch3_clicked(self):
-        self.btn_write_settings_channel(3)
-    
-    def btn_write_settings_ch4_clicked(self):
-        self.btn_write_settings_channel(4)
-    
-    
+
     # Обработка нажатия на одну из кнопок btn_start_test_chX (запустить тестирование канала)
     def button_ch_start_test_clicked(self, btn):
         # Получение номера канала из objectName кнопки
@@ -480,17 +487,86 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def btn_start_test_channel(self, channel: int):
         QMessageBox.warning(self, 'Предупреждение', 'Запуск тестирования канала ' + str(channel))
     
-    def btn_start_test_ch1_clicked(self):
-        self.btn_start_test_channel(1)
-    
-    def btn_start_test_ch2_clicked(self):
-        self.btn_start_test_channel(2)
-    
-    def btn_start_test_ch3_clicked(self):
-        self.btn_start_test_channel(3)
-    
-    def btn_start_test_ch4_clicked(self):
-        self.btn_start_test_channel(4)
+
+
+    # Реакция на изменение настроек каналов
+    def settings_channel_changed(self, channel: int):
+        # Для установки доступности кнопки «Записать настройки канала»
+        flag_btn = set()
+        # Находим кнопку «Записать настройки канала» нужного канала
+        child_btn = self.findChild(QToolButton, f'btn_write_settings_ch{channel}')
+        for i in range(1, 5):
+            if i == channel:
+                # Находим поле edit_i_start_discharge_chX нужного канала
+                child_edit = self.findChild(QLineEdit, f'edit_i_start_discharge_ch{i}')
+                # Проверка наличия изменений
+                if self.i_start_discharge_list[channel - 1] != float(child_edit.text()):
+                    child_edit.setStyleSheet('border: 1px solid rgb(255, 55, 30); font-weight: bold;')
+                    flag_btn.add('1')
+                else:
+                    child_edit.setStyleSheet('')
+                    flag_btn.discard('1')
+
+                # Находим поле edit_u_stop_discharge_chX нужного канала
+                child_edit = self.findChild(QLineEdit, f'edit_u_stop_discharge_ch{i}')
+                if self.u_stop_discharge_list[channel - 1] != float(child_edit.text()):
+                    child_edit.setStyleSheet('border: 1px solid rgb(255, 55, 30); font-weight: bold;')
+                    flag_btn.add('2')
+                else:
+                    child_edit.setStyleSheet('')
+                    flag_btn.discard('2')
+
+                # Находим поле edit_i_stop_charge_chX нужного канала
+                child_edit = self.findChild(QLineEdit, f'edit_i_stop_charge_ch{i}')
+                if self.i_stop_charge_list[channel - 1] != float(child_edit.text()):
+                    child_edit.setStyleSheet('border: 1px solid rgb(255, 55, 30); font-weight: bold;')
+                    flag_btn.add('3')
+                else:
+                    child_edit.setStyleSheet('')
+                    flag_btn.discard('3')
+        
+        # Если множество flag_btn не пустое, то кнопка записи настроек доступна
+        if len(flag_btn) == 0:
+            child_btn.setEnabled(False)
+        else:
+            child_btn.setEnabled(True)
+
+    def edit_i_start_discharge_ch1_changed(self):
+        self.settings_channel_changed(1)
+
+    def edit_u_stop_discharge_ch1_changed(self):
+        self.settings_channel_changed(1)
+
+    def edit_i_stop_charge_ch1_changed(self):
+        self.settings_channel_changed(1)
+
+    def edit_i_start_discharge_ch2_changed(self):
+        self.settings_channel_changed(2)
+
+    def edit_u_stop_discharge_ch2_changed(self):
+        self.settings_channel_changed(2)
+
+    def edit_i_stop_charge_ch2_changed(self):
+        self.settings_channel_changed(2)
+
+    def edit_i_start_discharge_ch3_changed(self):
+        self.settings_channel_changed(3)
+
+    def edit_u_stop_discharge_ch3_changed(self):
+        self.settings_channel_changed(3)
+
+    def edit_i_stop_charge_ch3_changed(self):
+        self.settings_channel_changed(3)
+
+    def edit_i_start_discharge_ch4_changed(self):
+        self.settings_channel_changed(4)
+
+    def edit_u_stop_discharge_ch4_changed(self):
+        self.settings_channel_changed(4)
+
+    def edit_i_stop_charge_ch4_changed(self):
+        self.settings_channel_changed(4)
+
 
     # Обработка редактирования инвентарных номеров каналов
     def edit_number_ch1_changed(self):
