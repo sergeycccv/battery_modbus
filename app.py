@@ -387,7 +387,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Прочитать настройки канала
     def btn_read_settings_channel(self, channel: int):
-        QMessageBox.warning(self, 'Предупреждение', 'Чтение настроек канала ' + str(channel))
+        # Читаем настройки
+        buff_i_start_discharge = str(self.i_start_discharge_list[channel - 1])
+        buff_u_stop_discharge = str(self.u_stop_discharge_list[channel - 1]) 
+        buff_i_stop_charge = str(self.i_stop_charge_list[channel - 1])
+        # Размещаем их в соответствующих полях
+        for i in range(1, 5):
+            if i == channel:
+                child = self.findChild(QLineEdit, f'edit_i_start_discharge_ch{i}')
+                child.setText(str(buff_i_start_discharge))
+                child = self.findChild(QLineEdit, f'edit_u_stop_discharge_ch{i}')
+                child.setText(str(buff_u_stop_discharge))
+                child = self.findChild(QLineEdit, f'edit_i_stop_charge_ch{i}')
+                child.setText(str(buff_i_stop_charge))
+
+        settings_channel = '«' + str(buff_i_start_discharge) + '», ' + \
+                            '«' + str(buff_u_stop_discharge) + \
+                            '», ' + '«' + str(buff_i_stop_charge) + '»'
+
+        QMessageBox.information(self, 'Информация', 'Чтение настроек канала ' + \
+                                str(channel) + '. Настройки: ' + settings_channel)
 
     def btn_read_settings_ch1_clicked(self):
         self.btn_read_settings_channel(1)
@@ -417,23 +436,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         buff_i_stop_charge = self.i_stop_charge_list[channel - 1]
 
         # Записываем новые настройки
-        match channel:
-            case 1:
-                self.i_start_discharge_list[channel - 1] = float(self.edit_i_start_discharge_ch1.text())
-                self.u_stop_discharge_list[channel - 1] = float(self.edit_u_stop_discharge_ch1.text())
-                self.i_stop_charge_list[channel - 1] = float(self.edit_i_stop_charge_ch1.text())
-            case 2:
-                self.i_start_discharge_list[channel - 1] = float(self.edit_i_start_discharge_ch2.text())
-                self.u_stop_discharge_list[channel - 1] = float(self.edit_u_stop_discharge_ch2.text())
-                self.i_stop_charge_list[channel - 1] = float(self.edit_i_stop_charge_ch2.text())
-            case 3:
-                self.i_start_discharge_list[channel - 1] = float(self.edit_i_start_discharge_ch3.text())
-                self.u_stop_discharge_list[channel - 1] = float(self.edit_u_stop_discharge_ch3.text())
-                self.i_stop_charge_list[channel - 1] = float(self.edit_i_stop_charge_ch3.text())
-            case 4:
-                self.i_start_discharge_list[channel - 1] = float(self.edit_i_start_discharge_ch4.text())
-                self.u_stop_discharge_list[channel - 1] = float(self.edit_u_stop_discharge_ch4.text())
-                self.i_stop_charge_list[channel - 1] = float(self.edit_i_stop_charge_ch4.text())
+        for i in range(1, 5):
+            if i == channel:
+                child = self.findChild(QLineEdit, f'edit_i_start_discharge_ch{i}')
+                self.i_start_discharge_list[channel - 1] = float(child.text())
+                child = self.findChild(QLineEdit, f'edit_u_stop_discharge_ch{i}')
+                self.u_stop_discharge_list[channel - 1] = float(child.text())
+                child = self.findChild(QLineEdit, f'edit_i_stop_charge_ch{i}')
+                self.i_stop_charge_list[channel - 1] = float(child.text())
 
         settings_channel_before = '«' + str(buff_i_start_discharge) + '», ' + \
                                   '«' + str(buff_u_stop_discharge) + \
@@ -442,6 +452,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                  '«' + str(self.u_stop_discharge_list[channel - 1]) + \
                                  '», ' + '«' + str(self.i_stop_charge_list[channel - 1]) + '»'
         MainWindow.insert_text_to_log(win, logging.INFO, 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
+                                        settings_channel_before + '. После сохранения: ' + settings_channel_after)
+        QMessageBox.information(self, 'Информация', 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
                                         settings_channel_before + '. После сохранения: ' + settings_channel_after)
 
     def btn_write_settings_ch1_clicked(self):

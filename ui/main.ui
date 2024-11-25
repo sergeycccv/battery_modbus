@@ -654,9 +654,6 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btn_start_test_ch1">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -685,9 +682,6 @@
      </property>
     </widget>
     <widget class="QLabel" name="lbl_status_ch1">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
      <property name="geometry">
       <rect>
        <x>48</x>
