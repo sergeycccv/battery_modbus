@@ -2,9 +2,10 @@ import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
-                               QFileSystemModel, QButtonGroup, QToolButton)
+                               QFileSystemModel, QButtonGroup, QToolButton, 
+                               QFrame, QLabel)
 from PySide6.QtCore import QTimer
-from PySide6.QtGui import QFontDatabase
+from PySide6.QtGui import QFontDatabase, QPixmap
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
@@ -205,9 +206,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if widget.objectName() == 'w_recharge_ch1':
                     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 if widget.objectName() == 'c_discharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 110, 255'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 135, 0'))#255, 110, 255
                 if widget.objectName() == 'w_discharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 110, 255'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 135, 0'))
                 if widget.objectName() == 'c_charge_ch1':
                     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
                 if widget.objectName() == 'w_charge_ch1':
@@ -424,19 +425,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         QMessageBox.information(self, 'Информация', 'Чтение настроек канала ' + \
                                 str(channel) + '. Настройки: ' + settings_channel)
-
-    def btn_read_settings_ch1_clicked(self):
-        self.btn_read_settings_channel(1)
-
-    def btn_read_settings_ch2_clicked(self):
-        self.btn_read_settings_channel(2)
-
-    def btn_read_settings_ch3_clicked(self):
-        self.btn_read_settings_channel(3)
-    
-    def btn_read_settings_ch4_clicked(self):
-        self.btn_read_settings_channel(4)
-    
+   
 
     # Обработка нажатия на одну из кнопок btn_write_settings_chX (записать настройки канала)
     def button_ch_write_settings_clicked(self, btn):
@@ -485,9 +474,45 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Запустить тестирование АКБ в канале
     def btn_start_test_channel(self, channel: int):
-        QMessageBox.warning(self, 'Предупреждение', 'Запуск тестирования канала ' + str(channel))
-    
+        if self.findChild(QPushButton, f'btn_start_test_ch{channel}').text() == ' Запуск теста':
+        
+            if self.findChild(QToolButton, f'btn_write_settings_ch{channel}').isEnabled():
+                buff_i_start_discharge = self.i_start_discharge_list[channel - 1]
+                buff_u_stop_discharge = self.u_stop_discharge_list[channel - 1]
+                buff_i_stop_charge = self.i_stop_charge_list[channel - 1]
+                answer = QMessageBox.warning(self, 'Предупреждение', 'Изменённые настройки канала ' + str(channel) + \
+                                    ' не переданы в прибор. Продолжить тестирование, используя прежние настройки?\n' + \
+                                    f'\nПрежние настройки: {buff_i_start_discharge} | {buff_u_stop_discharge} | {buff_i_stop_charge}.', \
+                                    buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
+                                    defaultButton=QMessageBox.StandardButton.No)
+                if answer == QMessageBox.StandardButton.Yes:
+                    # QMessageBox.information(self, 'Информация', 'Тестирование канала ' + str(channel) + ' началось.')
+                    self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД')
+                    self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
+                    self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
+                    self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
+                    MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
+                    
+            else:
+                # QMessageBox.information(self, 'Информация', 'Тестирование канала ' + str(channel) + ' началось.')
+                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД')
+                self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
+                self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
+                MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
 
+        else:
+            answer = QMessageBox.warning(self, 'Внимание!', 'В данный момент происходит тестирование АКБ в канале ' + str(channel) + \
+                                '. Вы действительно хотите прервать процесс?', \
+                                buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
+                                defaultButton=QMessageBox.StandardButton.No)
+            if answer == QMessageBox.StandardButton.Yes:
+                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('АКБ ПОДКЛЮЧЕНА')
+                self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_36.png'))
+                self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(True)
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Запуск теста')
+                MainWindow.insert_text_to_log(win, logging.WARNING, 'Остановлено тестирование АКБ на канале ' + str(channel))
+    
 
     # Реакция на изменение настроек каналов
     def settings_channel_changed(self, channel: int):

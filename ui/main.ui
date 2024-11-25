@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1130</width>
+    <width>1170</width>
     <height>660</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1130</width>
+    <width>1170</width>
     <height>660</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1130</width>
+    <width>1170</width>
     <height>660</height>
    </size>
   </property>
@@ -55,7 +55,7 @@
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>271</width>
+      <width>281</width>
       <height>570</height>
      </rect>
     </property>
@@ -123,7 +123,7 @@
     <widget class="QLabel" name="lbl_003">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>112</y>
        <width>111</width>
        <height>16</height>
@@ -145,7 +145,7 @@
     <widget class="QLineEdit" name="u_start_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>105</y>
        <width>113</width>
        <height>35</height>
@@ -176,7 +176,7 @@
     <widget class="QLabel" name="lbl_004">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>153</y>
        <width>111</width>
        <height>16</height>
@@ -198,7 +198,7 @@
     <widget class="QLineEdit" name="u_current_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>146</y>
        <width>113</width>
        <height>35</height>
@@ -229,7 +229,7 @@
     <widget class="QLabel" name="lbl_005">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>194</y>
        <width>111</width>
        <height>16</height>
@@ -251,7 +251,7 @@
     <widget class="QLineEdit" name="i_current_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>187</y>
        <width>113</width>
        <height>35</height>
@@ -282,7 +282,7 @@
     <widget class="QLabel" name="lbl_006">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>235</y>
        <width>111</width>
        <height>16</height>
@@ -304,7 +304,7 @@
     <widget class="QLineEdit" name="p_current_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>228</y>
        <width>113</width>
        <height>35</height>
@@ -335,7 +335,7 @@
     <widget class="QLabel" name="lbl_007">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>275</y>
        <width>111</width>
        <height>16</height>
@@ -357,7 +357,7 @@
     <widget class="QLabel" name="lbl_009">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>355</y>
        <width>111</width>
        <height>16</height>
@@ -379,7 +379,7 @@
     <widget class="QLineEdit" name="w_discharge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>388</y>
        <width>113</width>
        <height>35</height>
@@ -410,7 +410,7 @@
     <widget class="QLineEdit" name="c_charge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>428</y>
        <width>113</width>
        <height>35</height>
@@ -441,7 +441,7 @@
     <widget class="QLineEdit" name="c_recharge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>268</y>
        <width>113</width>
        <height>35</height>
@@ -472,7 +472,7 @@
     <widget class="QLabel" name="lbl_011">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>435</y>
        <width>111</width>
        <height>16</height>
@@ -497,7 +497,7 @@
     <widget class="QLabel" name="lbl_010">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>395</y>
        <width>111</width>
        <height>16</height>
@@ -519,7 +519,7 @@
     <widget class="QLabel" name="lbl_012">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>475</y>
        <width>111</width>
        <height>16</height>
@@ -541,7 +541,7 @@
     <widget class="QLineEdit" name="c_discharge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>348</y>
        <width>113</width>
        <height>35</height>
@@ -572,7 +572,7 @@
     <widget class="QLabel" name="lbl_008">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>315</y>
        <width>111</width>
        <height>16</height>
@@ -594,7 +594,7 @@
     <widget class="QLineEdit" name="w_recharge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>308</y>
        <width>113</width>
        <height>35</height>
@@ -625,7 +625,7 @@
     <widget class="QLineEdit" name="w_charge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>468</y>
        <width>113</width>
        <height>35</height>
@@ -656,7 +656,7 @@
     <widget class="QPushButton" name="btn_start_test_ch1">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>25</x>
        <y>520</y>
        <width>231</width>
        <height>31</height>
@@ -684,9 +684,9 @@
     <widget class="QLabel" name="lbl_status_ch1">
      <property name="geometry">
       <rect>
-       <x>48</x>
+       <x>47</x>
        <y>10</y>
-       <width>166</width>
+       <width>181</width>
        <height>32</height>
       </rect>
      </property>
@@ -715,7 +715,7 @@
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>НЕ ПОДКЛЮЧЕН</string>
+      <string>АКБ НЕ ПОДКЛЮЧЕНА</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -729,7 +729,7 @@
       <rect>
        <x>2</x>
        <y>2</y>
-       <width>266</width>
+       <width>276</width>
        <height>87</height>
       </rect>
      </property>
@@ -745,7 +745,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>192</x>
         <y>47</y>
         <width>34</width>
         <height>34</height>
@@ -767,7 +767,7 @@
        <rect>
         <x>7</x>
         <y>48</y>
-        <width>134</width>
+        <width>146</width>
         <height>32</height>
        </rect>
       </property>
@@ -790,7 +790,7 @@
      <widget class="QToolButton" name="btn_read_settings_ch1">
       <property name="geometry">
        <rect>
-        <x>144</x>
+        <x>156</x>
         <y>47</y>
         <width>34</width>
         <height>34</height>
@@ -816,7 +816,7 @@
      <widget class="QLineEdit" name="edit_i_stop_charge_ch1">
       <property name="geometry">
        <rect>
-        <x>219</x>
+        <x>230</x>
         <y>58</y>
         <width>40</width>
         <height>22</height>
@@ -838,7 +838,7 @@
      <widget class="QLineEdit" name="edit_u_stop_discharge_ch1">
       <property name="geometry">
        <rect>
-        <x>219</x>
+        <x>230</x>
         <y>33</y>
         <width>40</width>
         <height>22</height>
@@ -860,7 +860,7 @@
      <widget class="QLineEdit" name="edit_i_start_discharge_ch1">
       <property name="geometry">
        <rect>
-        <x>219</x>
+        <x>230</x>
         <y>8</y>
         <width>40</width>
         <height>22</height>
@@ -910,7 +910,7 @@
      <rect>
       <x>10</x>
       <y>9</y>
-      <width>1111</width>
+      <width>1151</width>
       <height>47</height>
      </rect>
     </property>
@@ -960,7 +960,7 @@
       <rect>
        <x>320</x>
        <y>9</y>
-       <width>633</width>
+       <width>675</width>
        <height>30</height>
       </rect>
      </property>
@@ -986,7 +986,7 @@
     <widget class="QPushButton" name="btn_logs">
      <property name="geometry">
       <rect>
-       <x>961</x>
+       <x>1003</x>
        <y>8</y>
        <width>141</width>
        <height>31</height>
@@ -1066,7 +1066,7 @@
     <widget class="QPushButton" name="btn_alerts">
      <property name="geometry">
       <rect>
-       <x>917</x>
+       <x>959</x>
        <y>11</y>
        <width>33</width>
        <height>25</height>
@@ -1098,9 +1098,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>300</x>
       <y>60</y>
-      <width>271</width>
+      <width>281</width>
       <height>570</height>
      </rect>
     </property>
@@ -1113,9 +1113,9 @@
     <widget class="QLabel" name="lbl_status_ch2">
      <property name="geometry">
       <rect>
-       <x>51</x>
+       <x>47</x>
        <y>10</y>
-       <width>171</width>
+       <width>181</width>
        <height>31</height>
       </rect>
      </property>
@@ -1144,7 +1144,7 @@
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>НЕ ПОДКЛЮЧЕН</string>
+      <string>АКБ НЕ ПОДКЛЮЧЕНА</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1156,7 +1156,7 @@
     <widget class="QPushButton" name="btn_start_test_ch2">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>25</x>
        <y>520</y>
        <width>231</width>
        <height>31</height>
@@ -1187,7 +1187,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>184</x>
+       <x>194</x>
        <y>49</y>
        <width>34</width>
        <height>34</height>
@@ -1267,7 +1267,7 @@
       <rect>
        <x>2</x>
        <y>2</y>
-       <width>266</width>
+       <width>276</width>
        <height>87</height>
       </rect>
      </property>
@@ -1282,7 +1282,7 @@
        <rect>
         <x>7</x>
         <y>48</y>
-        <width>134</width>
+        <width>146</width>
         <height>32</height>
        </rect>
       </property>
@@ -1305,7 +1305,7 @@
      <widget class="QToolButton" name="btn_read_settings_ch2">
       <property name="geometry">
        <rect>
-        <x>144</x>
+        <x>156</x>
         <y>47</y>
         <width>34</width>
         <height>34</height>
@@ -1331,7 +1331,7 @@
      <widget class="QLineEdit" name="edit_u_stop_discharge_ch2">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>33</y>
         <width>40</width>
         <height>22</height>
@@ -1353,7 +1353,7 @@
      <widget class="QLineEdit" name="edit_i_stop_charge_ch2">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>58</y>
         <width>40</width>
         <height>22</height>
@@ -1375,7 +1375,7 @@
      <widget class="QLineEdit" name="edit_i_start_discharge_ch2">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>8</y>
         <width>40</width>
         <height>22</height>
@@ -1398,7 +1398,7 @@
     <widget class="QLineEdit" name="w_discharge_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>388</y>
        <width>113</width>
        <height>35</height>
@@ -1429,7 +1429,7 @@
     <widget class="QLabel" name="lbl_12">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>435</y>
        <width>111</width>
        <height>16</height>
@@ -1454,7 +1454,7 @@
     <widget class="QLabel" name="lbl_7">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>235</y>
        <width>111</width>
        <height>16</height>
@@ -1476,7 +1476,7 @@
     <widget class="QLineEdit" name="c_charge_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>428</y>
        <width>113</width>
        <height>35</height>
@@ -1507,7 +1507,7 @@
     <widget class="QLabel" name="lbl_11">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>395</y>
        <width>111</width>
        <height>16</height>
@@ -1529,7 +1529,7 @@
     <widget class="QLineEdit" name="c_recharge_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>268</y>
        <width>113</width>
        <height>35</height>
@@ -1560,7 +1560,7 @@
     <widget class="QLabel" name="lbl_9">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>315</y>
        <width>111</width>
        <height>16</height>
@@ -1582,7 +1582,7 @@
     <widget class="QLabel" name="lbl_8">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>275</y>
        <width>111</width>
        <height>16</height>
@@ -1604,7 +1604,7 @@
     <widget class="QLineEdit" name="i_current_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>187</y>
        <width>113</width>
        <height>35</height>
@@ -1635,7 +1635,7 @@
     <widget class="QLabel" name="lbl_5">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>153</y>
        <width>111</width>
        <height>16</height>
@@ -1657,7 +1657,7 @@
     <widget class="QLineEdit" name="w_charge_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>468</y>
        <width>113</width>
        <height>35</height>
@@ -1688,7 +1688,7 @@
     <widget class="QLineEdit" name="u_current_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>146</y>
        <width>113</width>
        <height>35</height>
@@ -1719,7 +1719,7 @@
     <widget class="QLabel" name="lbl_6">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>194</y>
        <width>111</width>
        <height>16</height>
@@ -1741,7 +1741,7 @@
     <widget class="QLabel" name="lbl_4">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>112</y>
        <width>111</width>
        <height>16</height>
@@ -1763,7 +1763,7 @@
     <widget class="QLineEdit" name="p_current_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>228</y>
        <width>113</width>
        <height>35</height>
@@ -1794,7 +1794,7 @@
     <widget class="QLabel" name="lbl_10">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>355</y>
        <width>111</width>
        <height>16</height>
@@ -1816,7 +1816,7 @@
     <widget class="QLineEdit" name="c_discharge_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>348</y>
        <width>113</width>
        <height>35</height>
@@ -1847,7 +1847,7 @@
     <widget class="QLabel" name="lbl_13">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>475</y>
        <width>111</width>
        <height>16</height>
@@ -1869,7 +1869,7 @@
     <widget class="QLineEdit" name="u_start_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>105</y>
        <width>113</width>
        <height>35</height>
@@ -1900,7 +1900,7 @@
     <widget class="QLineEdit" name="w_recharge_ch2">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>308</y>
        <width>113</width>
        <height>35</height>
@@ -1960,9 +1960,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>590</x>
       <y>60</y>
-      <width>271</width>
+      <width>281</width>
       <height>570</height>
      </rect>
     </property>
@@ -1975,9 +1975,9 @@
     <widget class="QLabel" name="lbl_status_ch3">
      <property name="geometry">
       <rect>
-       <x>51</x>
+       <x>47</x>
        <y>10</y>
-       <width>171</width>
+       <width>181</width>
        <height>31</height>
       </rect>
      </property>
@@ -2006,7 +2006,7 @@
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>НЕ ПОДКЛЮЧЕН</string>
+      <string>АКБ НЕ ПОДКЛЮЧЕНА</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2018,7 +2018,7 @@
     <widget class="QPushButton" name="btn_start_test_ch3">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>25</x>
        <y>520</y>
        <width>231</width>
        <height>31</height>
@@ -2049,7 +2049,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>184</x>
+       <x>194</x>
        <y>49</y>
        <width>34</width>
        <height>34</height>
@@ -2129,7 +2129,7 @@
       <rect>
        <x>2</x>
        <y>2</y>
-       <width>266</width>
+       <width>276</width>
        <height>87</height>
       </rect>
      </property>
@@ -2144,7 +2144,7 @@
        <rect>
         <x>7</x>
         <y>48</y>
-        <width>134</width>
+        <width>146</width>
         <height>32</height>
        </rect>
       </property>
@@ -2167,7 +2167,7 @@
      <widget class="QToolButton" name="btn_read_settings_ch3">
       <property name="geometry">
        <rect>
-        <x>145</x>
+        <x>156</x>
         <y>47</y>
         <width>34</width>
         <height>34</height>
@@ -2193,7 +2193,7 @@
      <widget class="QLineEdit" name="edit_u_stop_discharge_ch3">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>33</y>
         <width>40</width>
         <height>22</height>
@@ -2215,7 +2215,7 @@
      <widget class="QLineEdit" name="edit_i_stop_charge_ch3">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>58</y>
         <width>40</width>
         <height>22</height>
@@ -2237,7 +2237,7 @@
      <widget class="QLineEdit" name="edit_i_start_discharge_ch3">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>8</y>
         <width>40</width>
         <height>22</height>
@@ -2260,7 +2260,7 @@
     <widget class="QLineEdit" name="w_discharge_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>388</y>
        <width>113</width>
        <height>35</height>
@@ -2291,7 +2291,7 @@
     <widget class="QLabel" name="lbl_14">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>435</y>
        <width>111</width>
        <height>16</height>
@@ -2316,7 +2316,7 @@
     <widget class="QLabel" name="lbl_15">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>235</y>
        <width>111</width>
        <height>16</height>
@@ -2338,7 +2338,7 @@
     <widget class="QLineEdit" name="c_charge_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>428</y>
        <width>113</width>
        <height>35</height>
@@ -2369,7 +2369,7 @@
     <widget class="QLabel" name="lbl_16">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>395</y>
        <width>111</width>
        <height>16</height>
@@ -2391,7 +2391,7 @@
     <widget class="QLineEdit" name="c_recharge_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>268</y>
        <width>113</width>
        <height>35</height>
@@ -2422,7 +2422,7 @@
     <widget class="QLabel" name="lbl_17">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>315</y>
        <width>111</width>
        <height>16</height>
@@ -2444,7 +2444,7 @@
     <widget class="QLabel" name="lbl_18">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>275</y>
        <width>111</width>
        <height>16</height>
@@ -2466,7 +2466,7 @@
     <widget class="QLineEdit" name="i_current_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>187</y>
        <width>113</width>
        <height>35</height>
@@ -2497,7 +2497,7 @@
     <widget class="QLabel" name="lbl_19">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>153</y>
        <width>111</width>
        <height>16</height>
@@ -2519,7 +2519,7 @@
     <widget class="QLineEdit" name="w_charge_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>468</y>
        <width>113</width>
        <height>35</height>
@@ -2550,7 +2550,7 @@
     <widget class="QLineEdit" name="u_current_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>146</y>
        <width>113</width>
        <height>35</height>
@@ -2581,7 +2581,7 @@
     <widget class="QLabel" name="lbl_20">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>194</y>
        <width>111</width>
        <height>16</height>
@@ -2603,7 +2603,7 @@
     <widget class="QLabel" name="lbl_21">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>112</y>
        <width>111</width>
        <height>16</height>
@@ -2625,7 +2625,7 @@
     <widget class="QLineEdit" name="p_current_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>228</y>
        <width>113</width>
        <height>35</height>
@@ -2656,7 +2656,7 @@
     <widget class="QLabel" name="lbl_22">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>355</y>
        <width>111</width>
        <height>16</height>
@@ -2678,7 +2678,7 @@
     <widget class="QLineEdit" name="c_discharge_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>348</y>
        <width>113</width>
        <height>35</height>
@@ -2709,7 +2709,7 @@
     <widget class="QLabel" name="lbl_23">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>475</y>
        <width>111</width>
        <height>16</height>
@@ -2731,7 +2731,7 @@
     <widget class="QLineEdit" name="u_start_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>105</y>
        <width>113</width>
        <height>35</height>
@@ -2762,7 +2762,7 @@
     <widget class="QLineEdit" name="w_recharge_ch3">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>308</y>
        <width>113</width>
        <height>35</height>
@@ -2822,9 +2822,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>850</x>
+      <x>880</x>
       <y>60</y>
-      <width>271</width>
+      <width>281</width>
       <height>570</height>
      </rect>
     </property>
@@ -2837,9 +2837,9 @@
     <widget class="QLabel" name="lbl_status_ch4">
      <property name="geometry">
       <rect>
-       <x>51</x>
+       <x>48</x>
        <y>10</y>
-       <width>171</width>
+       <width>181</width>
        <height>31</height>
       </rect>
      </property>
@@ -2868,7 +2868,7 @@
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>НЕ ПОДКЛЮЧЕН</string>
+      <string>АКБ НЕ ПОДКЛЮЧЕНА</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2880,7 +2880,7 @@
     <widget class="QPushButton" name="btn_start_test_ch4">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>25</x>
        <y>520</y>
        <width>231</width>
        <height>31</height>
@@ -2911,7 +2911,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>184</x>
+       <x>194</x>
        <y>49</y>
        <width>34</width>
        <height>34</height>
@@ -2991,7 +2991,7 @@
       <rect>
        <x>2</x>
        <y>2</y>
-       <width>266</width>
+       <width>276</width>
        <height>87</height>
       </rect>
      </property>
@@ -3006,7 +3006,7 @@
        <rect>
         <x>7</x>
         <y>48</y>
-        <width>134</width>
+        <width>146</width>
         <height>32</height>
        </rect>
       </property>
@@ -3029,7 +3029,7 @@
      <widget class="QToolButton" name="btn_read_settings_ch4">
       <property name="geometry">
        <rect>
-        <x>145</x>
+        <x>156</x>
         <y>47</y>
         <width>34</width>
         <height>34</height>
@@ -3055,7 +3055,7 @@
      <widget class="QLineEdit" name="edit_i_start_discharge_ch4">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>8</y>
         <width>40</width>
         <height>22</height>
@@ -3077,7 +3077,7 @@
      <widget class="QLineEdit" name="edit_i_stop_charge_ch4">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>58</y>
         <width>40</width>
         <height>22</height>
@@ -3099,7 +3099,7 @@
      <widget class="QLineEdit" name="edit_u_stop_discharge_ch4">
       <property name="geometry">
        <rect>
-        <x>220</x>
+        <x>230</x>
         <y>33</y>
         <width>40</width>
         <height>22</height>
@@ -3122,7 +3122,7 @@
     <widget class="QLineEdit" name="w_discharge_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>388</y>
        <width>113</width>
        <height>35</height>
@@ -3153,7 +3153,7 @@
     <widget class="QLabel" name="lbl_24">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>435</y>
        <width>111</width>
        <height>16</height>
@@ -3178,7 +3178,7 @@
     <widget class="QLabel" name="lbl_25">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>235</y>
        <width>111</width>
        <height>16</height>
@@ -3200,7 +3200,7 @@
     <widget class="QLineEdit" name="c_charge_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>428</y>
        <width>113</width>
        <height>35</height>
@@ -3231,7 +3231,7 @@
     <widget class="QLabel" name="lbl_26">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>395</y>
        <width>111</width>
        <height>16</height>
@@ -3253,7 +3253,7 @@
     <widget class="QLineEdit" name="c_recharge_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>268</y>
        <width>113</width>
        <height>35</height>
@@ -3284,7 +3284,7 @@
     <widget class="QLabel" name="lbl_27">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>315</y>
        <width>111</width>
        <height>16</height>
@@ -3306,7 +3306,7 @@
     <widget class="QLabel" name="lbl_28">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>275</y>
        <width>111</width>
        <height>16</height>
@@ -3328,7 +3328,7 @@
     <widget class="QLineEdit" name="i_current_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>187</y>
        <width>113</width>
        <height>35</height>
@@ -3359,7 +3359,7 @@
     <widget class="QLabel" name="lbl_29">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>153</y>
        <width>111</width>
        <height>16</height>
@@ -3381,7 +3381,7 @@
     <widget class="QLineEdit" name="w_charge_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>468</y>
        <width>113</width>
        <height>35</height>
@@ -3412,7 +3412,7 @@
     <widget class="QLineEdit" name="u_current_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>146</y>
        <width>113</width>
        <height>35</height>
@@ -3443,7 +3443,7 @@
     <widget class="QLabel" name="lbl_30">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>194</y>
        <width>111</width>
        <height>16</height>
@@ -3465,7 +3465,7 @@
     <widget class="QLabel" name="lbl_31">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>112</y>
        <width>111</width>
        <height>16</height>
@@ -3487,7 +3487,7 @@
     <widget class="QLineEdit" name="p_current_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>228</y>
        <width>113</width>
        <height>35</height>
@@ -3518,7 +3518,7 @@
     <widget class="QLabel" name="lbl_32">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>355</y>
        <width>111</width>
        <height>16</height>
@@ -3540,7 +3540,7 @@
     <widget class="QLineEdit" name="c_discharge_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>348</y>
        <width>113</width>
        <height>35</height>
@@ -3571,7 +3571,7 @@
     <widget class="QLabel" name="lbl_33">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>475</y>
        <width>111</width>
        <height>16</height>
@@ -3593,7 +3593,7 @@
     <widget class="QLineEdit" name="u_start_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>105</y>
        <width>113</width>
        <height>35</height>
@@ -3624,7 +3624,7 @@
     <widget class="QLineEdit" name="w_recharge_ch4">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>135</x>
        <y>308</y>
        <width>113</width>
        <height>35</height>
