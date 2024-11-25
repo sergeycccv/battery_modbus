@@ -49,7 +49,7 @@
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frm_ch1">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -1097,7 +1097,7 @@
    </widget>
    <widget class="QFrame" name="frm_ch2">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -1956,7 +1956,7 @@
    </widget>
    <widget class="QFrame" name="frm_ch3">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -2815,7 +2815,7 @@
    </widget>
    <widget class="QFrame" name="frm_ch4">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>

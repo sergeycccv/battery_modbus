@@ -25,6 +25,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.i_start_discharge_list = [0.025, 0.025, 0.025, 0.025]
         self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
         self.i_stop_charge_list = [0.025, 0.025, 0.025, 0.025]
+        self.number_channel = ['AKB-001', 'AKB-002', 'AKB-003', 'AKB-004']
 
         # Создание окна логов тестирования
         self.logs = LogsWindow(self)
@@ -97,8 +98,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.button_ch_start_test_group.addButton(self.btn_start_test_ch4)
         self.button_ch_start_test_group.buttonClicked.connect(self.button_ch_start_test_clicked)
 
-        self.initUI()
+        # Обработка изменения текста в полях ввода инвентарных номеров АКБ
+        self.edit_number_ch1.textChanged.connect(self.edit_number_ch1_changed)
+        self.edit_number_ch2.textChanged.connect(self.edit_number_ch2_changed)
+        self.edit_number_ch3.textChanged.connect(self.edit_number_ch3_changed)
+        self.edit_number_ch4.textChanged.connect(self.edit_number_ch4_changed)
 
+        self.initUI()
 
     # Вывод информационных сообщений
     def insert_text_to_log(self, level, text):
@@ -166,9 +172,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Установка стиля текста в полях вывода данных тестирования
         for widget in self.findChildren(QLineEdit):
             if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
-                widget.setText('00.000')
+                widget.setText('17.248')
                 # канал 1
-                colorize_indicator('ch1')
+                # colorize_indicator('ch1')
+                if widget.objectName() == 'u_start_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                if widget.objectName() == 'u_current_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                if widget.objectName() == 'i_current_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                if widget.objectName() == 'p_current_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                if widget.objectName() == 'c_recharge_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                if widget.objectName() == 'w_recharge_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                if widget.objectName() == 'c_discharge_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
+                if widget.objectName() == 'w_discharge_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
+                if widget.objectName() == 'c_charge_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                if widget.objectName() == 'w_charge_ch1':
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 # канал 2
                 colorize_indicator('ch2')
                 # канал 3
@@ -453,6 +479,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def btn_start_test_ch4_clicked(self):
         self.btn_start_test_channel(4)
+
+    # Обработка редактирования инвентарных номеров каналов
+    def edit_number_ch1_changed(self):
+        self.number_channel[0] = self.edit_number_ch1.text()
+
+    def edit_number_ch2_changed(self):
+        self.number_channel[1] = self.edit_number_ch2.text()
+
+    def edit_number_ch3_changed(self):
+        self.number_channel[2] = self.edit_number_ch3.text()
+
+    def edit_number_ch4_changed(self):
+        self.number_channel[3] = self.edit_number_ch4.text()
+
 
 class LogsWindow(QMainWindow, Ui_LogsWindow):
     def __init__(self, parent=None):
