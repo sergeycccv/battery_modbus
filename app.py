@@ -176,25 +176,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # канал 1
                 # colorize_indicator('ch1')
                 if widget.objectName() == 'u_start_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 if widget.objectName() == 'u_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 if widget.objectName() == 'i_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 if widget.objectName() == 'p_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 if widget.objectName() == 'c_recharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 if widget.objectName() == 'w_recharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 if widget.objectName() == 'c_discharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 110, 255'))
                 if widget.objectName() == 'w_discharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 110, 255'))
                 if widget.objectName() == 'c_charge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
                 if widget.objectName() == 'w_charge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
                 # канал 2
                 colorize_indicator('ch2')
                 # канал 3
