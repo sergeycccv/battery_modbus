@@ -48,25 +48,48 @@
 
 
                 # if widget.objectName() == 'u_start_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 # if widget.objectName() == 'u_current_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 # if widget.objectName() == 'i_current_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 # if widget.objectName() == 'p_current_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
                 # if widget.objectName() == 'c_recharge_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 # if widget.objectName() == 'w_recharge_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
                 # if widget.objectName() == 'c_discharge_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 135, 0'))#255, 110, 255
                 # if widget.objectName() == 'w_discharge_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 0, 0'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 135, 0'))
                 # if widget.objectName() == 'c_charge_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
                 # if widget.objectName() == 'w_charge_ch1':
-                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+
+
+                # if widget.objectName() == f'u_start_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'u_current_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'i_current_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'p_current_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'c_recharge_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'w_recharge_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'c_discharge_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'w_discharge_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'c_charge_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+                # if widget.objectName() == f'w_charge_{channel}':
+                #     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+
 
 
         # self.findChild(QToolButton, f'btn_write_settings_ch{channel}').setEnabled(False)

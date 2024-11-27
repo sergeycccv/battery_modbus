@@ -161,64 +161,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def initUI(self):
         # Установка шрифта для вывода параметров тестирования
         font_path = 'ticking_timebomb.ttf'
-        p = QFontDatabase.addApplicationFont(font_path)
-        self.font_digits = QFontDatabase.applicationFontFamilies(p)[0]
+        fp = QFontDatabase.addApplicationFont(font_path)
+        self.font_digits = QFontDatabase.applicationFontFamilies(fp)[0]
 
         def colorize_indicator(channel: str):
-            for _ in range(10):
-                if widget.objectName() == f'u_start_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'u_current_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'i_current_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'p_current_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'c_recharge_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'w_recharge_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'c_discharge_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'w_discharge_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'c_charge_{channel}':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == f'w_charge_{channel}':
+            indicators = ['u_start_',
+                          'u_current_',
+                          'i_current_',
+                          'p_current_',
+                          'c_recharge_',
+                          'w_recharge_',
+                          'c_discharge_',
+                          'w_discharge_',
+                          'c_charge_',
+                          'w_charge_',]
+            for indicator in indicators:
+                if widget.objectName() == indicator + channel:
                     widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
 
-        # Установка стиля текста в полях вывода данных тестирования
+        # Установка текста и стиля индикаторов тестирования на всех каналах
         for widget in self.findChildren(QLineEdit):
-            if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
-                widget.setText('17.248')
-                # канал 1
-                # colorize_indicator('ch1')
-                if widget.objectName() == 'u_start_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
-                if widget.objectName() == 'u_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
-                if widget.objectName() == 'i_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
-                if widget.objectName() == 'p_current_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 255, 255'))
-                if widget.objectName() == 'c_recharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
-                if widget.objectName() == 'w_recharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('0, 255, 0'))
-                if widget.objectName() == 'c_discharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 135, 0'))#255, 110, 255
-                if widget.objectName() == 'w_discharge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('255, 135, 0'))
-                if widget.objectName() == 'c_charge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                if widget.objectName() == 'w_charge_ch1':
-                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
-                # канал 2
-                colorize_indicator('ch2')
-                # канал 3
-                colorize_indicator('ch3')
-                # канал 4
-                colorize_indicator('ch4')
+            channels = ['ch1', 'ch2', 'ch3', 'ch4']
+            for channel in channels:
+                if widget.property('channel') in channels:
+                    widget.setText('00.000')
+                    colorize_indicator(channel)
         self.show()
 
     # Изменение текущего COM-порта в списке
