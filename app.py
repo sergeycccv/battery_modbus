@@ -186,6 +186,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if widget.property('channel') in channels:
                     widget.setText('00.000')
                     colorize_indicator(channel)
+
+        self.frm_ch1.setEnabled(False)
+        self.frm_ch2.setEnabled(False)
+        self.frm_ch3.setEnabled(False)
+        self.frm_ch4.setEnabled(False)
+
         self.show()
 
     # Изменение текущего COM-порта в списке
@@ -212,10 +218,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(False)
                 self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setEnabled(False)
-                # self.frm_ch_1.setEnabled(False)
-                # self.frm_ch_2.setEnabled(False)
-                # self.frm_ch_3.setEnabled(False)
-                # self.frm_ch_4.setEnabled(False)
             else:
                 self.insert_text_to_log(logging.WARNING, f'В системе обнаружены свободные COM-порты: {', '.join(self.list_com_saved)}')
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
@@ -223,10 +225,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(True)
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setEnabled(True)
-                # self.frm_ch1.setEnabled(True)
-                # self.frm_ch2.setEnabled(True)
-                # self.frm_ch3.setEnabled(True)
-                # self.frm_ch4.setEnabled(True)
 
     # Подключение к COM-порту
     def btn_connect_clicked(self):
@@ -458,6 +456,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
                     self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
                     self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
+                    self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
+                    # self.btn_start_test_ch1.setStatusTip('Остановка теста АКБ в канале ' + str(channel))
                     MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
                     
             else:
@@ -466,6 +466,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
                 self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
                 self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
                 MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
 
         else:
@@ -478,6 +479,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_36.png'))
                 self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(True)
                 self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Запуск теста')
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Запуск теста АКБ в канале ' + str(channel))
                 MainWindow.insert_text_to_log(win, logging.WARNING, 'Остановлено тестирование АКБ на канале ' + str(channel))
     
 

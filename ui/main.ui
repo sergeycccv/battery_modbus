@@ -668,7 +668,7 @@
       </font>
      </property>
      <property name="statusTip">
-      <string> Запуск теста АКБ в канале 1</string>
+      <string>Запуск теста АКБ в канале 1</string>
      </property>
      <property name="text">
       <string> Запуск теста</string>
@@ -1168,7 +1168,7 @@
       </font>
      </property>
      <property name="statusTip">
-      <string> Запуск теста АКБ в канале 2</string>
+      <string>Запуск теста АКБ в канале 2</string>
      </property>
      <property name="text">
       <string> Запуск теста</string>
@@ -2030,7 +2030,7 @@
       </font>
      </property>
      <property name="statusTip">
-      <string> Запуск теста АКБ в канале 3</string>
+      <string>Запуск теста АКБ в канале 3</string>
      </property>
      <property name="text">
       <string> Запуск теста</string>
@@ -2892,7 +2892,7 @@
       </font>
      </property>
      <property name="statusTip">
-      <string> Запуск теста АКБ в канале 4</string>
+      <string>Запуск теста АКБ в канале 4</string>
      </property>
      <property name="text">
       <string> Запуск теста</string>
