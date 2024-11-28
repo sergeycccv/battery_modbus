@@ -4,7 +4,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox,
                                QLineEdit, QPushButton, QFileDialog, 
                                QFileSystemModel, QButtonGroup, QToolButton, 
                                QFrame, QLabel)
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, QEvent, Qt
 from PySide6.QtGui import QFontDatabase, QPixmap
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
@@ -70,8 +70,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_connect.clicked.connect(self.btn_connect_clicked)
         # Нажатие на кнопку "Настройки порта"
         self.btn_settings_port.clicked.connect(self.btn_settings_port_clicked)
-        # Нажатие на кнопку "Лог работы программы"
-        self.btn_alerts.clicked.connect(self.btn_alerts_clicked)
+        # Добавление к текстовой метке lbl_messages подсветку при наведении курсора
+        self.lbl_messages.setAttribute(Qt.WidgetAttribute.WA_Hover)
+        self.lbl_massages_icon.setAttribute(Qt.WidgetAttribute.WA_Hover)        
+        # Нажатие на текстовую метку lbl_messages
+        self.lbl_messages.installEventFilter(self)
+        self.lbl_massages_icon.installEventFilter(self)
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
 
@@ -257,9 +261,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def btn_settings_port_clicked(self):
         self.settings.show()
 
-    # Открытие окна просмотра лога программы
-    def btn_alerts_clicked(self):
-        self.alerts.show()
+    # Обработка событий мыши «нажатие на текстовую метку lbl_messages»
+    # и наведение курсора на неё
+    # При нажатии на текстовую метку выводится окно с информационными сообщениями
+    def eventFilter(self, source, event):
+            # Если курсор мыши над текстовой меткой lbl_messages
+            # и нажата левая кнопка мыши
+            if ((source is self.lbl_messages) or (source is self.lbl_massages_icon)) and \
+                (event.type() == QEvent.MouseButtonRelease) and \
+                (Qt.MouseButton.LeftButton == event.button()):
+                self.alerts.show()
+            # Добавление к текстовой метке lbl_messages подсветку при наведении курсора
+            if (event.type() == QEvent.HoverEnter) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
+                self.lbl_messages.setStyleSheet('border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ') 
+                self.lbl_massages_icon.setStyleSheet('background-color: rgb(220, 220, 220); ') 
+            elif (event.type() == QEvent.HoverLeave) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
+                self.lbl_messages.setStyleSheet('')
+                self.lbl_massages_icon.setStyleSheet('')
+            return QMainWindow.eventFilter(self, source, event)
 
     # Чтение настроек из ini-файла
     def get_settings_ini_file(self):

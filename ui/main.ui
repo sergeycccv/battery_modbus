@@ -39,7 +39,7 @@
 #lbl_messages {
 	color: rgb(255, 55, 30);
 	background-color: rgb(210, 210, 210);
-	padding-left: 10;
+	padding-left: 25;
 }
  #lbl_error {
 	background-color: rgb(210, 210, 210);
@@ -953,14 +953,11 @@
      </property>
     </widget>
     <widget class="QLabel" name="lbl_messages">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>319</x>
        <y>9</y>
-       <width>675</width>
+       <width>676</width>
        <height>30</height>
       </rect>
      </property>
@@ -1063,32 +1060,23 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_alerts">
+    <widget class="QLabel" name="lbl_massages_icon">
      <property name="geometry">
       <rect>
-       <x>959</x>
-       <y>11</y>
-       <width>33</width>
-       <height>25</height>
+       <x>326</x>
+       <y>17</y>
+       <width>15</width>
+       <height>15</height>
       </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="statusTip">
-      <string>Просмотр лога работы программы</string>
      </property>
      <property name="text">
       <string/>
      </property>
-     <property name="icon">
-      <iconset resource="res.qrc">
-       <normaloff>:/ICO/Alert24.png</normaloff>:/ICO/Alert24.png</iconset>
+     <property name="pixmap">
+      <pixmap resource="res.qrc">:/ICO/Alert24.png</pixmap>
      </property>
-     <property name="flat">
-      <bool>false</bool>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
