@@ -4,7 +4,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox,
                                QLineEdit, QPushButton, QFileDialog, 
                                QFileSystemModel, QButtonGroup, QToolButton, 
                                QFrame, QLabel)
-from PySide6.QtCore import QTimer, QEvent, Qt
+from PySide6.QtCore import QTimer, QEvent, Qt, QPoint
 from PySide6.QtGui import QFontDatabase, QPixmap
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
@@ -73,7 +73,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Добавление к текстовой метке lbl_messages подсветку при наведении курсора
         self.lbl_messages.setAttribute(Qt.WidgetAttribute.WA_Hover)
         self.lbl_massages_icon.setAttribute(Qt.WidgetAttribute.WA_Hover)        
-        # Нажатие на текстовую метку lbl_messages
+        # Нажатие на текстовую метку lbl_messages для просмотра лога программы
         self.lbl_messages.installEventFilter(self)
         self.lbl_massages_icon.installEventFilter(self)
         # Нажатие на кнопку "Просмотр логов"
@@ -155,18 +155,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Установка styleSheet для индикаторов
     def set_styleSheet_indicator(self, color: str):
-        styleSheet = f'font-family: "{self.font_digits}"; ' + \
-                     f'color: rgb({color}); ' + \
-                      'font-size: 18px; '+ \
-                      'padding-top: 2px; ' + \
-                      'background-color: black;'
+        if self.led_digital_font != None:
+            styleSheet = f'font-family: "{self.led_digital_font}"; ' + \
+                         f'color: rgb({color}); ' + \
+                         'font-size: 18px; ' + \
+                         'padding-top: 2px; ' + \
+                         'background-color: black;'
+        else:
+            styleSheet = f'color: rgb({color}); ' + \
+                         'font-size: 15px; ' + \
+                         'background-color: black;'
         return styleSheet
 
     def initUI(self):
         # Установка шрифта для вывода параметров тестирования
-        font_path = 'ticking_timebomb.ttf'
-        fp = QFontDatabase.addApplicationFont(font_path)
-        self.font_digits = QFontDatabase.applicationFontFamilies(fp)[0]
+        font_path = 'led_digital_font.ttf'
+        try:
+            fp = QFontDatabase.addApplicationFont(font_path)
+            font_digits = QFontDatabase.applicationFontFamilies(fp)[0]
+            self.led_digital_font = font_digits
+        except Exception as e:
+            self.led_digital_font = None
+            self.insert_text_to_log(logging.INFO, 'Ошибка загрузки шрифта для индикаторов. ' + \
+                                    'Файл шрифта "led_digital_font.ttf" должен находиться в одном каталоге с программой.')
 
         def colorize_indicator(channel: str):
             indicators = ['u_start_',
@@ -470,18 +481,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
                                     defaultButton=QMessageBox.StandardButton.No)
                 if answer == QMessageBox.StandardButton.Yes:
-                    # QMessageBox.information(self, 'Информация', 'Тестирование канала ' + str(channel) + ' началось.')
-                    self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД')
+                    self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД АКБ')
                     self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
                     self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
                     self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
                     self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
-                    # self.btn_start_test_ch1.setStatusTip('Остановка теста АКБ в канале ' + str(channel))
                     MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
                     
             else:
-                # QMessageBox.information(self, 'Информация', 'Тестирование канала ' + str(channel) + ' началось.')
-                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД')
+                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД АКБ')
                 self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
                 self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
                 self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
@@ -657,6 +665,12 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
 
     # При открытии окна "Настройки порта" запомнить текущие настройки
     def showEvent(self, event):
+        
+        # Позиционирование окна
+        x = win.geometry().x() + win.btn_settings_port.geometry().x()
+        y = win.geometry().y() + win.btn_settings_port.geometry().y()
+        self.move(x, y)
+        
         self.buff_baud_rate = self.cb_baud_rate.currentText()
         self.buff_byte_size = self.cb_byte_size.currentText()
         self.buff_parity = self.cb_parity.currentIndex()
