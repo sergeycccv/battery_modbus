@@ -152,6 +152,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.alerts.text_log.setHtml('<a>' + datetime_mess + ' > '  + text + '</a>')
             else:
                 self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a>' + datetime_mess + ' > '  + text + '</a>')
+        self.style_sheet_messages_alerts = self.lbl_messages.styleSheet()
 
     # Установка styleSheet для индикаторов
     def set_styleSheet_indicator(self, color: str):
@@ -177,7 +178,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except Exception as e:
             self.led_digital_font = None
             self.insert_text_to_log(logging.INFO, 'Ошибка загрузки шрифта для индикаторов. ' + \
-                                    'Файл шрифта "led_digital_font.ttf" должен находиться в одном каталоге с программой.')
+                                    'Файл шрифта "led_digital_font.ttf" должен находиться в одном каталоге с программой. ' + \
+                                    'Проверьте наличие и целостность этого файла. Будет загружен системный шрифт.')
 
         def colorize_indicator(channel: str):
             indicators = ['u_start_',
@@ -282,12 +284,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 (event.type() == QEvent.MouseButtonRelease) and \
                 (Qt.MouseButton.LeftButton == event.button()):
                 self.alerts.show()
-            # Добавление к текстовой метке lbl_messages подсветку при наведении курсора
+            # Добавление к текстовой метке lbl_messages подсветки при наведении курсора
             if (event.type() == QEvent.HoverEnter) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
-                self.lbl_messages.setStyleSheet('border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ') 
+                
+                # self.lbl_messages.setStyleSheet(self.lbl_messages.styleSheet())
+
+                self.lbl_messages.setStyleSheet('border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ')---
+
                 self.lbl_massages_icon.setStyleSheet('background-color: rgb(220, 220, 220); ') 
             elif (event.type() == QEvent.HoverLeave) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
-                self.lbl_messages.setStyleSheet('')
+                self.lbl_messages.setStyleSheet(self.style_sheet_messages_alerts)
+
+                print(self.style_sheet_messages_alerts)
+
                 self.lbl_massages_icon.setStyleSheet('')
             return QMainWindow.eventFilter(self, source, event)
 
