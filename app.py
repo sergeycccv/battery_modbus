@@ -107,15 +107,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.edit_i_start_discharge_ch1.textChanged.connect(self.edit_i_start_discharge_ch1_changed)
         self.edit_u_stop_discharge_ch1.textChanged.connect(self.edit_u_stop_discharge_ch1_changed)
         self.edit_i_stop_charge_ch1.textChanged.connect(self.edit_i_stop_charge_ch1_changed)
-
         self.edit_i_start_discharge_ch2.textChanged.connect(self.edit_i_start_discharge_ch2_changed)
         self.edit_u_stop_discharge_ch2.textChanged.connect(self.edit_u_stop_discharge_ch2_changed)
         self.edit_i_stop_charge_ch2.textChanged.connect(self.edit_i_stop_charge_ch2_changed)
-
         self.edit_i_start_discharge_ch3.textChanged.connect(self.edit_i_start_discharge_ch3_changed)
         self.edit_u_stop_discharge_ch3.textChanged.connect(self.edit_u_stop_discharge_ch3_changed)
         self.edit_i_stop_charge_ch3.textChanged.connect(self.edit_i_stop_charge_ch3_changed)
-
         self.edit_i_start_discharge_ch4.textChanged.connect(self.edit_i_start_discharge_ch4_changed)
         self.edit_u_stop_discharge_ch4.textChanged.connect(self.edit_u_stop_discharge_ch4_changed)
         self.edit_i_stop_charge_ch4.textChanged.connect(self.edit_i_stop_charge_ch4_changed)
@@ -136,13 +133,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         datetime_mess = datetime.datetime.now().strftime('%d.%m.%Y %H:%M:%S')
         if level == 50 or level == 40 or level == 0: # CRITICAL, ERROR или NOTSET
             # Вывод сообщения в окно логов
-            self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a style="color: rgb(255, 55, 30); font-weight: bold;">' + datetime_mess + ' > '  + text + '</a>')
+            self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + \
+                                         '<a style="color: rgb(255, 55, 30); font-weight: bold;">' + \
+                                            datetime_mess + ' > '  + text + '</a>')
             # Вывод сообщения в окне программы
             self.lbl_messages.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
             self.lbl_messages.setText(text)
         elif level == 30: # WARNING
             # Вывод сообщения в окно логов
-            self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a style="color: rgb(0, 130, 30); font-weight: normal;">' + datetime_mess + ' > '  + text + '</a>')
+            self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + \
+                                         '<a style="color: rgb(0, 130, 30); font-weight: normal;">' + \
+                                            datetime_mess + ' > '  + text + '</a>')
             # Вывод сообщения в окне программы
             self.lbl_messages.setStyleSheet('color: rgb(0, 130, 30); font-weight: normal;')
             self.lbl_messages.setText(text)
@@ -286,17 +287,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.alerts.show()
             # Добавление к текстовой метке lbl_messages подсветки при наведении курсора
             if (event.type() == QEvent.HoverEnter) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
-                
-                # self.lbl_messages.setStyleSheet(self.lbl_messages.styleSheet())
-
-                self.lbl_messages.setStyleSheet('border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ')---
-
+                # Получение текущего стиля текстовой метки
+                color_msg = self.style_sheet_messages_alerts.split(';')[0].split(':')[1]
+                bold_msg = self.style_sheet_messages_alerts.split(';')[1].split(':')[1]
+                self.lbl_messages.setStyleSheet(f'color: {color_msg}; font-weight: {bold_msg}; ' + 
+                                                'border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ')
                 self.lbl_massages_icon.setStyleSheet('background-color: rgb(220, 220, 220); ') 
             elif (event.type() == QEvent.HoverLeave) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
                 self.lbl_messages.setStyleSheet(self.style_sheet_messages_alerts)
-
-                print(self.style_sheet_messages_alerts)
-
                 self.lbl_massages_icon.setStyleSheet('')
             return QMainWindow.eventFilter(self, source, event)
 
