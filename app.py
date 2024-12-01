@@ -289,7 +289,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 # self.lbl_messages.setStyleSheet(self.lbl_messages.styleSheet())
 
-                self.lbl_messages.setStyleSheet('border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ')---
+                self.lbl_messages.setStyleSheet('border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ')
 
                 self.lbl_massages_icon.setStyleSheet('background-color: rgb(220, 220, 220); ') 
             elif (event.type() == QEvent.HoverLeave) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
