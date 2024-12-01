@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1130</width>
-    <height>601</height>
+    <width>1170</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1130</width>
-    <height>601</height>
+    <width>1170</width>
+    <height>660</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1130</width>
-    <height>601</height>
+    <width>1170</width>
+    <height>660</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,13 +30,16 @@
     <normaloff>:/ICO/Charging24.png</normaloff>:/ICO/Charging24.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">#frm_back_ch_1, #frm_back_ch_2, #frm_back_ch_3, #frm_back_ch_4 {
+   <string notr="true">#frm_back_ch1, #frm_back_ch2, #frm_back_ch3, #frm_back_ch4 {
 	background-color: rgb(210, 210, 210);
+}
+#lbl_status_ch_1 {
+	background-color: rgb(240, 240, 240);
 }
 #lbl_messages {
 	color: rgb(255, 55, 30);
 	background-color: rgb(210, 210, 210);
-	padding-left: 10;
+	padding-left: 25;
 }
  #lbl_error {
 	background-color: rgb(210, 210, 210);
@@ -44,13 +47,16 @@
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frm_ch_1">
+   <widget class="QFrame" name="frm_ch1">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>271</width>
-      <height>521</height>
+      <width>281</width>
+      <height>570</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -59,7 +65,7 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_ico_ch_1">
+    <widget class="QLabel" name="lbl_ico_ch1">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -114,55 +120,11 @@
       <cstring></cstring>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_001">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>82</y>
-       <width>88</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Номер АКБ</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_1_number">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>75</y>
-       <width>133</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>AKB-0000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
     <widget class="QLabel" name="lbl_003">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>131</y>
+       <x>15</x>
+       <y>112</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -180,13 +142,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_u_start">
+    <widget class="QLineEdit" name="u_start_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>125</y>
+       <x>135</x>
+       <y>105</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -194,6 +156,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Стартовое напряжение, V</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -211,8 +176,8 @@
     <widget class="QLabel" name="lbl_004">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>165</y>
+       <x>15</x>
+       <y>153</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -230,13 +195,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_u_current">
+    <widget class="QLineEdit" name="u_current_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>160</y>
+       <x>135</x>
+       <y>146</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -244,6 +209,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущее напряжение, V</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -261,8 +229,8 @@
     <widget class="QLabel" name="lbl_005">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>200</y>
+       <x>15</x>
+       <y>194</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -280,13 +248,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_i_current">
+    <widget class="QLineEdit" name="i_current_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>195</y>
+       <x>135</x>
+       <y>187</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -294,6 +262,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущий ток зарядки, A</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -311,7 +282,7 @@
     <widget class="QLabel" name="lbl_006">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>15</x>
        <y>235</y>
        <width>111</width>
        <height>16</height>
@@ -330,13 +301,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_p_current">
+    <widget class="QLineEdit" name="p_current_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>230</y>
+       <x>135</x>
+       <y>228</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -344,6 +315,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущая мощность зарядки, W</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -361,8 +335,8 @@
     <widget class="QLabel" name="lbl_007">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>270</y>
+       <x>15</x>
+       <y>275</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -383,8 +357,8 @@
     <widget class="QLabel" name="lbl_009">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>340</y>
+       <x>15</x>
+       <y>355</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -402,13 +376,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_w_discharge">
+    <widget class="QLineEdit" name="w_discharge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>370</y>
+       <x>135</x>
+       <y>388</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -416,6 +390,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность разряда, Wh</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -430,13 +407,13 @@
       <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_c_charge">
+    <widget class="QLineEdit" name="c_charge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>406</y>
+       <x>135</x>
+       <y>428</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -444,6 +421,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость заряда, Ah</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -458,13 +438,13 @@
       <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_c_recharge">
+    <widget class="QLineEdit" name="c_recharge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>266</y>
+       <x>135</x>
+       <y>268</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -472,6 +452,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость подзаряда, Ah</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -489,8 +472,8 @@
     <widget class="QLabel" name="lbl_011">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>410</y>
+       <x>15</x>
+       <y>435</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -514,8 +497,8 @@
     <widget class="QLabel" name="lbl_010">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>374</y>
+       <x>15</x>
+       <y>395</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -536,8 +519,8 @@
     <widget class="QLabel" name="lbl_012">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>444</y>
+       <x>15</x>
+       <y>475</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -555,13 +538,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_c_discharge">
+    <widget class="QLineEdit" name="c_discharge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>336</y>
+       <x>135</x>
+       <y>348</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -569,6 +552,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость разряда, Ah</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -586,8 +572,8 @@
     <widget class="QLabel" name="lbl_008">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>304</y>
+       <x>15</x>
+       <y>315</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -605,13 +591,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_w_recharge">
+    <widget class="QLineEdit" name="w_recharge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>300</y>
+       <x>135</x>
+       <y>308</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -619,6 +605,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность подзаряда, Wh</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -633,13 +622,13 @@
       <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_1_w_charge">
+    <widget class="QLineEdit" name="w_charge_ch1">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>440</y>
+       <x>135</x>
+       <y>468</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -647,6 +636,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность заряда, Wh</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -661,14 +653,11 @@
       <string>ch1</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_start_test_1">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
+    <widget class="QPushButton" name="btn_start_test_ch1">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>480</y>
+       <x>25</x>
+       <y>520</y>
        <width>231</width>
        <height>31</height>
       </rect>
@@ -678,6 +667,9 @@
        <pointsize>10</pointsize>
       </font>
      </property>
+     <property name="statusTip">
+      <string>Запуск теста АКБ в канале 1</string>
+     </property>
      <property name="text">
       <string> Запуск теста</string>
      </property>
@@ -685,43 +677,17 @@
       <iconset resource="res.qrc">
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
-    </widget>
-    <widget class="QToolButton" name="btn_settings_ch_1">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>10</y>
-       <width>31</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string/>
-     </property>
-     <property name="statusTip">
-      <string>Настройки канала 1</string>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="text">
-      <string>1</string>
-     </property>
-     <property name="icon">
-      <iconset resource="res.qrc">
-       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
+     <property name="channel" stdset="0">
+      <number>1</number>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_status_ch_1">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
+    <widget class="QLabel" name="lbl_status_ch1">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>47</x>
        <y>10</y>
-       <width>171</width>
-       <height>31</height>
+       <width>181</width>
+       <height>32</height>
       </rect>
      </property>
      <property name="font">
@@ -732,6 +698,9 @@
        <strikeout>false</strikeout>
        <kerning>true</kerning>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Статус канала 1</string>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -746,7 +715,7 @@
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>ПОДКЛЮЧЕН</string>
+      <string>АКБ НЕ ПОДКЛЮЧЕНА</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -755,13 +724,13 @@
       <cstring></cstring>
      </property>
     </widget>
-    <widget class="QFrame" name="frm_back_ch_1">
+    <widget class="QFrame" name="frm_back_ch1">
      <property name="geometry">
       <rect>
        <x>2</x>
        <y>2</y>
-       <width>266</width>
-       <height>48</height>
+       <width>276</width>
+       <height>87</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -770,41 +739,178 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
+     <widget class="QToolButton" name="btn_write_settings_ch1">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>192</x>
+        <y>47</y>
+        <width>34</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Записать настройки канала 1</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/ICO/Sign_out16.png</normaloff>:/ICO/Sign_out16.png</iconset>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_number_ch1">
+      <property name="geometry">
+       <rect>
+        <x>7</x>
+        <y>48</y>
+        <width>146</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string>Инвентарный номер АКБ канала 1</string>
+      </property>
+      <property name="text">
+       <string>AKB-0001</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="btn_read_settings_ch1">
+      <property name="geometry">
+       <rect>
+        <x>156</x>
+        <y>47</y>
+        <width>34</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="statusTip">
+       <string>Прочитать настройки канала 1</string>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/ICO/Sign_in16.png</normaloff>:/ICO/Sign_in16.png</iconset>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_i_stop_charge_ch1">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>58</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение стопового тока разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>0.000</string>
+      </property>
+      <property name="text">
+       <string>0.025</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_u_stop_discharge_ch1">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>33</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение минимального напряжения разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>00.0</string>
+      </property>
+      <property name="text">
+       <string>10.8</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_i_start_discharge_ch1">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>8</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение стартового тока разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>0.000</string>
+      </property>
+      <property name="text">
+       <string>0.025</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
-    <zorder>frm_back_ch_1</zorder>
-    <zorder>lbl_ico_ch_1</zorder>
-    <zorder>lbl_001</zorder>
-    <zorder>edit_1_number</zorder>
+    <zorder>frm_back_ch1</zorder>
+    <zorder>lbl_ico_ch1</zorder>
     <zorder>lbl_003</zorder>
-    <zorder>edit_1_u_start</zorder>
+    <zorder>u_start_ch1</zorder>
     <zorder>lbl_004</zorder>
-    <zorder>edit_1_u_current</zorder>
+    <zorder>u_current_ch1</zorder>
     <zorder>lbl_005</zorder>
-    <zorder>edit_1_i_current</zorder>
+    <zorder>i_current_ch1</zorder>
     <zorder>lbl_006</zorder>
-    <zorder>edit_1_p_current</zorder>
+    <zorder>p_current_ch1</zorder>
     <zorder>lbl_007</zorder>
     <zorder>lbl_009</zorder>
-    <zorder>edit_1_w_discharge</zorder>
-    <zorder>edit_1_c_charge</zorder>
-    <zorder>edit_1_c_recharge</zorder>
+    <zorder>w_discharge_ch1</zorder>
+    <zorder>c_charge_ch1</zorder>
+    <zorder>c_recharge_ch1</zorder>
     <zorder>lbl_011</zorder>
     <zorder>lbl_010</zorder>
     <zorder>lbl_012</zorder>
-    <zorder>edit_1_c_discharge</zorder>
+    <zorder>c_discharge_ch1</zorder>
     <zorder>lbl_008</zorder>
-    <zorder>edit_1_w_recharge</zorder>
-    <zorder>edit_1_w_charge</zorder>
-    <zorder>btn_start_test_1</zorder>
-    <zorder>btn_settings_ch_1</zorder>
-    <zorder>lbl_status_ch_1</zorder>
+    <zorder>w_recharge_ch1</zorder>
+    <zorder>w_charge_ch1</zorder>
+    <zorder>btn_start_test_ch1</zorder>
+    <zorder>lbl_status_ch1</zorder>
    </widget>
    <widget class="QFrame" name="frm_top">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>9</y>
-      <width>1111</width>
+      <width>1151</width>
       <height>47</height>
      </rect>
     </property>
@@ -847,14 +953,11 @@
      </property>
     </widget>
     <widget class="QLabel" name="lbl_messages">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>319</x>
        <y>9</y>
-       <width>633</width>
+       <width>676</width>
        <height>30</height>
       </rect>
      </property>
@@ -863,6 +966,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Информационные сообщения</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Shape::Box</enum>
@@ -877,7 +983,7 @@
     <widget class="QPushButton" name="btn_logs">
      <property name="geometry">
       <rect>
-       <x>961</x>
+       <x>1003</x>
        <y>8</y>
        <width>141</width>
        <height>31</height>
@@ -954,42 +1060,36 @@
        <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_alerts">
+    <widget class="QLabel" name="lbl_massages_icon">
      <property name="geometry">
       <rect>
-       <x>917</x>
-       <y>11</y>
-       <width>33</width>
-       <height>25</height>
+       <x>326</x>
+       <y>17</y>
+       <width>15</width>
+       <height>15</height>
       </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="statusTip">
-      <string>Просмотр лога работы программы</string>
      </property>
      <property name="text">
       <string/>
      </property>
-     <property name="icon">
-      <iconset resource="res.qrc">
-       <normaloff>:/ICO/Alert24.png</normaloff>:/ICO/Alert24.png</iconset>
+     <property name="pixmap">
+      <pixmap resource="res.qrc">:/ICO/Alert24.png</pixmap>
      </property>
-     <property name="flat">
-      <bool>false</bool>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="frm_ch_2">
+   <widget class="QFrame" name="frm_ch2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>300</x>
       <y>60</y>
-      <width>271</width>
-      <height>521</height>
+      <width>281</width>
+      <height>570</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -998,12 +1098,12 @@
     <property name="frameShadow">
      <enum>QFrame::Shadow::Sunken</enum>
     </property>
-    <widget class="QLabel" name="lbl_status_ch_2">
+    <widget class="QLabel" name="lbl_status_ch2">
      <property name="geometry">
       <rect>
-       <x>51</x>
+       <x>47</x>
        <y>10</y>
-       <width>171</width>
+       <width>181</width>
        <height>31</height>
       </rect>
      </property>
@@ -1015,6 +1115,9 @@
        <strikeout>false</strikeout>
        <kerning>true</kerning>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Статус канала 2</string>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -1029,7 +1132,7 @@
       <enum>QFrame::Shadow::Plain</enum>
      </property>
      <property name="text">
-      <string>НЕ ПОДКЛЮЧЕН</string>
+      <string>АКБ НЕ ПОДКЛЮЧЕНА</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1038,561 +1141,11 @@
       <cstring></cstring>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_2">
+    <widget class="QPushButton" name="btn_start_test_ch2">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>82</y>
-       <width>88</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Номер АКБ</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_number">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>75</y>
-       <width>133</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>AKB-0000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>131</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>U нач</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Ustart">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>125</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>165</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>U тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Ucurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>160</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>200</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>I тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Icurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>195</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>235</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>P тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Pcurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>230</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>270</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>C подзаряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_10">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>340</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>C разряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Wdischarge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>370</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Ccharge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>406</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Crecharge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>266</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_12">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>410</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>C заряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_11">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>374</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>W разряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_13">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>444</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>W заряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Cdischarge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>336</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_9">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>304</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>W подзаряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Wrecharge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>300</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_2_Wcharge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>440</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch2</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_start_test_2">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>480</y>
+       <x>25</x>
+       <y>520</y>
        <width>231</width>
        <height>31</height>
       </rect>
@@ -1602,6 +1155,9 @@
        <pointsize>10</pointsize>
       </font>
      </property>
+     <property name="statusTip">
+      <string>Запуск теста АКБ в канале 2</string>
+     </property>
      <property name="text">
       <string> Запуск теста</string>
      </property>
@@ -1609,31 +1165,37 @@
       <iconset resource="res.qrc">
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
+     <property name="channel" stdset="0">
+      <number>2</number>
+     </property>
     </widget>
-    <widget class="QToolButton" name="btn_settings_ch_2">
+    <widget class="QToolButton" name="btn_write_settings_ch2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>10</y>
-       <width>31</width>
-       <height>31</height>
+       <x>194</x>
+       <y>49</y>
+       <width>34</width>
+       <height>34</height>
       </rect>
      </property>
      <property name="toolTip">
       <string/>
      </property>
      <property name="statusTip">
-      <string>Настройки канала 2</string>
+      <string>Записать настройки канала 2</string>
      </property>
      <property name="text">
       <string>2</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
-       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
+       <normaloff>:/ICO/Sign_out16.png</normaloff>:/ICO/Sign_out16.png</iconset>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_ico_ch_2">
+    <widget class="QLabel" name="lbl_ico_ch2">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -1688,13 +1250,13 @@
       <cstring></cstring>
      </property>
     </widget>
-    <widget class="QFrame" name="frm_back_ch_2">
+    <widget class="QFrame" name="frm_back_ch2">
      <property name="geometry">
       <rect>
        <x>2</x>
        <y>2</y>
-       <width>266</width>
-       <height>48</height>
+       <width>276</width>
+       <height>87</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -1703,166 +1265,131 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
+     <widget class="QLineEdit" name="edit_number_ch2">
+      <property name="geometry">
+       <rect>
+        <x>7</x>
+        <y>48</y>
+        <width>146</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string>Инвентарный номер АКБ канала 2</string>
+      </property>
+      <property name="text">
+       <string>AKB-0002</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="btn_read_settings_ch2">
+      <property name="geometry">
+       <rect>
+        <x>156</x>
+        <y>47</y>
+        <width>34</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="statusTip">
+       <string>Прочитать настройки канала 2</string>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>2</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/ICO/Sign_in16.png</normaloff>:/ICO/Sign_in16.png</iconset>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_u_stop_discharge_ch2">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>33</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение минимального напряжения разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>00.0</string>
+      </property>
+      <property name="text">
+       <string>10.8</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_i_stop_charge_ch2">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>58</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение стопового тока разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>0.000</string>
+      </property>
+      <property name="text">
+       <string>0.025</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_i_start_discharge_ch2">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>8</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение стартового тока разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>0.000</string>
+      </property>
+      <property name="text">
+       <string>0.025</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
-    <zorder>frm_back_ch_2</zorder>
-    <zorder>lbl_status_ch_2</zorder>
-    <zorder>lbl_2</zorder>
-    <zorder>edit_2_number</zorder>
-    <zorder>lbl_4</zorder>
-    <zorder>edit_2_Ustart</zorder>
-    <zorder>lbl_5</zorder>
-    <zorder>edit_2_Ucurrent</zorder>
-    <zorder>lbl_6</zorder>
-    <zorder>edit_2_Icurrent</zorder>
-    <zorder>lbl_7</zorder>
-    <zorder>edit_2_Pcurrent</zorder>
-    <zorder>lbl_8</zorder>
-    <zorder>lbl_10</zorder>
-    <zorder>edit_2_Wdischarge</zorder>
-    <zorder>edit_2_Ccharge</zorder>
-    <zorder>edit_2_Crecharge</zorder>
-    <zorder>lbl_12</zorder>
-    <zorder>lbl_11</zorder>
-    <zorder>lbl_13</zorder>
-    <zorder>edit_2_Cdischarge</zorder>
-    <zorder>lbl_9</zorder>
-    <zorder>edit_2_Wrecharge</zorder>
-    <zorder>edit_2_Wcharge</zorder>
-    <zorder>btn_start_test_2</zorder>
-    <zorder>btn_settings_ch_2</zorder>
-    <zorder>lbl_ico_ch_2</zorder>
-   </widget>
-   <widget class="QFrame" name="frm_ch_3">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>60</y>
-      <width>271</width>
-      <height>521</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Sunken</enum>
-    </property>
-    <widget class="QLabel" name="lbl_status_ch_3">
+    <widget class="QLineEdit" name="w_discharge_ch2">
      <property name="geometry">
       <rect>
-       <x>51</x>
-       <y>10</y>
-       <width>171</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Segoe UI</family>
-       <pointsize>11</pointsize>
-       <bold>true</bold>
-       <strikeout>false</strikeout>
-       <kerning>true</kerning>
-      </font>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Plain</enum>
-     </property>
-     <property name="text">
-      <string>НЕ ПОДКЛЮЧЕН</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="buddy">
-      <cstring></cstring>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_14">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>82</y>
-       <width>88</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Номер АКБ</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_number">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>75</y>
-       <width>133</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>AKB-0000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_16">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>131</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>U нач</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_Ustart">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>125</y>
+       <x>135</x>
+       <y>388</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -1870,6 +1397,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность разряда, Wh</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -1881,292 +1411,14 @@
       <bool>true</bool>
      </property>
      <property name="channel" stdset="0">
-      <string>ch3</string>
+      <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_17">
+    <widget class="QLabel" name="lbl_12">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>165</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>U тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_Ucurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>160</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch3</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_18">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>200</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>I тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_Icurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>195</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch3</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_19">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>235</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>P тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_Pcurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>230</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch3</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_20">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>270</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>C подзаряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_21">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>340</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>C разряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_Wdischarge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>370</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch3</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_Ccharge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>406</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch3</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_Crecharge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>266</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch3</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_22">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>410</y>
+       <x>15</x>
+       <y>435</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -2187,11 +1439,64 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_23">
+    <widget class="QLabel" name="lbl_7">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>374</y>
+       <x>15</x>
+       <y>235</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>P тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="c_charge_ch2">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>428</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость заряда, Ah</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_11">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>395</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -2209,35 +1514,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_24">
+    <widget class="QLineEdit" name="c_recharge_ch2">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>444</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>W заряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_3_Cdischarge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>336</y>
+       <x>135</x>
+       <y>268</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -2245,6 +1528,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость подзаряда, Ah</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -2256,14 +1542,14 @@
       <bool>true</bool>
      </property>
      <property name="channel" stdset="0">
-      <string>ch3</string>
+      <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_25">
+    <widget class="QLabel" name="lbl_9">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>304</y>
+       <x>15</x>
+       <y>315</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -2281,13 +1567,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_3_Wrecharge">
+    <widget class="QLabel" name="lbl_8">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>300</y>
-       <width>113</width>
-       <height>28</height>
+       <x>15</x>
+       <y>275</y>
+       <width>111</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="font">
@@ -2295,6 +1581,31 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="text">
+      <string>C подзаряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="i_current_ch2">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>187</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущий ток зарядки, A</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -2306,16 +1617,16 @@
       <bool>true</bool>
      </property>
      <property name="channel" stdset="0">
-      <string>ch3</string>
+      <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_3_Wcharge">
+    <widget class="QLabel" name="lbl_5">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>440</y>
-       <width>113</width>
-       <height>28</height>
+       <x>15</x>
+       <y>153</y>
+       <width>111</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="font">
@@ -2323,6 +1634,31 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="text">
+      <string>U тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="w_charge_ch2">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>468</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность заряда, Wh</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -2334,17 +1670,344 @@
       <bool>true</bool>
      </property>
      <property name="channel" stdset="0">
-      <string>ch3</string>
+      <string>ch1</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_start_test_3">
-     <property name="enabled">
+    <widget class="QLineEdit" name="u_current_ch2">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>146</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущее напряжение, V</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_6">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>194</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>I тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_4">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>112</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>U нач</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="p_current_ch2">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>228</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущая мощность зарядки, W</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_10">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>355</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>C разряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="c_discharge_ch2">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>348</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость разряда, Ah</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_13">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>475</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>W заряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="u_start_ch2">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>105</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Стартовое напряжение, V</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="w_recharge_ch2">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>308</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность подзаряда, Wh</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <zorder>frm_back_ch2</zorder>
+    <zorder>lbl_status_ch2</zorder>
+    <zorder>btn_start_test_ch2</zorder>
+    <zorder>btn_write_settings_ch2</zorder>
+    <zorder>lbl_ico_ch2</zorder>
+    <zorder>w_discharge_ch2</zorder>
+    <zorder>lbl_12</zorder>
+    <zorder>lbl_7</zorder>
+    <zorder>c_charge_ch2</zorder>
+    <zorder>lbl_11</zorder>
+    <zorder>c_recharge_ch2</zorder>
+    <zorder>lbl_9</zorder>
+    <zorder>lbl_8</zorder>
+    <zorder>i_current_ch2</zorder>
+    <zorder>lbl_5</zorder>
+    <zorder>w_charge_ch2</zorder>
+    <zorder>u_current_ch2</zorder>
+    <zorder>lbl_6</zorder>
+    <zorder>lbl_4</zorder>
+    <zorder>p_current_ch2</zorder>
+    <zorder>lbl_10</zorder>
+    <zorder>c_discharge_ch2</zorder>
+    <zorder>lbl_13</zorder>
+    <zorder>u_start_ch2</zorder>
+    <zorder>w_recharge_ch2</zorder>
+   </widget>
+   <widget class="QFrame" name="frm_ch3">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>60</y>
+      <width>281</width>
+      <height>570</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Sunken</enum>
+    </property>
+    <widget class="QLabel" name="lbl_status_ch3">
+     <property name="geometry">
+      <rect>
+       <x>47</x>
+       <y>10</y>
+       <width>181</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
+       <strikeout>false</strikeout>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Статус канала 3</string>
+     </property>
+     <property name="autoFillBackground">
       <bool>false</bool>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <property name="text">
+      <string>АКБ НЕ ПОДКЛЮЧЕНА</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring></cstring>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_start_test_ch3">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>480</y>
+       <x>25</x>
+       <y>520</y>
        <width>231</width>
        <height>31</height>
       </rect>
@@ -2354,6 +2017,9 @@
        <pointsize>10</pointsize>
       </font>
      </property>
+     <property name="statusTip">
+      <string>Запуск теста АКБ в канале 3</string>
+     </property>
      <property name="text">
       <string> Запуск теста</string>
      </property>
@@ -2361,31 +2027,37 @@
       <iconset resource="res.qrc">
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
+     <property name="channel" stdset="0">
+      <number>3</number>
+     </property>
     </widget>
-    <widget class="QToolButton" name="btn_settings_ch_3">
+    <widget class="QToolButton" name="btn_write_settings_ch3">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>10</y>
-       <width>31</width>
-       <height>31</height>
+       <x>194</x>
+       <y>49</y>
+       <width>34</width>
+       <height>34</height>
       </rect>
      </property>
      <property name="toolTip">
       <string/>
      </property>
      <property name="statusTip">
-      <string>Настройки канала 3</string>
+      <string>Записать настройки канала 3</string>
      </property>
      <property name="text">
       <string>3</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
-       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
+       <normaloff>:/ICO/Sign_out16.png</normaloff>:/ICO/Sign_out16.png</iconset>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_ico_ch_3">
+    <widget class="QLabel" name="lbl_ico_ch3">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -2440,13 +2112,13 @@
       <cstring></cstring>
      </property>
     </widget>
-    <widget class="QFrame" name="frm_back_ch_3">
+    <widget class="QFrame" name="frm_back_ch3">
      <property name="geometry">
       <rect>
        <x>2</x>
        <y>2</y>
-       <width>266</width>
-       <height>48</height>
+       <width>276</width>
+       <height>87</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -2455,166 +2127,131 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
+     <widget class="QLineEdit" name="edit_number_ch3">
+      <property name="geometry">
+       <rect>
+        <x>7</x>
+        <y>48</y>
+        <width>146</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string>Инвентарный номер АКБ канала 3</string>
+      </property>
+      <property name="text">
+       <string>AKB-0003</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="btn_read_settings_ch3">
+      <property name="geometry">
+       <rect>
+        <x>156</x>
+        <y>47</y>
+        <width>34</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="statusTip">
+       <string>Прочитать настройки канала 3</string>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>3</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/ICO/Sign_in16.png</normaloff>:/ICO/Sign_in16.png</iconset>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_u_stop_discharge_ch3">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>33</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение минимального напряжения разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>00.0</string>
+      </property>
+      <property name="text">
+       <string>10.8</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_i_stop_charge_ch3">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>58</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение стопового тока разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>0.000</string>
+      </property>
+      <property name="text">
+       <string>0.025</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_i_start_discharge_ch3">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>8</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение стартового тока разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>0.000</string>
+      </property>
+      <property name="text">
+       <string>0.025</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
-    <zorder>frm_back_ch_3</zorder>
-    <zorder>lbl_status_ch_3</zorder>
-    <zorder>lbl_14</zorder>
-    <zorder>edit_3_number</zorder>
-    <zorder>lbl_16</zorder>
-    <zorder>edit_3_Ustart</zorder>
-    <zorder>lbl_17</zorder>
-    <zorder>edit_3_Ucurrent</zorder>
-    <zorder>lbl_18</zorder>
-    <zorder>edit_3_Icurrent</zorder>
-    <zorder>lbl_19</zorder>
-    <zorder>edit_3_Pcurrent</zorder>
-    <zorder>lbl_20</zorder>
-    <zorder>lbl_21</zorder>
-    <zorder>edit_3_Wdischarge</zorder>
-    <zorder>edit_3_Ccharge</zorder>
-    <zorder>edit_3_Crecharge</zorder>
-    <zorder>lbl_22</zorder>
-    <zorder>lbl_23</zorder>
-    <zorder>lbl_24</zorder>
-    <zorder>edit_3_Cdischarge</zorder>
-    <zorder>lbl_25</zorder>
-    <zorder>edit_3_Wrecharge</zorder>
-    <zorder>edit_3_Wcharge</zorder>
-    <zorder>btn_start_test_3</zorder>
-    <zorder>btn_settings_ch_3</zorder>
-    <zorder>lbl_ico_ch_3</zorder>
-   </widget>
-   <widget class="QFrame" name="frm_ch_4">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>850</x>
-      <y>60</y>
-      <width>271</width>
-      <height>521</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::Box</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Sunken</enum>
-    </property>
-    <widget class="QLabel" name="lbl_status_ch_4">
+    <widget class="QLineEdit" name="w_discharge_ch3">
      <property name="geometry">
       <rect>
-       <x>51</x>
-       <y>10</y>
-       <width>171</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Segoe UI</family>
-       <pointsize>11</pointsize>
-       <bold>true</bold>
-       <strikeout>false</strikeout>
-       <kerning>true</kerning>
-      </font>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Plain</enum>
-     </property>
-     <property name="text">
-      <string>НЕ ПОДКЛЮЧЕН</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="buddy">
-      <cstring></cstring>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_26">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>82</y>
-       <width>88</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Номер АКБ</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_number">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>75</y>
-       <width>133</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>AKB-0000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_28">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>131</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>U нач</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_Ustart">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>125</y>
+       <x>135</x>
+       <y>388</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -2622,6 +2259,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность разряда, Wh</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -2633,292 +2273,14 @@
       <bool>true</bool>
      </property>
      <property name="channel" stdset="0">
-      <string>ch4</string>
+      <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_29">
+    <widget class="QLabel" name="lbl_14">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>165</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>U тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_Ucurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>160</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch4</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_30">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>200</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>I тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_Icurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>195</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch4</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_31">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>235</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>P тек</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_Pcurrent">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>230</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch4</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_32">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>270</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>C подзаряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_33">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>340</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>C разряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_Wdischarge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>370</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch4</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_Ccharge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>406</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch4</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_Crecharge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>266</y>
-       <width>113</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>00.000</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="channel" stdset="0">
-      <string>ch4</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lbl_34">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>410</y>
+       <x>15</x>
+       <y>435</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -2939,11 +2301,64 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_35">
+    <widget class="QLabel" name="lbl_15">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>374</y>
+       <x>15</x>
+       <y>235</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>P тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="c_charge_ch3">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>428</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость заряда, Ah</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_16">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>395</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -2961,35 +2376,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_36">
+    <widget class="QLineEdit" name="c_recharge_ch3">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>444</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>W заряда</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edit_4_Cdischarge">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>336</y>
+       <x>135</x>
+       <y>268</y>
        <width>113</width>
-       <height>28</height>
+       <height>35</height>
       </rect>
      </property>
      <property name="font">
@@ -2997,6 +2390,9 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость подзаряда, Ah</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -3008,14 +2404,14 @@
       <bool>true</bool>
      </property>
      <property name="channel" stdset="0">
-      <string>ch4</string>
+      <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_37">
+    <widget class="QLabel" name="lbl_17">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>304</y>
+       <x>15</x>
+       <y>315</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -3033,13 +2429,13 @@
       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_4_Wrecharge">
+    <widget class="QLabel" name="lbl_18">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>300</y>
-       <width>113</width>
-       <height>28</height>
+       <x>15</x>
+       <y>275</y>
+       <width>111</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="font">
@@ -3047,6 +2443,31 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="text">
+      <string>C подзаряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="i_current_ch3">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>187</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущий ток зарядки, A</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -3058,16 +2479,16 @@
       <bool>true</bool>
      </property>
      <property name="channel" stdset="0">
-      <string>ch4</string>
+      <string>ch1</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_4_Wcharge">
+    <widget class="QLabel" name="lbl_19">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>440</y>
-       <width>113</width>
-       <height>28</height>
+       <x>15</x>
+       <y>153</y>
+       <width>111</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="font">
@@ -3075,6 +2496,31 @@
        <pointsize>10</pointsize>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="text">
+      <string>U тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="w_charge_ch3">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>468</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность заряда, Wh</string>
      </property>
      <property name="text">
       <string>00.000</string>
@@ -3086,17 +2532,344 @@
       <bool>true</bool>
      </property>
      <property name="channel" stdset="0">
-      <string>ch4</string>
+      <string>ch1</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_start_test_4">
-     <property name="enabled">
+    <widget class="QLineEdit" name="u_current_ch3">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>146</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущее напряжение, V</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_20">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>194</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>I тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_21">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>112</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>U нач</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="p_current_ch3">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>228</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущая мощность зарядки, W</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_22">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>355</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>C разряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="c_discharge_ch3">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>348</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость разряда, Ah</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_23">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>475</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>W заряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="u_start_ch3">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>105</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Стартовое напряжение, V</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="w_recharge_ch3">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>308</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность подзаряда, Wh</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <zorder>frm_back_ch3</zorder>
+    <zorder>lbl_status_ch3</zorder>
+    <zorder>btn_start_test_ch3</zorder>
+    <zorder>btn_write_settings_ch3</zorder>
+    <zorder>lbl_ico_ch3</zorder>
+    <zorder>w_discharge_ch3</zorder>
+    <zorder>lbl_14</zorder>
+    <zorder>lbl_15</zorder>
+    <zorder>c_charge_ch3</zorder>
+    <zorder>lbl_16</zorder>
+    <zorder>c_recharge_ch3</zorder>
+    <zorder>lbl_17</zorder>
+    <zorder>lbl_18</zorder>
+    <zorder>i_current_ch3</zorder>
+    <zorder>lbl_19</zorder>
+    <zorder>w_charge_ch3</zorder>
+    <zorder>u_current_ch3</zorder>
+    <zorder>lbl_20</zorder>
+    <zorder>lbl_21</zorder>
+    <zorder>p_current_ch3</zorder>
+    <zorder>lbl_22</zorder>
+    <zorder>c_discharge_ch3</zorder>
+    <zorder>lbl_23</zorder>
+    <zorder>u_start_ch3</zorder>
+    <zorder>w_recharge_ch3</zorder>
+   </widget>
+   <widget class="QFrame" name="frm_ch4">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>60</y>
+      <width>281</width>
+      <height>570</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Sunken</enum>
+    </property>
+    <widget class="QLabel" name="lbl_status_ch4">
+     <property name="geometry">
+      <rect>
+       <x>48</x>
+       <y>10</y>
+       <width>181</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>11</pointsize>
+       <bold>true</bold>
+       <strikeout>false</strikeout>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Статус канала 4</string>
+     </property>
+     <property name="autoFillBackground">
       <bool>false</bool>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <property name="text">
+      <string>АКБ НЕ ПОДКЛЮЧЕНА</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring></cstring>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_start_test_ch4">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>480</y>
+       <x>25</x>
+       <y>520</y>
        <width>231</width>
        <height>31</height>
       </rect>
@@ -3106,6 +2879,9 @@
        <pointsize>10</pointsize>
       </font>
      </property>
+     <property name="statusTip">
+      <string>Запуск теста АКБ в канале 4</string>
+     </property>
      <property name="text">
       <string> Запуск теста</string>
      </property>
@@ -3113,31 +2889,37 @@
       <iconset resource="res.qrc">
        <normaloff>:/ICO/Zap24.png</normaloff>:/ICO/Zap24.png</iconset>
      </property>
+     <property name="channel" stdset="0">
+      <number>4</number>
+     </property>
     </widget>
-    <widget class="QToolButton" name="btn_settings_ch_4">
+    <widget class="QToolButton" name="btn_write_settings_ch4">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>10</y>
-       <width>31</width>
-       <height>31</height>
+       <x>194</x>
+       <y>49</y>
+       <width>34</width>
+       <height>34</height>
       </rect>
      </property>
      <property name="toolTip">
       <string/>
      </property>
      <property name="statusTip">
-      <string>Настройки канала 4</string>
+      <string>Записать настройки канала 4</string>
      </property>
      <property name="text">
       <string>4</string>
      </property>
      <property name="icon">
       <iconset resource="res.qrc">
-       <normaloff>:/ICO/Gear24.png</normaloff>:/ICO/Gear24.png</iconset>
+       <normaloff>:/ICO/Sign_out16.png</normaloff>:/ICO/Sign_out16.png</iconset>
      </property>
     </widget>
-    <widget class="QLabel" name="lbl_ico_ch_4">
+    <widget class="QLabel" name="lbl_ico_ch4">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -3192,13 +2974,13 @@
       <cstring></cstring>
      </property>
     </widget>
-    <widget class="QFrame" name="frm_back_ch_4">
+    <widget class="QFrame" name="frm_back_ch4">
      <property name="geometry">
       <rect>
        <x>2</x>
        <y>2</y>
-       <width>266</width>
-       <height>48</height>
+       <width>276</width>
+       <height>87</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -3207,34 +2989,682 @@
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
      </property>
+     <widget class="QLineEdit" name="edit_number_ch4">
+      <property name="geometry">
+       <rect>
+        <x>7</x>
+        <y>48</y>
+        <width>146</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="statusTip">
+       <string>Инвентарный номер АКБ канала 4</string>
+      </property>
+      <property name="text">
+       <string>AKB-0004</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="btn_read_settings_ch4">
+      <property name="geometry">
+       <rect>
+        <x>156</x>
+        <y>47</y>
+        <width>34</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="statusTip">
+       <string>Прочитать настройки канала 4</string>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res.qrc">
+        <normaloff>:/ICO/Sign_in16.png</normaloff>:/ICO/Sign_in16.png</iconset>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_i_start_discharge_ch4">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>8</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение стартового тока разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>0.000</string>
+      </property>
+      <property name="text">
+       <string>0.025</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_i_stop_charge_ch4">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>58</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение стопового тока разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>0.000</string>
+      </property>
+      <property name="text">
+       <string>0.025</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edit_u_stop_discharge_ch4">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>33</y>
+        <width>40</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="statusTip">
+       <string>Установить значение минимального напряжения разрядки в канале 1</string>
+      </property>
+      <property name="inputMask">
+       <string>00.0</string>
+      </property>
+      <property name="text">
+       <string>10.8</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
-    <zorder>frm_back_ch_4</zorder>
-    <zorder>lbl_status_ch_4</zorder>
+    <widget class="QLineEdit" name="w_discharge_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>388</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность разряда, Wh</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_24">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>435</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>C заряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_25">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>235</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>P тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="c_charge_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>428</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость заряда, Ah</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_26">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>395</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>W разряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="c_recharge_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>268</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость подзаряда, Ah</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_27">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>315</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>W подзаряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_28">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>275</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>C подзаряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="i_current_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>187</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущий ток зарядки, A</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_29">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>153</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>U тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="w_charge_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>468</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность заряда, Wh</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="u_current_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>146</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущее напряжение, V</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_30">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>194</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>I тек</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_31">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>112</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>U нач</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="p_current_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>228</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Текущая мощность зарядки, W</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_32">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>355</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>C разряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="c_discharge_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>348</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная ёмкость разряда, Ah</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_33">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>475</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>W заряда</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="u_start_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>105</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Стартовое напряжение, V</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="w_recharge_ch4">
+     <property name="geometry">
+      <rect>
+       <x>135</x>
+       <y>308</y>
+       <width>113</width>
+       <height>35</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="statusTip">
+      <string>Набранная мощность подзаряда, Wh</string>
+     </property>
+     <property name="text">
+      <string>00.000</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="channel" stdset="0">
+      <string>ch1</string>
+     </property>
+    </widget>
+    <zorder>frm_back_ch4</zorder>
+    <zorder>lbl_status_ch4</zorder>
+    <zorder>btn_start_test_ch4</zorder>
+    <zorder>btn_write_settings_ch4</zorder>
+    <zorder>lbl_ico_ch4</zorder>
+    <zorder>w_discharge_ch4</zorder>
+    <zorder>lbl_24</zorder>
+    <zorder>lbl_25</zorder>
+    <zorder>c_charge_ch4</zorder>
     <zorder>lbl_26</zorder>
-    <zorder>edit_4_number</zorder>
+    <zorder>c_recharge_ch4</zorder>
+    <zorder>lbl_27</zorder>
     <zorder>lbl_28</zorder>
-    <zorder>edit_4_Ustart</zorder>
+    <zorder>i_current_ch4</zorder>
     <zorder>lbl_29</zorder>
-    <zorder>edit_4_Ucurrent</zorder>
+    <zorder>w_charge_ch4</zorder>
+    <zorder>u_current_ch4</zorder>
     <zorder>lbl_30</zorder>
-    <zorder>edit_4_Icurrent</zorder>
     <zorder>lbl_31</zorder>
-    <zorder>edit_4_Pcurrent</zorder>
+    <zorder>p_current_ch4</zorder>
     <zorder>lbl_32</zorder>
+    <zorder>c_discharge_ch4</zorder>
     <zorder>lbl_33</zorder>
-    <zorder>edit_4_Wdischarge</zorder>
-    <zorder>edit_4_Ccharge</zorder>
-    <zorder>edit_4_Crecharge</zorder>
-    <zorder>lbl_34</zorder>
-    <zorder>lbl_35</zorder>
-    <zorder>lbl_36</zorder>
-    <zorder>edit_4_Cdischarge</zorder>
-    <zorder>lbl_37</zorder>
-    <zorder>edit_4_Wrecharge</zorder>
-    <zorder>edit_4_Wcharge</zorder>
-    <zorder>btn_start_test_4</zorder>
-    <zorder>btn_settings_ch_4</zorder>
-    <zorder>lbl_ico_ch_4</zorder>
+    <zorder>u_start_ch4</zorder>
+    <zorder>w_recharge_ch4</zorder>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar">
@@ -3254,61 +3684,31 @@
  </widget>
  <tabstops>
   <tabstop>btn_connect</tabstop>
-  <tabstop>btn_settings_ch_1</tabstop>
-  <tabstop>edit_1_number</tabstop>
-  <tabstop>edit_2_number</tabstop>
-  <tabstop>edit_3_number</tabstop>
-  <tabstop>edit_4_number</tabstop>
+  <tabstop>btn_write_settings_ch1</tabstop>
+  <tabstop>edit_number_ch1</tabstop>
+  <tabstop>edit_number_ch2</tabstop>
+  <tabstop>edit_number_ch3</tabstop>
+  <tabstop>edit_number_ch4</tabstop>
   <tabstop>btn_logs</tabstop>
-  <tabstop>edit_1_c_discharge</tabstop>
-  <tabstop>edit_1_u_current</tabstop>
-  <tabstop>edit_1_i_current</tabstop>
-  <tabstop>edit_1_p_current</tabstop>
-  <tabstop>btn_start_test_1</tabstop>
-  <tabstop>edit_1_w_charge</tabstop>
-  <tabstop>edit_1_w_discharge</tabstop>
+  <tabstop>c_discharge_ch1</tabstop>
+  <tabstop>u_current_ch1</tabstop>
+  <tabstop>i_current_ch1</tabstop>
+  <tabstop>p_current_ch1</tabstop>
+  <tabstop>btn_start_test_ch1</tabstop>
+  <tabstop>w_charge_ch1</tabstop>
+  <tabstop>w_discharge_ch1</tabstop>
   <tabstop>list_com</tabstop>
   <tabstop>btn_settings_port</tabstop>
-  <tabstop>edit_1_w_recharge</tabstop>
-  <tabstop>edit_2_Ustart</tabstop>
-  <tabstop>edit_1_u_start</tabstop>
-  <tabstop>edit_2_Ucurrent</tabstop>
-  <tabstop>edit_2_Icurrent</tabstop>
-  <tabstop>edit_2_Pcurrent</tabstop>
-  <tabstop>edit_2_Wdischarge</tabstop>
-  <tabstop>edit_2_Ccharge</tabstop>
-  <tabstop>edit_2_Crecharge</tabstop>
-  <tabstop>edit_2_Cdischarge</tabstop>
-  <tabstop>edit_2_Wrecharge</tabstop>
-  <tabstop>edit_2_Wcharge</tabstop>
-  <tabstop>btn_start_test_2</tabstop>
-  <tabstop>btn_settings_ch_2</tabstop>
-  <tabstop>edit_1_c_charge</tabstop>
-  <tabstop>edit_3_Ustart</tabstop>
-  <tabstop>edit_3_Ucurrent</tabstop>
-  <tabstop>edit_3_Icurrent</tabstop>
-  <tabstop>edit_3_Pcurrent</tabstop>
-  <tabstop>edit_3_Wdischarge</tabstop>
-  <tabstop>edit_3_Ccharge</tabstop>
-  <tabstop>edit_3_Crecharge</tabstop>
-  <tabstop>edit_3_Cdischarge</tabstop>
-  <tabstop>edit_3_Wrecharge</tabstop>
-  <tabstop>edit_3_Wcharge</tabstop>
-  <tabstop>btn_start_test_3</tabstop>
-  <tabstop>btn_settings_ch_3</tabstop>
-  <tabstop>edit_4_Ustart</tabstop>
-  <tabstop>edit_1_c_recharge</tabstop>
-  <tabstop>edit_4_Ucurrent</tabstop>
-  <tabstop>edit_4_Icurrent</tabstop>
-  <tabstop>edit_4_Pcurrent</tabstop>
-  <tabstop>edit_4_Wdischarge</tabstop>
-  <tabstop>edit_4_Ccharge</tabstop>
-  <tabstop>edit_4_Crecharge</tabstop>
-  <tabstop>edit_4_Cdischarge</tabstop>
-  <tabstop>edit_4_Wrecharge</tabstop>
-  <tabstop>edit_4_Wcharge</tabstop>
-  <tabstop>btn_start_test_4</tabstop>
-  <tabstop>btn_settings_ch_4</tabstop>
+  <tabstop>w_recharge_ch1</tabstop>
+  <tabstop>u_start_ch1</tabstop>
+  <tabstop>btn_start_test_ch2</tabstop>
+  <tabstop>btn_write_settings_ch2</tabstop>
+  <tabstop>c_charge_ch1</tabstop>
+  <tabstop>btn_start_test_ch3</tabstop>
+  <tabstop>btn_write_settings_ch3</tabstop>
+  <tabstop>c_recharge_ch1</tabstop>
+  <tabstop>btn_start_test_ch4</tabstop>
+  <tabstop>btn_write_settings_ch4</tabstop>
  </tabstops>
  <resources>
   <include location="res.qrc"/>

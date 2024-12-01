@@ -1,25 +1,15 @@
-'''
-pip uninstall -y PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6
-
-pip uninstall -y PySide6 PySide6-Addons PySide6-Essential shiboken6
-
-pip install PyQt6==6.7.1 PyQt6-Qt6==6.7.1 PyQt6-WebEngine-Qt6==6.7.1 PyQt6-WebEngine
-
-pip install PySide6-Essentials==6.7.1 PySide6==6.7.1 PySide6-Addons==6.7.1 shiboken6==6.7.1
-'''
-
 import sys, os, serial, glob, datetime, logging, logging.handlers
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
-                               QFileSystemModel, QButtonGroup)
-from PySide6.QtCore import QTimer
-from PyQt6.QtGui import QFontDatabase, QFont
+                               QFileSystemModel, QButtonGroup, QToolButton, 
+                               QFrame, QLabel)
+from PySide6.QtCore import QTimer, QEvent, Qt, QPoint
+from PySide6.QtGui import QFontDatabase, QPixmap
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
-from ui_settings_ch import Ui_SettingsChWindow
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -36,13 +26,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.i_start_discharge_list = [0.025, 0.025, 0.025, 0.025]
         self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
         self.i_stop_charge_list = [0.025, 0.025, 0.025, 0.025]
+        self.number_channel = ['AKB-001', 'AKB-002', 'AKB-003', 'AKB-004']
 
         # Создание окна логов тестирования
         self.logs = LogsWindow(self)
         # Создание окна настроек программы
         self.settings = SettingsPortWindow(self)
-        # Создание окна настроек канала
-        self.settings_ch = SettingsChWindow(self)
         # Создание окна просмотра лога программы
         self.alerts = AlertsWindow(self)
 
@@ -62,13 +51,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.logs.line_path_logs.setText(self.path_logs)
         # Количество попыток обнаружения COM-портов
         self.count_location_ports = 0
-        # Чтение и применение настроек из ini-файла
-        self.get_settings_ini_file()
-        self.serial = serial.Serial()
         # Список COM-портов
         self.list_com_saved = []
         # Создание списка доступных в системе COM-портов
         self.list_com_update()
+        # Чтение и применение настроек из ini-файла
+        self.get_settings_ini_file()
+        self.serial = serial.Serial()
         # Таймер обновления списка COM-портов
         self.timer_upd_com_list = QTimer()
         # Изменение текущего COM-порта в списке
@@ -81,30 +70,63 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_connect.clicked.connect(self.btn_connect_clicked)
         # Нажатие на кнопку "Настройки порта"
         self.btn_settings_port.clicked.connect(self.btn_settings_port_clicked)
-        # Нажатие на кнопку "Лог работы программы"
-        self.btn_alerts.clicked.connect(self.btn_alerts_clicked)
+        # Добавление к текстовой метке lbl_messages подсветку при наведении курсора
+        self.lbl_messages.setAttribute(Qt.WidgetAttribute.WA_Hover)
+        self.lbl_massages_icon.setAttribute(Qt.WidgetAttribute.WA_Hover)        
+        # Нажатие на текстовую метку lbl_messages для просмотра лога программы
+        self.lbl_messages.installEventFilter(self)
+        self.lbl_massages_icon.installEventFilter(self)
         # Нажатие на кнопку "Просмотр логов"
         self.btn_logs.clicked.connect(self.btn_logs_clicked)
 
-        # Обработка нажатия на одну из 4-х кнопок btn_settings_ch_XX
-        self.button_ch_group = QButtonGroup()
-        self.button_ch_group.addButton(self.btn_settings_ch_1)
-        self.button_ch_group.addButton(self.btn_settings_ch_2)
-        self.button_ch_group.addButton(self.btn_settings_ch_3)
-        self.button_ch_group.addButton(self.btn_settings_ch_4)
-        self.button_ch_group.buttonClicked.connect(self.btn_settings_ch_clicked)
+        # Обработка нажатия на одну из 4-х кнопок btn_read_settings_chX (прочитать настройки канала)
+        self.button_ch_read_settings_group = QButtonGroup()
+        self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch1)
+        self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch2)
+        self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch3)
+        self.button_ch_read_settings_group.addButton(self.btn_read_settings_ch4)
+        self.button_ch_read_settings_group.buttonClicked.connect(self.button_ch_read_settings_clicked)
 
-                
-        # Установка шрифта для вывода информационных сообщений
-        # font_path = 'MOSCOW2024.otf'
-        font_path = '7fonts.ru_SFDigitalReadoutMediumOblique.ttf'
-        p = QFontDatabase.addApplicationFont(font_path)
-        self.font_digits = QFontDatabase.applicationFontFamilies(p)[0]
-        # self.font_awesome = QFont(self.font_digits)  
-        # self.font_awesome.setPointSize(16)
+        # Обработка нажатия на одну из 4-х кнопок btn_write_settings_chX (записать настройки канала)
+        self.button_ch_write_settings_group = QButtonGroup()
+        self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch1)
+        self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch2)
+        self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch3)
+        self.button_ch_write_settings_group.addButton(self.btn_write_settings_ch4)
+        self.button_ch_write_settings_group.buttonClicked.connect(self.button_ch_write_settings_clicked)
+
+        # Обработка нажатия на одну из 4-х кнопок btn_start_test_chX (начать тестирование канала)
+        self.button_ch_start_test_group = QButtonGroup()
+        self.button_ch_start_test_group.addButton(self.btn_start_test_ch1)
+        self.button_ch_start_test_group.addButton(self.btn_start_test_ch2)
+        self.button_ch_start_test_group.addButton(self.btn_start_test_ch3)
+        self.button_ch_start_test_group.addButton(self.btn_start_test_ch4)
+        self.button_ch_start_test_group.buttonClicked.connect(self.button_ch_start_test_clicked)
+
+        # Обработка изменения текста в полях ввода настроек тестирования
+        self.edit_i_start_discharge_ch1.textChanged.connect(self.edit_i_start_discharge_ch1_changed)
+        self.edit_u_stop_discharge_ch1.textChanged.connect(self.edit_u_stop_discharge_ch1_changed)
+        self.edit_i_stop_charge_ch1.textChanged.connect(self.edit_i_stop_charge_ch1_changed)
+
+        self.edit_i_start_discharge_ch2.textChanged.connect(self.edit_i_start_discharge_ch2_changed)
+        self.edit_u_stop_discharge_ch2.textChanged.connect(self.edit_u_stop_discharge_ch2_changed)
+        self.edit_i_stop_charge_ch2.textChanged.connect(self.edit_i_stop_charge_ch2_changed)
+
+        self.edit_i_start_discharge_ch3.textChanged.connect(self.edit_i_start_discharge_ch3_changed)
+        self.edit_u_stop_discharge_ch3.textChanged.connect(self.edit_u_stop_discharge_ch3_changed)
+        self.edit_i_stop_charge_ch3.textChanged.connect(self.edit_i_stop_charge_ch3_changed)
+
+        self.edit_i_start_discharge_ch4.textChanged.connect(self.edit_i_start_discharge_ch4_changed)
+        self.edit_u_stop_discharge_ch4.textChanged.connect(self.edit_u_stop_discharge_ch4_changed)
+        self.edit_i_stop_charge_ch4.textChanged.connect(self.edit_i_stop_charge_ch4_changed)
+
+        # Обработка изменения текста в полях ввода инвентарных номеров АКБ
+        self.edit_number_ch1.textChanged.connect(self.edit_number_ch1_changed)
+        self.edit_number_ch2.textChanged.connect(self.edit_number_ch2_changed)
+        self.edit_number_ch3.textChanged.connect(self.edit_number_ch3_changed)
+        self.edit_number_ch4.textChanged.connect(self.edit_number_ch4_changed)
 
         self.initUI()
-
 
     # Вывод информационных сообщений
     def insert_text_to_log(self, level, text):
@@ -130,32 +152,63 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.alerts.text_log.setHtml('<a>' + datetime_mess + ' > '  + text + '</a>')
             else:
                 self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a>' + datetime_mess + ' > '  + text + '</a>')
+        self.style_sheet_messages_alerts = self.lbl_messages.styleSheet()
+
+    # Установка styleSheet для индикаторов
+    def set_styleSheet_indicator(self, color: str):
+        if self.led_digital_font != None:
+            styleSheet = f'font-family: "{self.led_digital_font}"; ' + \
+                         f'color: rgb({color}); ' + \
+                         'font-size: 18px; ' + \
+                         'padding-top: 2px; ' + \
+                         'background-color: black;'
+        else:
+            styleSheet = f'color: rgb({color}); ' + \
+                         'font-size: 15px; ' + \
+                         'background-color: black;'
+        return styleSheet
 
     def initUI(self):
-        # Установка стиля текста в полях вывода данных тестирования
+        # Установка шрифта для вывода параметров тестирования
+        font_path = 'led_digital_font.ttf'
+        try:
+            fp = QFontDatabase.addApplicationFont(font_path)
+            font_digits = QFontDatabase.applicationFontFamilies(fp)[0]
+            self.led_digital_font = font_digits
+        except Exception as e:
+            self.led_digital_font = None
+            self.insert_text_to_log(logging.INFO, 'Ошибка загрузки шрифта для индикаторов. ' + \
+                                    'Файл шрифта "led_digital_font.ttf" должен находиться в одном каталоге с программой. ' + \
+                                    'Проверьте наличие и целостность этого файла. Будет загружен системный шрифт.')
+
+        def colorize_indicator(channel: str):
+            indicators = ['u_start_',
+                          'u_current_',
+                          'i_current_',
+                          'p_current_',
+                          'c_recharge_',
+                          'w_recharge_',
+                          'c_discharge_',
+                          'w_discharge_',
+                          'c_charge_',
+                          'w_charge_',]
+            for indicator in indicators:
+                if widget.objectName() == indicator + channel:
+                    widget.setProperty('styleSheet', self.set_styleSheet_indicator('100, 100, 100'))
+
+        # Установка текста и стиля индикаторов тестирования на всех каналах
         for widget in self.findChildren(QLineEdit):
-            if widget.property('channel') in {'ch1', 'ch2', 'ch3', 'ch4'}:
-                widget.setText('10.234')
-                if widget.objectName() == 'edit_1_u_start':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 22px; color: rgb(200, 200, 200); background-color: black;')
-                if widget.objectName() == 'edit_1_u_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
-                if widget.objectName() == 'edit_1_i_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
-                if widget.objectName() == 'edit_1_p_current':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
-                if widget.objectName() == 'edit_1_c_recharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(200, 200, 200); background-color: black;')
-                if widget.objectName() == 'edit_1_w_recharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(200, 200, 200); background-color: black;')
-                if widget.objectName() == 'edit_1_c_discharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(255, 140, 140); background-color: black;')
-                if widget.objectName() == 'edit_1_w_discharge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(255, 140, 140); background-color: black;')
-                if widget.objectName() == 'edit_1_c_charge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
-                if widget.objectName() == 'edit_1_w_charge':
-                    widget.setProperty('styleSheet', f'font-family: "{self.font_digits}"; font-size: 14px; color: rgb(0, 255, 30); background-color: black;')
+            channels = ['ch1', 'ch2', 'ch3', 'ch4']
+            for channel in channels:
+                if widget.property('channel') in channels:
+                    widget.setText('00.000')
+                    colorize_indicator(channel)
+
+        self.frm_ch1.setEnabled(False)
+        self.frm_ch2.setEnabled(False)
+        self.frm_ch3.setEnabled(False)
+        self.frm_ch4.setEnabled(False)
+
         self.show()
 
     # Изменение текущего COM-порта в списке
@@ -182,10 +235,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(False)
                 self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setEnabled(False)
-                self.frm_ch_1.setEnabled(False)
-                self.frm_ch_2.setEnabled(False)
-                self.frm_ch_3.setEnabled(False)
-                self.frm_ch_4.setEnabled(False)
             else:
                 self.insert_text_to_log(logging.WARNING, f'В системе обнаружены свободные COM-порты: {', '.join(self.list_com_saved)}')
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
@@ -193,10 +242,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(True)
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setEnabled(True)
-                self.frm_ch_1.setEnabled(True)
-                self.frm_ch_2.setEnabled(True)
-                self.frm_ch_3.setEnabled(True)
-                self.frm_ch_4.setEnabled(True)
 
     # Подключение к COM-порту
     def btn_connect_clicked(self):
@@ -219,7 +264,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
         except Exception as e:
-            # QMessageBox.warning(self, 'Предупреждение', 'Ошибка подключения к порту ' + self.port + '\n' + str(e))
             self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + '. ' + str(e).replace('\n', ' '))
         
     # Открытие окна логов зарядки
@@ -230,9 +274,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def btn_settings_port_clicked(self):
         self.settings.show()
 
-    # Открытие окна просмотра лога программы
-    def btn_alerts_clicked(self):
-        self.alerts.show()
+    # Обработка событий мыши «нажатие на текстовую метку lbl_messages»
+    # и наведение курсора на неё
+    # При нажатии на текстовую метку выводится окно с информационными сообщениями
+    def eventFilter(self, source, event):
+            # Если курсор мыши над текстовой меткой lbl_messages
+            # и нажата левая кнопка мыши
+            if ((source is self.lbl_messages) or (source is self.lbl_massages_icon)) and \
+                (event.type() == QEvent.MouseButtonRelease) and \
+                (Qt.MouseButton.LeftButton == event.button()):
+                self.alerts.show()
+            # Добавление к текстовой метке lbl_messages подсветки при наведении курсора
+            if (event.type() == QEvent.HoverEnter) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
+                
+                # self.lbl_messages.setStyleSheet(self.lbl_messages.styleSheet())
+
+                self.lbl_messages.setStyleSheet('border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ')---
+
+                self.lbl_massages_icon.setStyleSheet('background-color: rgb(220, 220, 220); ') 
+            elif (event.type() == QEvent.HoverLeave) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
+                self.lbl_messages.setStyleSheet(self.style_sheet_messages_alerts)
+
+                print(self.style_sheet_messages_alerts)
+
+                self.lbl_massages_icon.setStyleSheet('')
+            return QMainWindow.eventFilter(self, source, event)
 
     # Чтение настроек из ini-файла
     def get_settings_ini_file(self):
@@ -306,15 +372,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except Exception as e:
             self.insert_text_to_log(logging.ERROR, 'Ошибка записи настроек в ini-файл. ' + '. ' + str(e).replace('\n', ' '))
 
-    # Открытие окна настроек каналов
-    def btn_settings_ch_clicked(self, btn):
-        # Получение номера канала из текста кнопки
-        number_ch = int(btn.text())
-        # self.settings_ch.setWindowTitle(f'Настройки канала {number_ch}')
-        self.settings_ch.channel = number_ch
-        self.settings_ch.show()
-
- # Обработка закрытия главного окна
+    # Обработка закрытия главного окна
     def closeEvent(self, event):
         if self.serial.isOpen():
             exit_alert = QMessageBox(self)
@@ -331,15 +389,227 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if exit_alert.clickedButton() == yes_close_btn:
                 self.serial.close()
                 self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
-                # Записываем настройки в ini-файл
-                win.set_settings_ini_file()
                 self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
                 event.accept()
                 return
             if exit_alert.clickedButton() == no_close_btn:
                 event.ignore()
                 return
+        # Записываем настройки в ini-файл
+        win.set_settings_ini_file()
         self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
+
+
+    # Обработка нажатия на одну из кнопок btn_read_settings_chX (прочитать настройки канала)
+    def button_ch_read_settings_clicked(self, btn):
+        # Получение номера канала из текста кнопки
+        number_ch = int(btn.text())
+        # Вызов функции, соответствующей кнопке
+        self.btn_read_settings_channel(number_ch)
+
+    # Прочитать настройки канала
+    def btn_read_settings_channel(self, channel: int):
+        # Читаем настройки
+        buff_i_start_discharge = str(self.i_start_discharge_list[channel - 1])
+        buff_u_stop_discharge = str(self.u_stop_discharge_list[channel - 1]) 
+        buff_i_stop_charge = str(self.i_stop_charge_list[channel - 1])
+        # Размещаем их в соответствующих полях
+        for i in range(1, 5):
+            if i == channel:
+                child = self.findChild(QLineEdit, f'edit_i_start_discharge_ch{i}')
+                child.setText(str(buff_i_start_discharge))
+                child = self.findChild(QLineEdit, f'edit_u_stop_discharge_ch{i}')
+                child.setText(str(buff_u_stop_discharge))
+                child = self.findChild(QLineEdit, f'edit_i_stop_charge_ch{i}')
+                child.setText(str(buff_i_stop_charge))
+
+        settings_channel = '«' + str(buff_i_start_discharge) + '», ' + \
+                            '«' + str(buff_u_stop_discharge) + \
+                            '», ' + '«' + str(buff_i_stop_charge) + '»'
+
+        QMessageBox.information(self, 'Информация', 'Чтение настроек канала ' + \
+                                str(channel) + '. Настройки: ' + settings_channel)
+   
+
+    # Обработка нажатия на одну из кнопок btn_write_settings_chX (записать настройки канала)
+    def button_ch_write_settings_clicked(self, btn):
+        # Получение номера канала из текста кнопки
+        number_ch = int(btn.text())
+        # Вызов функции, соответствующей кнопке
+        self.btn_write_settings_channel(number_ch)
+
+    # Записать настройки канала
+    def btn_write_settings_channel(self, channel: int):
+        # Запоминаем старые настройки
+        buff_i_start_discharge = self.i_start_discharge_list[channel - 1]
+        buff_u_stop_discharge = self.u_stop_discharge_list[channel - 1]
+        buff_i_stop_charge = self.i_stop_charge_list[channel - 1]
+
+        # Записываем новые настройки
+        for i in range(1, 5):
+            if i == channel:
+                child = self.findChild(QLineEdit, f'edit_i_start_discharge_ch{i}')
+                self.i_start_discharge_list[channel - 1] = float(child.text())
+                child = self.findChild(QLineEdit, f'edit_u_stop_discharge_ch{i}')
+                self.u_stop_discharge_list[channel - 1] = float(child.text())
+                child = self.findChild(QLineEdit, f'edit_i_stop_charge_ch{i}')
+                self.i_stop_charge_list[channel - 1] = float(child.text())
+
+        settings_channel_before = '«' + str(buff_i_start_discharge) + '», ' + \
+                                  '«' + str(buff_u_stop_discharge) + \
+                                  '», ' + '«' + str(buff_i_stop_charge) + '»'
+        settings_channel_after = '«' + str(self.i_start_discharge_list[channel - 1]) + '», ' + \
+                                 '«' + str(self.u_stop_discharge_list[channel - 1]) + \
+                                 '», ' + '«' + str(self.i_stop_charge_list[channel - 1]) + '»'
+        # Делаем недоступной кнопку «Записать настройки канала»
+        self.settings_channel_changed(channel)
+        MainWindow.insert_text_to_log(win, logging.INFO, 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
+                                        settings_channel_before + '. После сохранения: ' + settings_channel_after)
+        QMessageBox.information(self, 'Информация', 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
+                                        settings_channel_before + '. После сохранения: ' + settings_channel_after)
+
+
+    # Обработка нажатия на одну из кнопок btn_start_test_chX (запустить тестирование канала)
+    def button_ch_start_test_clicked(self, btn):
+        # Получение номера канала из objectName кнопки
+        number_ch = int(btn.objectName().split('btn_start_test_ch')[1])
+        # Вызов функции, соответствующей кнопке
+        self.btn_start_test_channel(number_ch)
+
+    # Запустить тестирование АКБ в канале
+    def btn_start_test_channel(self, channel: int):
+        if self.findChild(QPushButton, f'btn_start_test_ch{channel}').text() == ' Запуск теста':
+        
+            if self.findChild(QToolButton, f'btn_write_settings_ch{channel}').isEnabled():
+                buff_i_start_discharge = self.i_start_discharge_list[channel - 1]
+                buff_u_stop_discharge = self.u_stop_discharge_list[channel - 1]
+                buff_i_stop_charge = self.i_stop_charge_list[channel - 1]
+                answer = QMessageBox.warning(self, 'Предупреждение', 'Изменённые настройки канала ' + str(channel) + \
+                                    ' не переданы в прибор. Продолжить тестирование, используя прежние настройки?\n' + \
+                                    f'\nПрежние настройки: {buff_i_start_discharge} | {buff_u_stop_discharge} | {buff_i_stop_charge}.', \
+                                    buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
+                                    defaultButton=QMessageBox.StandardButton.No)
+                if answer == QMessageBox.StandardButton.Yes:
+                    self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД АКБ')
+                    self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
+                    self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
+                    self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
+                    self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
+                    MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
+                    
+            else:
+                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД АКБ')
+                self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
+                self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
+                MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
+
+        else:
+            answer = QMessageBox.warning(self, 'Внимание!', 'В данный момент происходит тестирование АКБ в канале ' + str(channel) + \
+                                '. Вы действительно хотите прервать процесс?', \
+                                buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
+                                defaultButton=QMessageBox.StandardButton.No)
+            if answer == QMessageBox.StandardButton.Yes:
+                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('АКБ ПОДКЛЮЧЕНА')
+                self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_36.png'))
+                self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(True)
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Запуск теста')
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Запуск теста АКБ в канале ' + str(channel))
+                MainWindow.insert_text_to_log(win, logging.WARNING, 'Остановлено тестирование АКБ на канале ' + str(channel))
+    
+
+    # Реакция на изменение настроек каналов
+    def settings_channel_changed(self, channel: int):
+        # Для установки доступности кнопки «Записать настройки канала»
+        flag_btn = set()
+        # Находим кнопку «Записать настройки канала» нужного канала
+        child_btn = self.findChild(QToolButton, f'btn_write_settings_ch{channel}')
+        for i in range(1, 5):
+            if i == channel:
+                # Находим поле edit_i_start_discharge_chX нужного канала
+                child_edit = self.findChild(QLineEdit, f'edit_i_start_discharge_ch{i}')
+                # Проверка наличия изменений
+                if self.i_start_discharge_list[channel - 1] != float(child_edit.text()):
+                    child_edit.setStyleSheet('border: 1px solid rgb(255, 55, 30); font-weight: bold;')
+                    flag_btn.add('1')
+                else:
+                    child_edit.setStyleSheet('')
+                    flag_btn.discard('1')
+
+                # Находим поле edit_u_stop_discharge_chX нужного канала
+                child_edit = self.findChild(QLineEdit, f'edit_u_stop_discharge_ch{i}')
+                if self.u_stop_discharge_list[channel - 1] != float(child_edit.text()):
+                    child_edit.setStyleSheet('border: 1px solid rgb(255, 55, 30); font-weight: bold;')
+                    flag_btn.add('2')
+                else:
+                    child_edit.setStyleSheet('')
+                    flag_btn.discard('2')
+
+                # Находим поле edit_i_stop_charge_chX нужного канала
+                child_edit = self.findChild(QLineEdit, f'edit_i_stop_charge_ch{i}')
+                if self.i_stop_charge_list[channel - 1] != float(child_edit.text()):
+                    child_edit.setStyleSheet('border: 1px solid rgb(255, 55, 30); font-weight: bold;')
+                    flag_btn.add('3')
+                else:
+                    child_edit.setStyleSheet('')
+                    flag_btn.discard('3')
+        
+        # Если множество flag_btn не пустое, то кнопка записи настроек доступна
+        if len(flag_btn) == 0:
+            child_btn.setEnabled(False)
+        else:
+            child_btn.setEnabled(True)
+
+    def edit_i_start_discharge_ch1_changed(self):
+        self.settings_channel_changed(1)
+
+    def edit_u_stop_discharge_ch1_changed(self):
+        self.settings_channel_changed(1)
+
+    def edit_i_stop_charge_ch1_changed(self):
+        self.settings_channel_changed(1)
+
+    def edit_i_start_discharge_ch2_changed(self):
+        self.settings_channel_changed(2)
+
+    def edit_u_stop_discharge_ch2_changed(self):
+        self.settings_channel_changed(2)
+
+    def edit_i_stop_charge_ch2_changed(self):
+        self.settings_channel_changed(2)
+
+    def edit_i_start_discharge_ch3_changed(self):
+        self.settings_channel_changed(3)
+
+    def edit_u_stop_discharge_ch3_changed(self):
+        self.settings_channel_changed(3)
+
+    def edit_i_stop_charge_ch3_changed(self):
+        self.settings_channel_changed(3)
+
+    def edit_i_start_discharge_ch4_changed(self):
+        self.settings_channel_changed(4)
+
+    def edit_u_stop_discharge_ch4_changed(self):
+        self.settings_channel_changed(4)
+
+    def edit_i_stop_charge_ch4_changed(self):
+        self.settings_channel_changed(4)
+
+
+    # Обработка редактирования инвентарных номеров каналов
+    def edit_number_ch1_changed(self):
+        self.number_channel[0] = self.edit_number_ch1.text()
+
+    def edit_number_ch2_changed(self):
+        self.number_channel[1] = self.edit_number_ch2.text()
+
+    def edit_number_ch3_changed(self):
+        self.number_channel[2] = self.edit_number_ch3.text()
+
+    def edit_number_ch4_changed(self):
+        self.number_channel[3] = self.edit_number_ch4.text()
 
 
 class LogsWindow(QMainWindow, Ui_LogsWindow):
@@ -404,6 +674,12 @@ class SettingsPortWindow(QMainWindow, Ui_SettingsPortWindow):
 
     # При открытии окна "Настройки порта" запомнить текущие настройки
     def showEvent(self, event):
+        
+        # Позиционирование окна
+        x = win.geometry().x() + win.btn_settings_port.geometry().x()
+        y = win.geometry().y() + win.btn_settings_port.geometry().y()
+        self.move(x, y)
+        
         self.buff_baud_rate = self.cb_baud_rate.currentText()
         self.buff_byte_size = self.cb_byte_size.currentText()
         self.buff_parity = self.cb_parity.currentIndex()
@@ -445,68 +721,6 @@ class AlertsWindow(QMainWindow, Ui_AlertsWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
-
-class SettingsChWindow(QMainWindow, Ui_SettingsChWindow):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-        # Нажатие на кнопку "Отмена"
-        self.btn_cancel.clicked.connect(self.btn_cancel_clicked)
-        # Нажатие на кнопку "Записать"
-        self.btn_write.clicked.connect(self.btn_write_clicked)
-        # Нажатие на кнопку "Прочитать"
-        self.btn_read.clicked.connect(self.btn_read_clicked)
-    
-    # Закрытие окна без записи настроек
-    def btn_cancel_clicked(self):
-        self.isSaved = False
-        self.close()
-
-    # Чтение настроек канала из прибора
-    def btn_read_clicked(self):
-        # Вывод информационного сообщения
-        self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
-        self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
-
-    # Запись настроек канала в прибор
-    def btn_write_clicked(self):
-        self.isSaved = True
-        # self.close()
-
-    # При открытии окна "Настройки канала" запомнить текущие настройки
-    def showEvent(self, event):
-        # Запомнить текущие настройки
-        self.buff_i_start_discharge = win.i_start_discharge_list
-        self.buff_u_stop_discharge = win.u_stop_discharge_list
-        self.buff_i_stop_charge = win.i_stop_charge_list
-
-        self.edit_i_start_discharge.setText(str(win.i_start_discharge_list[self.channel - 1]))
-        self.edit_u_stop_discharge.setText(str(win.u_stop_discharge_list[self.channel - 1]))
-        self.edit_i_stop_charge.setText(str(win.i_stop_charge_list[self.channel - 1]))
-
-        # Вывод информационного сообщения
-        self.lbl_info.setStyleSheet('color: rgb(0, 130, 30); font-weight: bold;')
-        self.lbl_info.setText('Прочитано из канала ' + str(self.channel))
-        # self.lbl_info.setStyleSheet('color: rgb(255, 55, 30); font-weight: bold;')
-        # self.lbl_info.setText('Не прочитано из канала ' + str(self.channel))
-
-        # Для сохранения, либо отмены сохранения настроек при закрытии окна
-        self.isSaved = False
-
-    # При закрытии окна "Настройки канала"
-    def closeEvent(self, event):
-        if self.isSaved:
-            # Сохранение новых настроек
-            win.i_start_discharge_list[self.channel - 1] = float(self.edit_i_start_discharge.text())
-            win.u_stop_discharge_list[self.channel - 1] = float(self.edit_u_stop_discharge.text())
-            win.i_stop_charge_list[self.channel - 1] = float(self.edit_i_stop_charge.text())
-            # win.set_settings_ini_file()
-        else:
-            # Восстановление старых настроек
-            self.edit_i_start_discharge.setText(str(self.buff_i_start_discharge[self.channel - 1]))
-            self.edit_u_stop_discharge.setText(str(self.buff_u_stop_discharge[self.channel - 1]))
-            self.edit_i_stop_charge.setText(str(self.buff_i_stop_charge[self.channel - 1]))
 
 
 def serial_ports():

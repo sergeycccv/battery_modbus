@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="ICO">
+    <file>Sign_in16.png</file>
+    <file>Sign_out16.png</file>
     <file>Alert24.png</file>
     <file>N1_0_36.png</file>
     <file>N2_0_36.png</file>
