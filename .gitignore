@@ -3,3 +3,4 @@ temp/
 settings.ini
 logs/
 log.txt
+battery_modbus_venv/
