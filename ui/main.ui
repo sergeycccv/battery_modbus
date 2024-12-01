@@ -968,7 +968,7 @@
       </font>
      </property>
      <property name="statusTip">
-      <string>Информационные сообщения</string>
+      <string>Нажмите для просмотра всех информационных сообщений</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Shape::Box</enum>
