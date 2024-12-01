@@ -32,6 +32,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet(u"#frm_back_ch1, #frm_back_ch2, #frm_back_ch3, #frm_back_ch4 {\n"
 "	background-color: rgb(210, 210, 210);\n"
+"    border: 1px solid rgb(100,100, 100);\n"
 "}\n"
 "#lbl_status_ch_1 {\n"
 "	background-color: rgb(240, 240, 240);\n"
@@ -40,6 +41,9 @@ class Ui_MainWindow(object):
 "	color: rgb(255, 55, 30);\n"
 "	background-color: rgb(210, 210, 210);\n"
 "	padding-left: 25;\n"
+"    border: 1px solid rgb(100,100, 100);\n"
+"\n"
+"\n"
 "}\n"
 " #lbl_error {\n"
 "	background-color: rgb(210, 210, 210);\n"
@@ -209,7 +213,7 @@ class Ui_MainWindow(object):
         self.frm_back_ch1 = QFrame(self.frm_ch1)
         self.frm_back_ch1.setObjectName(u"frm_back_ch1")
         self.frm_back_ch1.setGeometry(QRect(2, 2, 276, 87))
-        self.frm_back_ch1.setFrameShape(QFrame.Shape.Panel)
+        self.frm_back_ch1.setFrameShape(QFrame.Shape.NoFrame)
         self.frm_back_ch1.setFrameShadow(QFrame.Shadow.Plain)
         self.btn_write_settings_ch1 = QToolButton(self.frm_back_ch1)
         self.btn_write_settings_ch1.setObjectName(u"btn_write_settings_ch1")
@@ -283,7 +287,7 @@ class Ui_MainWindow(object):
         self.lbl_messages.setObjectName(u"lbl_messages")
         self.lbl_messages.setGeometry(QRect(319, 9, 676, 30))
         self.lbl_messages.setFont(font1)
-        self.lbl_messages.setFrameShape(QFrame.Shape.Box)
+        self.lbl_messages.setFrameShape(QFrame.Shape.NoFrame)
         self.lbl_messages.setFrameShadow(QFrame.Shadow.Sunken)
         self.btn_logs = QPushButton(self.frm_top)
         self.btn_logs.setObjectName(u"btn_logs")
@@ -354,7 +358,7 @@ class Ui_MainWindow(object):
         self.frm_back_ch2 = QFrame(self.frm_ch2)
         self.frm_back_ch2.setObjectName(u"frm_back_ch2")
         self.frm_back_ch2.setGeometry(QRect(2, 2, 276, 87))
-        self.frm_back_ch2.setFrameShape(QFrame.Shape.Panel)
+        self.frm_back_ch2.setFrameShape(QFrame.Shape.NoFrame)
         self.frm_back_ch2.setFrameShadow(QFrame.Shadow.Plain)
         self.edit_number_ch2 = QLineEdit(self.frm_back_ch2)
         self.edit_number_ch2.setObjectName(u"edit_number_ch2")
@@ -557,7 +561,7 @@ class Ui_MainWindow(object):
         self.frm_back_ch3 = QFrame(self.frm_ch3)
         self.frm_back_ch3.setObjectName(u"frm_back_ch3")
         self.frm_back_ch3.setGeometry(QRect(2, 2, 276, 87))
-        self.frm_back_ch3.setFrameShape(QFrame.Shape.Panel)
+        self.frm_back_ch3.setFrameShape(QFrame.Shape.NoFrame)
         self.frm_back_ch3.setFrameShadow(QFrame.Shadow.Plain)
         self.edit_number_ch3 = QLineEdit(self.frm_back_ch3)
         self.edit_number_ch3.setObjectName(u"edit_number_ch3")
@@ -760,7 +764,7 @@ class Ui_MainWindow(object):
         self.frm_back_ch4 = QFrame(self.frm_ch4)
         self.frm_back_ch4.setObjectName(u"frm_back_ch4")
         self.frm_back_ch4.setGeometry(QRect(2, 2, 276, 87))
-        self.frm_back_ch4.setFrameShape(QFrame.Shape.Panel)
+        self.frm_back_ch4.setFrameShape(QFrame.Shape.NoFrame)
         self.frm_back_ch4.setFrameShadow(QFrame.Shadow.Plain)
         self.edit_number_ch4 = QLineEdit(self.frm_back_ch4)
         self.edit_number_ch4.setObjectName(u"edit_number_ch4")

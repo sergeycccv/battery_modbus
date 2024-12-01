@@ -32,6 +32,7 @@
   <property name="styleSheet">
    <string notr="true">#frm_back_ch1, #frm_back_ch2, #frm_back_ch3, #frm_back_ch4 {
 	background-color: rgb(210, 210, 210);
+    border: 1px solid rgb(100,100, 100);
 }
 #lbl_status_ch_1 {
 	background-color: rgb(240, 240, 240);
@@ -40,6 +41,9 @@
 	color: rgb(255, 55, 30);
 	background-color: rgb(210, 210, 210);
 	padding-left: 25;
+    border: 1px solid rgb(100,100, 100);
+
+
 }
  #lbl_error {
 	background-color: rgb(210, 210, 210);
@@ -734,7 +738,7 @@
       </rect>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Panel</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
@@ -971,7 +975,7 @@
       <string>Нажмите для просмотра всех информационных сообщений</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Box</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Sunken</enum>
@@ -1260,7 +1264,7 @@
       </rect>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Panel</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
@@ -2122,7 +2126,7 @@
       </rect>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Panel</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>
@@ -2984,7 +2988,7 @@
       </rect>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::Panel</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Plain</enum>

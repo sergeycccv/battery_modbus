@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox,
                                QLineEdit, QPushButton, QFileDialog, 
                                QFileSystemModel, QButtonGroup, QToolButton, 
                                QFrame, QLabel)
-from PySide6.QtCore import QTimer, QEvent, Qt, QPoint
+from PySide6.QtCore import QTimer, QEvent, Qt
 from PySide6.QtGui import QFontDatabase, QPixmap
 from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
@@ -318,6 +318,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 # Иначе указываем папку логов в текущей директории
                 self.path_logs = os.path.abspath(os.curdir) + '\\logs'
+                # Создаем папку логов
+                os.makedirs(self.path_logs, exist_ok=True)
             # Назначаем папку логов в окне просмотра логов зарядки
             self.logs.line_path_logs.setText(self.path_logs)
             
