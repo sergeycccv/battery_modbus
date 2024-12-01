@@ -287,7 +287,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.alerts.show()
             # Добавление к текстовой метке lbl_messages подсветки при наведении курсора
             if (event.type() == QEvent.HoverEnter) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
-                # Получение текущего стиля текстовой метки
+                # Получение стилей текстовой метки из style_sheet_messages_alerts, сохранённой при добавлении строки в лог
                 color_msg = self.style_sheet_messages_alerts.split(';')[0].split(':')[1]
                 bold_msg = self.style_sheet_messages_alerts.split(';')[1].split(':')[1]
                 self.lbl_messages.setStyleSheet(f'color: {color_msg}; font-weight: {bold_msg}; ' + 
