@@ -298,7 +298,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 color_msg = self.style_sheet_messages_alerts.split(';')[0].split(':')[1]
                 bold_msg = self.style_sheet_messages_alerts.split(';')[1].split(':')[1]
                 self.lbl_messages.setStyleSheet(f'color: {color_msg}; font-weight: {bold_msg}; ' + 
-                                                'border: 1px solid rgb(100, 100, 100); background-color: rgb(220, 220, 220); ')
+                                                'border: 1px solid rgb(200, 200, 200); background-color: rgb(220, 220, 220); ')
                 self.lbl_massages_icon.setStyleSheet('background-color: rgb(220, 220, 220); ') 
             elif (event.type() == QEvent.HoverLeave) and ((source is self.lbl_messages) or (source is self.lbl_massages_icon)):
                 self.lbl_messages.setStyleSheet(self.style_sheet_messages_alerts)
