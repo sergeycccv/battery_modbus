@@ -1,11 +1,9 @@
-'''
-Не устанавливай расширение code runner
-pip uninstall -y PyQt6 PyQt6-Qt6 PyQt6-sip PyQt6-WebEngine PyQt6-WebEngine-Qt6
-pip uninstall -y PySide6 PySide6-Addons PySide6-Essential shiboken6
-pip install PyQt6==6.7.1 PyQt6-Qt6==6.7.1 PyQt6-WebEngine-Qt6==6.7.1 PyQt6-WebEngine
-pip install PySide6-Essentials==6.7.1 PySide6==6.7.1 PySide6-Addons==6.7.1 shiboken6==6.7.1
-'''
-import sys, os, serial, glob, datetime, logging, logging.handlers
+import sys, os, serial, glob, datetime, logging, logging.handlers, time
+
+import modbus_tk.defines as cst
+from modbus_tk.modbus_rtu import RtuMaster
+
+from dataclasses import dataclass
 from configparser import ConfigParser
 from PySide6.QtWidgets import (QApplication, QMainWindow, QMessageBox, 
                                QLineEdit, QPushButton, QFileDialog, 
@@ -17,6 +15,42 @@ from ui_main import Ui_MainWindow
 from ui_logs import Ui_LogsWindow
 from ui_settings_port import Ui_SettingsPortWindow
 from ui_alert import Ui_AlertsWindow
+
+
+@dataclass
+class StructAKB:
+    def __init__(self,
+                    report_dir: str,
+                    report_file: str,
+                    num_akb: str,
+                    state: str,
+                    old_state: int,
+                    u_start: float,
+                    u_current: float,
+                    i_current: float,
+                    p_current: float,
+                    c_recharge: float,
+                    w_recharge: float,
+                    c_discharge: float,
+                    w_discharge: float,
+                    c_charge: float,
+                    w_charge: float):
+        
+        self.report_dir = report_dir
+        self.report_file = report_file 
+        self.num_akb = num_akb
+        self.state = state
+        self.old_state = old_state
+        self.u_start = u_start
+        self.u_current = u_current
+        self.i_current = i_current
+        self.p_current = p_current
+        self.c_recharge = c_recharge
+        self.w_recharge = w_recharge
+        self.c_discharge = c_discharge
+        self.w_discharge = w_discharge
+        self.c_charge = c_charge
+        self.w_charge = w_charge
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -34,6 +68,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
         self.i_stop_charge_list = [0.025, 0.025, 0.025, 0.025]
         self.number_channel = ['AKB-001', 'AKB-002', 'AKB-003', 'AKB-004']
+
+        self.tab_reg = [0 for _ in range(25)]
+        self.ready_channel = [False, False, False, False]
+        self.chAKB = []
+        for i in range(1, 5):
+            akb = StructAKB(report_dir = '',
+                          report_file = '',
+                          num_akb = f'AKB-000{i}',
+                          state = 'ОЖИДАНИЕ',
+                          old_state = 0,
+                          u_start = 0.0,
+                          u_current = 0.0,
+                          i_current = 0.0,
+                          p_current = 0.0,
+                          c_recharge = 0.0,
+                          w_recharge = 0.0,
+                          c_discharge = 0.0,
+                          w_discharge = 0.0,
+                          c_charge = 0.0,
+                          w_charge = 0.0)
+            self.chAKB.append(akb)
+
+        self.serial_connect = False
 
         # Создание окна логов тестирования
         self.logs = LogsWindow(self)
@@ -64,7 +121,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.list_com_update()
         # Чтение и применение настроек из ini-файла
         self.get_settings_ini_file()
+        
         self.serial = serial.Serial()
+        self.master = RtuMaster(self.serial)
+        self.master.set_timeout(5.0)
+        self.master.set_verbose(True)
+        
         # Таймер обновления списка COM-портов
         self.timer_upd_com_list = QTimer()
         # Изменение текущего COM-порта в списке
@@ -131,6 +193,33 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.edit_number_ch4.textChanged.connect(self.edit_number_ch4_changed)
 
         self.initUI()
+        self.updateData(1)
+
+    def updateData(self, channel):
+        for i in range(1, 5):
+            if i == channel:
+                child = self.findChild(QLabel, f'lbl_status_ch{i}')
+                child.setText(self.chAKB[i - 1].state)
+                child = self.findChild(QLineEdit, f'u_start_ch{i}')
+                child.setText(str(self.chAKB[i - 1].u_start))
+                child = self.findChild(QLineEdit, f'u_current_ch{i}')
+                child.setText(str(self.chAKB[i - 1].u_current))
+                child = self.findChild(QLineEdit, f'i_current_ch{i}')
+                child.setText(str(self.chAKB[i - 1].i_current))
+                child = self.findChild(QLineEdit, f'p_current_ch{i}')
+                child.setText(str(self.chAKB[i - 1].p_current))
+                child = self.findChild(QLineEdit, f'c_recharge_ch{i}')
+                child.setText(str(self.chAKB[i - 1].c_recharge))
+                child = self.findChild(QLineEdit, f'w_recharge_ch{i}')
+                child.setText(str(self.chAKB[i - 1].w_recharge))
+                child = self.findChild(QLineEdit, f'c_discharge_ch{i}')
+                child.setText(str(self.chAKB[i - 1].c_discharge))
+                child = self.findChild(QLineEdit, f'w_discharge_ch{i}')
+                child.setText(str(self.chAKB[i - 1].w_discharge))
+                child = self.findChild(QLineEdit, f'c_charge_ch{i}')
+                child.setText(str(self.chAKB[i - 1].c_charge))
+                child = self.findChild(QLineEdit, f'w_charge_ch{i}')
+                child.setText(str(self.chAKB[i - 1].w_charge))
 
     # Вывод информационных сообщений
     def insert_text_to_log(self, level, text):
@@ -160,6 +249,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.alerts.text_log.setHtml('<a>' + datetime_mess + ' > '  + text + '</a>')
             else:
                 self.alerts.text_log.setHtml(self.alerts.text_log.toHtml() + '<a>' + datetime_mess + ' > '  + text + '</a>')
+        
         self.style_sheet_messages_alerts = self.lbl_messages.styleSheet()
 
     # Установка styleSheet для индикаторов
@@ -225,15 +315,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Обновление списка COM-портов по таймеру
     def list_com_update(self):
+        # Запрос доступных в системе COM-портов
+        temp_list_com = serial_ports()
         # Если список COM-портов изменился или пустой
-        if (self.list_com_saved != serial_ports()) or (len(self.list_com_saved) == 0):
+        if (self.list_com_saved != temp_list_com) or (len(self.list_com_saved) == 0):
             # Очищаем список
             self.list_com.clear()
             # Обновляем список COM-портов
-            self.list_com.addItems(serial_ports())
+            self.list_com.addItems(temp_list_com)
             self.port = self.list_com.currentText()
             # Сохраняем список COM-портов
-            self.list_com_saved = serial_ports()
+            self.list_com_saved = temp_list_com
             if len(self.list_com_saved) == 0:
                 if self.count_location_ports == 0:
                     self.insert_text_to_log(logging.ERROR, 'В системе нет ни одного свободного COM-порта')
@@ -244,7 +336,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setEnabled(False)
             else:
-                self.insert_text_to_log(logging.WARNING, f'В системе обнаружены свободные COM-порты: {', '.join(self.list_com_saved)}')
+                self.insert_text_to_log(logging.WARNING, 'В системе обнаружены свободные COM-порты: ' + \
+                                                         f'{', '.join(self.list_com_saved)}')
                 self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
                 self.count_location_ports = 0
                 self.list_com.setEnabled(True)
@@ -253,27 +346,68 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Подключение к COM-порту
     def btn_connect_clicked(self):
-        try:
-            if not self.serial.isOpen():
-                self.serial = serial.Serial(self.port, self.baud_rate, self.byte_size, self.parity, self.stop_bits, self.x_on_x_off)
-                # Стоп таймера обновления списка COM-портов
-                self.timer_upd_com_list.stop()
+        def connect():
+            try:
+                self.serial = serial.Serial(self.port, self.baud_rate, self.byte_size, 
+                                            self.parity, self.stop_bits, self.x_on_x_off, timeout=None) --- ДИЧЬ!
+                self.insert_text_to_log(logging.WARNING, 'Установлено подключение к порту ' + self.port)
+                return True
+            except Exception as e:
+                self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + ': ' + str(e))
+                return False
+
+        def read_port():
+            try:
+                self.tab_reg = self.master.execute(3, cst.READ_INPUT_REGISTERS, 0, 25)
+                return True
+            except Exception as e:
+                self.insert_text_to_log(logging.ERROR, 'Ошибка чтения данных с порта ' + self.port + ': ' + str(e))
+                self.master.close()
+                return False
+
+
+        if not self.serial_connect:
+            # Стоп таймера обновления списка COM-портов
+            self.timer_upd_com_list.stop()
+            self.serial_connect = connect()
+            if read_port():
+                # self.insert_text_to_log(logging.WARNING, 'Подключено к порту ' + self.port)
+                # self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
                 self.list_com.setEnabled(False)
                 self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setText('Отключиться')
-                self.insert_text_to_log(logging.WARNING, 'Установлено подключение к порту ' + self.port)
-            else:
-                self.serial.close()
-                # Запуск таймера обновления списка COM-портов
-                self.timer_upd_com_list.start(1000)
-                self.list_com.setEnabled(True)
-                self.btn_settings_port.setEnabled(True)
-                self.btn_connect.setText('Подключиться')
-                self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
-                self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
-        except Exception as e:
-            self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + '. ' + str(e).replace('\n', ' '))
+        else:
+            # self.insert_text_to_log(logging.ERROR, 'Ошибка чтения данных с порта ' + self.port + ': ' + str(e))
+            self.serial.close()
+            # self.serial_connect = False
+            self.list_com.setEnabled(True)
+            self.btn_settings_port.setEnabled(True)
+            self.btn_connect.setText('Подключиться')
+            # Запуск таймера обновления списка COM-портов
+            self.timer_upd_com_list.start(1000)
+            self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
+            self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
+            # read_success = False
+            return
+
         
+        # self.list_com.setEnabled(False)
+        # self.btn_settings_port.setEnabled(False)
+        # self.btn_connect.setText('Отключиться')
+            
+        # else:
+        #     self.serial.close()
+        #     # master.close()
+        #     self.serial_connect = False
+        #     # Запуск таймера обновления списка COM-портов
+        #     self.timer_upd_com_list.start(1000)
+        #     self.list_com.setEnabled(True)
+        #     self.btn_settings_port.setEnabled(True)
+        #     self.btn_connect.setText('Подключиться')
+        #     self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
+        #     self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
+
+
     # Открытие окна логов зарядки
     def btn_logs_clicked(self):
         self.logs.show()
@@ -381,7 +515,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Обработка закрытия главного окна
     def closeEvent(self, event):
-        if self.serial.isOpen():
+        if self.serial_connect:#self.serial.isOpen():
             exit_alert = QMessageBox(self)
             exit_alert.setWindowTitle('Внимание!')
             exit_alert.setText('<p><strong>В данный момент тестируется батарея!</strong></p> \
