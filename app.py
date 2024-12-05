@@ -124,17 +124,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.serial = serial.Serial()
         self.master = RtuMaster(self.serial)
-        self.master.set_timeout(5.0)
-        self.master.set_verbose(True)
         
         # Таймер обновления списка COM-портов
         self.timer_upd_com_list = QTimer()
-        # Изменение текущего COM-порта в списке
+        # При изменении текущего COM-порта в списке
         self.list_com.currentIndexChanged.connect(self.list_com_changed)
         # Обновление списка COM-портов по таймеру
         self.timer_upd_com_list.timeout.connect(self.list_com_update)
         # Старт таймера обновления списка COM-портов (1 сек)
         self.timer_upd_com_list.start(1000)
+
         # Нажатие на кнопку "Подключиться"
         self.btn_connect.clicked.connect(self.btn_connect_clicked)
         # Нажатие на кнопку "Настройки порта"
@@ -312,6 +311,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # Изменение текущего COM-порта в списке
     def list_com_changed(self):
         self.port = self.list_com.currentText()
+        self.set_settings_ini_file()
 
     # Обновление списка COM-портов по таймеру
     def list_com_update(self):
@@ -349,37 +349,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         def connect():
             try:
                 self.serial = serial.Serial(self.port, self.baud_rate, self.byte_size, 
-                                            self.parity, self.stop_bits, self.x_on_x_off, timeout=None) --- ДИЧЬ!
+                                            self.parity, self.stop_bits, self.x_on_x_off)
                 self.insert_text_to_log(logging.WARNING, 'Установлено подключение к порту ' + self.port)
                 return True
             except Exception as e:
-                self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + ': ' + str(e))
+                self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + ': Serial - ' + str(e))
                 return False
 
         def read_port():
             try:
+                self.master = RtuMaster(self.serial)
+                self.master.set_timeout(1.0)
+                self.master.set_verbose(True)
                 self.tab_reg = self.master.execute(3, cst.READ_INPUT_REGISTERS, 0, 25)
                 return True
             except Exception as e:
-                self.insert_text_to_log(logging.ERROR, 'Ошибка чтения данных с порта ' + self.port + ': ' + str(e))
+                self.insert_text_to_log(logging.ERROR, 'Ошибка чтения данных с порта ' + self.port + ': Modbus - ' + str(e))
                 self.master.close()
                 return False
 
 
+        print(self.serial_connect)
         if not self.serial_connect:
             # Стоп таймера обновления списка COM-портов
             self.timer_upd_com_list.stop()
             self.serial_connect = connect()
             if read_port():
-                # self.insert_text_to_log(logging.WARNING, 'Подключено к порту ' + self.port)
-                # self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
+                print(self.tab_reg)
+                print(self.serial_connect)
                 self.list_com.setEnabled(False)
                 self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setText('Отключиться')
         else:
-            # self.insert_text_to_log(logging.ERROR, 'Ошибка чтения данных с порта ' + self.port + ': ' + str(e))
             self.serial.close()
-            # self.serial_connect = False
+            self.serial_connect = False
             self.list_com.setEnabled(True)
             self.btn_settings_port.setEnabled(True)
             self.btn_connect.setText('Подключиться')
@@ -457,16 +460,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # Назначаем папку логов в окне просмотра логов зарядки
             self.logs.line_path_logs.setText(self.path_logs)
             
+            self.list_com.setCurrentIndex(0)
+            self.port = self.list_com.currentText()
             if config.has_option('COM', 'Port'):
                 self.port = config.get('COM', 'Port')
                 item = self.list_com.findText(self.port)
                 # Если порт из ini-файла существует в списке, а значит и в системе
                 if  item != -1:
                     self.list_com.setCurrentIndex(item)
-            else:
-                # Иначе выбираем первый из списка
-                self.list_com.setCurrentIndex(0)
-                self.port = self.list_com.currentText()
+            self.port = self.list_com.currentText()
 
             if config.has_option('COM', 'baud_rate'):
                 self.baud_rate = config.getint('COM', 'baud_rate')
@@ -489,6 +491,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.x_on_x_off = config.getboolean('COM', 'x_on_x_off')
             self.settings.cb_x_on_x_off.setChecked(self.x_on_x_off)
 
+            self.set_settings_ini_file()
+
         except Exception as e:
             self.insert_text_to_log(logging.ERROR, 'Ошибка чтения настроек из ini-файла. ' + str(e).replace('\n', ' '))
 
@@ -497,19 +501,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             config = ConfigParser()
             config.add_section('GENERAL')
-            config.set('GENERAL', 'path_logs', win.path_logs)
-
+            config.set('GENERAL', 'path_logs', self.path_logs)
             config.add_section('COM')
-            config.set('COM', 'Port', win.port)
-            config.set('COM', 'baud_rate', str(win.baud_rate))
-            config.set('COM', 'byte_size', str(win.byte_size))
-            config.set('COM', 'Parity', win.parity)
-            config.set('COM', 'stop_bits', str(win.stop_bits))
-            config.set('COM', 'x_on_x_off', str(win.x_on_x_off))
-
+            config.set('COM', 'Port', self.port)
+            config.set('COM', 'baud_rate', str(self.baud_rate))
+            config.set('COM', 'byte_size', str(self.byte_size))
+            config.set('COM', 'Parity', self.parity)
+            config.set('COM', 'stop_bits', str(self.stop_bits))
+            config.set('COM', 'x_on_x_off', str(self.x_on_x_off))
             with open('settings.ini', 'w', encoding='utf-8') as config_file:
                 config.write(config_file)
-
         except Exception as e:
             self.insert_text_to_log(logging.ERROR, 'Ошибка записи настроек в ini-файл. ' + '. ' + str(e).replace('\n', ' '))
 
@@ -528,6 +529,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             exit_alert.setDefaultButton(no_close_btn)
             exit_alert.exec()
             if exit_alert.clickedButton() == yes_close_btn:
+                self.set_settings_ini_file()
                 self.serial.close()
                 self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
                 self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
@@ -536,8 +538,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if exit_alert.clickedButton() == no_close_btn:
                 event.ignore()
                 return
-        # Записываем настройки в ini-файл
-        win.set_settings_ini_file()
         self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
 
 
