@@ -346,7 +346,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Подключение к COM-порту
     def btn_connect_clicked(self):
-        def connect():
+        def connect_port():
             try:
                 self.serial = serial.Serial(self.port, self.baud_rate, self.byte_size, 
                                             self.parity, self.stop_bits, self.x_on_x_off)
@@ -368,47 +368,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.master.close()
                 return False
 
-
-        print(self.serial_connect)
         if not self.serial_connect:
             # Стоп таймера обновления списка COM-портов
             self.timer_upd_com_list.stop()
-            self.serial_connect = connect()
-            if read_port():
-                print(self.tab_reg)
-                print(self.serial_connect)
+            self.serial_connect = connect_port()
+
+            if self.serial_connect:
                 self.list_com.setEnabled(False)
                 self.btn_settings_port.setEnabled(False)
-                self.btn_connect.setText('Отключиться')
+                self.btn_connect.setText(' Отключиться')
+                read_port = read_port()
+
+                if read_port:
+                    print(self.tab_reg)
+                    print(self.serial_connect)
+                else:
+                    self.serial.close()
+                    self.serial_connect = False
+                    self.list_com.setEnabled(True)
+                    self.btn_settings_port.setEnabled(True)
+                    self.btn_connect.setText(' Подключиться')
+                    # Запуск таймера обновления списка COM-портов
+                    self.timer_upd_com_list.start(1000)
+                    self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
+                    self.insert_text_to_log(logging.NOTSET, 'Ошибка чтения данных с устройства! ' + 'Повторите попытку подключения')
+
+            else:
+                self.list_com.setEnabled(True)
+                self.btn_settings_port.setEnabled(True)
+                self.btn_connect.setText(' Подключиться')
+                # Запуск таймера обновления списка COM-портов
+                self.timer_upd_com_list.start(1000)
+
         else:
             self.serial.close()
             self.serial_connect = False
             self.list_com.setEnabled(True)
             self.btn_settings_port.setEnabled(True)
-            self.btn_connect.setText('Подключиться')
+            self.btn_connect.setText(' Подключиться')
             # Запуск таймера обновления списка COM-портов
             self.timer_upd_com_list.start(1000)
             self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
             self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
-            # read_success = False
-            return
-
-        
-        # self.list_com.setEnabled(False)
-        # self.btn_settings_port.setEnabled(False)
-        # self.btn_connect.setText('Отключиться')
-            
-        # else:
-        #     self.serial.close()
-        #     # master.close()
-        #     self.serial_connect = False
-        #     # Запуск таймера обновления списка COM-портов
-        #     self.timer_upd_com_list.start(1000)
-        #     self.list_com.setEnabled(True)
-        #     self.btn_settings_port.setEnabled(True)
-        #     self.btn_connect.setText('Подключиться')
-        #     self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
-        #     self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
 
 
     # Открытие окна логов зарядки
@@ -495,6 +496,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
             self.insert_text_to_log(logging.ERROR, 'Ошибка чтения настроек из ini-файла. ' + str(e).replace('\n', ' '))
+            self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
 
     # Запись настроек в ini-файл
     def set_settings_ini_file(self):
@@ -538,6 +540,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if exit_alert.clickedButton() == no_close_btn:
                 event.ignore()
                 return
+        self.set_settings_ini_file()
         self.insert_text_to_log(logging.INFO, 'Программа тестирования закрыта')
 
 
