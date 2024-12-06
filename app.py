@@ -1,4 +1,5 @@
-import sys, os, serial, glob, datetime, logging, logging.handlers, time
+import sys, os, serial, glob, datetime, logging, logging.handlers
+import ctypes as ct
 
 import modbus_tk.defines as cst
 from modbus_tk.modbus_rtu import RtuMaster
@@ -68,6 +69,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.u_stop_discharge_list = [10.8, 10.8, 10.8, 10.8]
         self.i_stop_charge_list = [0.025, 0.025, 0.025, 0.025]
         self.number_channel = ['AKB-001', 'AKB-002', 'AKB-003', 'AKB-004']
+        self.channel_usage_list = [0, 0, 0, 0]
 
         self.tab_reg = [0 for _ in range(25)]
         self.ready_channel = [False, False, False, False]
@@ -134,6 +136,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Старт таймера обновления списка COM-портов (1 сек)
         self.timer_upd_com_list.start(1000)
 
+        # Таймер чтения данных из прибора
+        self.timer_read_data = QTimer()
+        # Чтение данных из прибора по таймеру
+        self.timer_read_data.timeout.connect(self.read_data)
+        # Старт таймера чтения данных из прибора
+        # self.timer_read_data.start(1000)
+
         # Нажатие на кнопку "Подключиться"
         self.btn_connect.clicked.connect(self.btn_connect_clicked)
         # Нажатие на кнопку "Настройки порта"
@@ -192,33 +201,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.edit_number_ch4.textChanged.connect(self.edit_number_ch4_changed)
 
         self.initUI()
-        self.updateData(1)
 
-    def updateData(self, channel):
-        for i in range(1, 5):
-            if i == channel:
-                child = self.findChild(QLabel, f'lbl_status_ch{i}')
-                child.setText(self.chAKB[i - 1].state)
-                child = self.findChild(QLineEdit, f'u_start_ch{i}')
-                child.setText(str(self.chAKB[i - 1].u_start))
-                child = self.findChild(QLineEdit, f'u_current_ch{i}')
-                child.setText(str(self.chAKB[i - 1].u_current))
-                child = self.findChild(QLineEdit, f'i_current_ch{i}')
-                child.setText(str(self.chAKB[i - 1].i_current))
-                child = self.findChild(QLineEdit, f'p_current_ch{i}')
-                child.setText(str(self.chAKB[i - 1].p_current))
-                child = self.findChild(QLineEdit, f'c_recharge_ch{i}')
-                child.setText(str(self.chAKB[i - 1].c_recharge))
-                child = self.findChild(QLineEdit, f'w_recharge_ch{i}')
-                child.setText(str(self.chAKB[i - 1].w_recharge))
-                child = self.findChild(QLineEdit, f'c_discharge_ch{i}')
-                child.setText(str(self.chAKB[i - 1].c_discharge))
-                child = self.findChild(QLineEdit, f'w_discharge_ch{i}')
-                child.setText(str(self.chAKB[i - 1].w_discharge))
-                child = self.findChild(QLineEdit, f'c_charge_ch{i}')
-                child.setText(str(self.chAKB[i - 1].c_charge))
-                child = self.findChild(QLineEdit, f'w_charge_ch{i}')
-                child.setText(str(self.chAKB[i - 1].w_charge))
 
     # Вывод информационных сообщений
     def insert_text_to_log(self, level, text):
@@ -344,30 +327,92 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setEnabled(True)
 
+
+    def read_port(self):
+        
+        self.master = RtuMaster(self.serial)
+        self.master.set_timeout(1.0)
+        self.master.set_verbose(True)
+        try:
+            self.tab_reg = self.master.execute(slave=3, function_code=cst.READ_INPUT_REGISTERS, starting_address=0, quantity_of_x=25)
+            return True
+        except Exception as e:
+            self.insert_text_to_log(logging.ERROR, 'Ошибка чтения данных с порта ' + self.port + ': Modbus - ' + str(e))
+            self.master.close()
+            return False
+
+    def updateData(self, channel):
+        for i in range(0, 4):
+            if i == channel:
+                child = self.findChild(QLabel, f'lbl_status_ch{i + 1}')
+                child.setText(self.chAKB[i].state)
+                child = self.findChild(QLineEdit, f'u_start_ch{i + 1}')
+                child.setText(str(self.chAKB[i].u_start))
+                child = self.findChild(QLineEdit, f'u_current_ch{i + 1}')
+                child.setText(str(self.chAKB[i].u_current))
+                child = self.findChild(QLineEdit, f'i_current_ch{i + 1}')
+                child.setText(str(self.chAKB[i].i_current))
+                child = self.findChild(QLineEdit, f'p_current_ch{i + 1}')
+                child.setText(str(self.chAKB[i].p_current))
+                child = self.findChild(QLineEdit, f'c_recharge_ch{i + 1}')
+                child.setText(str(self.chAKB[i].c_recharge))
+                child = self.findChild(QLineEdit, f'w_recharge_ch{i + 1}')
+                child.setText(str(self.chAKB[i].w_recharge))
+                child = self.findChild(QLineEdit, f'c_discharge_ch{i + 1}')
+                child.setText(str(self.chAKB[i].c_discharge))
+                child = self.findChild(QLineEdit, f'w_discharge_ch{i + 1}')
+                child.setText(str(self.chAKB[i].w_discharge))
+                child = self.findChild(QLineEdit, f'c_charge_ch{i + 1}')
+                child.setText(str(self.chAKB[i].c_charge))
+                child = self.findChild(QLineEdit, f'w_charge_ch{i + 1}')
+                child.setText(str(self.chAKB[i].w_charge))
+
+    def get_ready_chan(self):
+        self.channel_usage_list[0] = (self.tab_reg[24] >> 3) & 1
+        self.channel_usage_list[1] = (self.tab_reg[24] >> 7) & 1
+        self.channel_usage_list[2] = (self.tab_reg[24] >> 11) & 1
+        self.channel_usage_list[3] = (self.tab_reg[24] >> 15) & 1
+
+    def get_state_chan(self, channel: int):
+        state = (self.tab_reg[24] >> (channel * 4)) & 7
+        return state
+
+    # Чтение данных из прибора по таймеру
+    def read_data(self):
+        if self.serial_connect:
+            read_port = self.read_port()
+            if read_port:
+                match self.get_state_chan(1):
+                    case 0:
+                        self.chAKB[0].state = 'Готов'
+                    case 1:
+                        self.chAKB[0].state = 'Заряжается'
+                    case 2:
+                        self.chAKB[0].state = 'Разряжается'
+                
+                print(self.get_state_chan(1))
+                
+                self.chAKB[0].u_current = round(self.tab_reg[1] * 0.00125, 4)
+                self.chAKB[0].i_current = self.tab_reg[0] >> 1 # * 0.00005
+                self.chAKB[0].p_current = self.tab_reg[2] * 25 * 0.00005
+
+                self.updateData(0)
+                self.get_ready_chan()
+        else:
+            pass
+
     # Подключение к COM-порту
     def btn_connect_clicked(self):
         def connect_port():
             try:
-                self.serial = serial.Serial(self.port, self.baud_rate, self.byte_size, 
-                                            self.parity, self.stop_bits, self.x_on_x_off)
+                self.serial = serial.Serial(port=self.port, baudrate=self.baud_rate, bytesize=self.byte_size, 
+                                            parity=self.parity, stopbits=self.stop_bits, xonxoff=self.x_on_x_off)
                 self.insert_text_to_log(logging.WARNING, 'Установлено подключение к порту ' + self.port)
                 return True
             except Exception as e:
                 self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + ': Serial - ' + str(e))
                 return False
-
-        def read_port():
-            try:
-                self.master = RtuMaster(self.serial)
-                self.master.set_timeout(1.0)
-                self.master.set_verbose(True)
-                self.tab_reg = self.master.execute(3, cst.READ_INPUT_REGISTERS, 0, 25)
-                return True
-            except Exception as e:
-                self.insert_text_to_log(logging.ERROR, 'Ошибка чтения данных с порта ' + self.port + ': Modbus - ' + str(e))
-                self.master.close()
-                return False
-
+        
         if not self.serial_connect:
             # Стоп таймера обновления списка COM-портов
             self.timer_upd_com_list.stop()
@@ -377,17 +422,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(False)
                 self.btn_settings_port.setEnabled(False)
                 self.btn_connect.setText(' Отключиться')
-                read_port = read_port()
+                
+                read_port = self.read_port()
 
                 if read_port:
-                    print(self.tab_reg)
-                    print(self.serial_connect)
+                    
+                    self.get_ready_chan()
+                    # Старт таймера чтения данных из прибора
+                    self.timer_read_data.start(1000)
+                    
+                    
+                    # self.chAKB[0].state = 'Прочитано'
+                    # my_c_number = ct.c_int16(self.tab_reg[0])
+                    # print(my_c_number.value * 0.00005)
+                    # self.chAKB[0].u_start = round(self.tab_reg[1] * 0.00125, 4)
+                    # self.chAKB[0].u_current = round(self.tab_reg[1] * 0.00125, 4)
+                    # self.chAKB[0].i_current = self.tab_reg[0] >> 1 # * 0.00005
+                    # self.chAKB[0].p_current = self.tab_reg[2] * 25 * 0.00005
+                    # self.chAKB[0].c_recharge
+                    # self.chAKB[0].w_recharge
+                    # self.chAKB[0].c_discharge
+                    # self.chAKB[0].w_discharge
+                    # self.chAKB[0].c_charge
+                    # self.chAKB[0].w_charge = self.tab_reg[24]
+                    # print(bytes(self.tab_reg[24]))
+
+                    # self.updateData(1)
                 else:
                     self.serial.close()
                     self.serial_connect = False
                     self.list_com.setEnabled(True)
                     self.btn_settings_port.setEnabled(True)
                     self.btn_connect.setText(' Подключиться')
+                    # Остановка таймера чтения данных
+                    self.timer_read_data.stop()
                     # Запуск таймера обновления списка COM-портов
                     self.timer_upd_com_list.start(1000)
                     self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
@@ -397,6 +465,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.list_com.setEnabled(True)
                 self.btn_settings_port.setEnabled(True)
                 self.btn_connect.setText(' Подключиться')
+                # Остановка таймера чтения данных
+                self.timer_read_data.stop()
                 # Запуск таймера обновления списка COM-портов
                 self.timer_upd_com_list.start(1000)
 
@@ -406,6 +476,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.list_com.setEnabled(True)
             self.btn_settings_port.setEnabled(True)
             self.btn_connect.setText(' Подключиться')
+            # Остановка таймера чтения данных
+            self.timer_read_data.stop()
             # Запуск таймера обновления списка COM-портов
             self.timer_upd_com_list.start(1000)
             self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
