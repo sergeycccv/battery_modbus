@@ -382,22 +382,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if self.serial_connect:
             read_port = self.read_port()
             if read_port:
-                match self.get_state_chan(1):
-                    case 0:
-                        self.chAKB[0].state = 'Готов'
-                    case 1:
-                        self.chAKB[0].state = 'Заряжается'
-                    case 2:
-                        self.chAKB[0].state = 'Разряжается'
-                
-                print(self.get_state_chan(1))
                 
                 self.chAKB[0].u_current = round(self.tab_reg[1] * 0.00125, 4)
                 self.chAKB[0].i_current = self.tab_reg[0] >> 1 # * 0.00005
                 self.chAKB[0].p_current = self.tab_reg[2] * 25 * 0.00005
 
+                match self.get_state_chan(1):
+                    case 0:
+                        self.chAKB[0].state = 'АКБ ПОДКЛЮЧЕНА'
+                        self.chAKB[0].u_start = round(self.tab_reg[1] * 0.00125, 4)
+                    case 1:
+                        self.chAKB[0].state = 'ПОДЗАРЯД АКБ'
+                    case 2:
+                        self.chAKB[0].state = 'РАЗРЯД АКБ'
+                    case 3:
+                        self.chAKB[0].state = 'ЗАРЯД АКБ'
+                    case 4:
+                        self.chAKB[0].state = 'ЗАВЕРШЕНО'
+                    case _:
+                        self.chAKB[0].state = 'АВАРИЯ'
+
+                    # self.chAKB[0].c_recharge
+                    # self.chAKB[0].w_recharge
+                    # self.chAKB[0].c_discharge
+                    # self.chAKB[0].w_discharge
+                    # self.chAKB[0].c_charge
+                    # self.chAKB[0].w_charge = self.tab_reg[24]
+                    # print(bytes(self.tab_reg[24]))
+
+                print(self.get_state_chan(1))
+
                 self.updateData(0)
                 self.get_ready_chan()
+
+                self.frm_ch1.setEnabled(True)
         else:
             pass
 
@@ -431,23 +449,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     # Старт таймера чтения данных из прибора
                     self.timer_read_data.start(1000)
                     
-                    
-                    # self.chAKB[0].state = 'Прочитано'
-                    # my_c_number = ct.c_int16(self.tab_reg[0])
-                    # print(my_c_number.value * 0.00005)
-                    # self.chAKB[0].u_start = round(self.tab_reg[1] * 0.00125, 4)
-                    # self.chAKB[0].u_current = round(self.tab_reg[1] * 0.00125, 4)
-                    # self.chAKB[0].i_current = self.tab_reg[0] >> 1 # * 0.00005
-                    # self.chAKB[0].p_current = self.tab_reg[2] * 25 * 0.00005
-                    # self.chAKB[0].c_recharge
-                    # self.chAKB[0].w_recharge
-                    # self.chAKB[0].c_discharge
-                    # self.chAKB[0].w_discharge
-                    # self.chAKB[0].c_charge
-                    # self.chAKB[0].w_charge = self.tab_reg[24]
-                    # print(bytes(self.tab_reg[24]))
-
-                    # self.updateData(1)
                 else:
                     self.serial.close()
                     self.serial_connect = False
