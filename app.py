@@ -1,5 +1,5 @@
 import sys, os, serial, glob, datetime, logging, logging.handlers
-import ctypes as ct
+# import ctypes as ct
 
 import modbus_tk.defines as cst
 from modbus_tk.modbus_rtu import RtuMaster
@@ -101,13 +101,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Создание окна просмотра лога программы
         self.alerts = AlertsWindow(self)
 
-        # Запуск системы логирования
+        # Запуск системы логирования программы
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(asctime)s | %(process)s | %(levelname)s | %(message)s', datefmt='%d-%m-%Y %H-%M-%S')
         handler = logging.handlers.RotatingFileHandler('log.txt', encoding='utf-8', maxBytes=5000000, backupCount=5)
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
+
+        # Запуск системы логирования тестирования AKB
+        self.AKB_testing = logging.getLogger('AKB_testing')
+        self.AKB_testing.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s|%(message)s', datefmt='%d-%m-%Y %H-%M-%S')
+        handler = logging.handlers.RotatingFileHandler('AKB_testing.log', encoding='utf-8', maxBytes=5000000, backupCount=5)
+        handler.setFormatter(formatter)
+        self.AKB_testing.addHandler(handler)
 
         self.insert_text_to_log(logging.INFO, 'Программа тестирования запущена')
 
@@ -410,7 +418,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     # self.chAKB[0].w_charge = self.tab_reg[24]
                     # print(bytes(self.tab_reg[24]))
 
-                print(self.get_state_chan(1))
 
                 self.updateData(0)
                 self.get_ready_chan()
@@ -695,6 +702,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Запустить тестирование АКБ в канале
     def btn_start_test_channel(self, channel: int):
+        
+        match channel:
+            case 1:
+                pass
+            case 2:
+                pass
+            case 3:
+                pass
+            case 4:
+                pass
+        
+        
         if self.findChild(QPushButton, f'btn_start_test_ch{channel}').text() == ' Запуск теста':
         
             if self.findChild(QToolButton, f'btn_write_settings_ch{channel}').isEnabled():
