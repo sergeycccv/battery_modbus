@@ -109,13 +109,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
 
-        # Запуск системы логирования тестирования AKB
-        self.AKB_testing = logging.getLogger('AKB_testing')
-        self.AKB_testing.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s|%(message)s', datefmt='%d-%m-%Y %H-%M-%S')
-        handler = logging.handlers.RotatingFileHandler('AKB_testing.log', encoding='utf-8', maxBytes=5000000, backupCount=5)
-        handler.setFormatter(formatter)
-        self.AKB_testing.addHandler(handler)
 
         self.insert_text_to_log(logging.INFO, 'Программа тестирования запущена')
 
@@ -123,12 +116,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.path_logs = os.path.abspath(os.curdir) + '\\logs'
         # Назначаем папку логов в окне просмотра логов тестирования
         self.logs.line_path_logs.setText(self.path_logs)
+
         # Количество попыток обнаружения COM-портов
         self.count_location_ports = 0
         # Список COM-портов
         self.list_com_saved = []
         # Создание списка доступных в системе COM-портов
         self.list_com_update()
+        
         # Чтение и применение настроек из ini-файла
         self.get_settings_ini_file()
         
@@ -207,6 +202,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.edit_number_ch2.textChanged.connect(self.edit_number_ch2_changed)
         self.edit_number_ch3.textChanged.connect(self.edit_number_ch3_changed)
         self.edit_number_ch4.textChanged.connect(self.edit_number_ch4_changed)
+
+        self.testing_ch1 = logging.getLogger()
 
         self.initUI()
 
@@ -385,6 +382,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         state = (self.tab_reg[24] >> (channel * 4)) & 7
         return state
 
+    # Старт чтения данных из прибора и запуск таймера
+    def start_read_data(self):
+        self.read_data()
+        # Старт таймера чтения данных из прибора
+        self.timer_read_data.start(5000)
+
     # Чтение данных из прибора по таймеру
     def read_data(self):
         if self.serial_connect:
@@ -394,35 +397,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.chAKB[0].u_current = round(self.tab_reg[1] * 0.00125, 4)
                 self.chAKB[0].i_current = self.tab_reg[0] >> 1 # * 0.00005
                 self.chAKB[0].p_current = self.tab_reg[2] * 25 * 0.00005
-
-                match self.get_state_chan(1):
+                
+                match self.get_state_chan(0):
                     case 0:
                         self.chAKB[0].state = 'АКБ ПОДКЛЮЧЕНА'
                         self.chAKB[0].u_start = round(self.tab_reg[1] * 0.00125, 4)
                     case 1:
+                        if self.chAKB[0].old_state != 1:
+                            self.chAKB[0].old_state = 1
+                            self.testing_ch1.info(f'{self.chAKB[0].num_akb}|{self.chAKB[0].u_current:<7.4f}')
                         self.chAKB[0].state = 'ПОДЗАРЯД АКБ'
+                        self.chAKB[0].c_recharge += self.chAKB[0].i_current / 3600
+                        self.chAKB[0].w_recharge += self.chAKB[0].p_current / 3600
+                        self.testing_ch1.info(f'{self.chAKB[0].i_current:<7.4f}|{self.chAKB[0].u_current:<7.4f}|{self.chAKB[0].p_current:<7.4f}')
                     case 2:
                         self.chAKB[0].state = 'РАЗРЯД АКБ'
+                        # self.chAKB[0].c_discharge
+                        # self.chAKB[0].w_discharge
                     case 3:
                         self.chAKB[0].state = 'ЗАРЯД АКБ'
+                        # self.chAKB[0].c_charge
+                        # self.chAKB[0].w_charge
                     case 4:
                         self.chAKB[0].state = 'ЗАВЕРШЕНО'
                     case _:
                         self.chAKB[0].state = 'АВАРИЯ'
 
-                    # self.chAKB[0].c_recharge
-                    # self.chAKB[0].w_recharge
-                    # self.chAKB[0].c_discharge
-                    # self.chAKB[0].w_discharge
-                    # self.chAKB[0].c_charge
-                    # self.chAKB[0].w_charge = self.tab_reg[24]
-                    # print(bytes(self.tab_reg[24]))
-
-
                 self.updateData(0)
                 self.get_ready_chan()
 
                 self.frm_ch1.setEnabled(True)
+
         else:
             pass
 
@@ -453,9 +458,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if read_port:
                     
                     self.get_ready_chan()
-                    # Старт таймера чтения данных из прибора
-                    self.timer_read_data.start(1000)
-                    
+                    self.start_read_data()
+
                 else:
                     self.serial.close()
                     self.serial_connect = False
@@ -490,6 +494,89 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.timer_upd_com_list.start(1000)
             self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
             self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
+
+    # Старт тестирования АКБ
+    def start_test_channel(self, channel: int):
+        match channel:
+            case 1:
+
+                self.chAKB[0].report_dir = self.path_logs + '\\' + self.edit_number_ch1.text() + '\\tests\\'
+                self.chAKB[0].report_file = 'report_ch1.log'
+                self.chAKB[0].num_akb = self.edit_number_ch1.text()
+                self.chAKB[0].old_state = 0
+                if not os.path.isdir(self.chAKB[0].report_dir):
+                    os.makedirs(self.chAKB[0].report_dir, exist_ok=True)
+
+                # Запуск системы логирования тестирования AKB
+                self.testing_ch1 = logging.getLogger('testing_ch1')
+                self.testing_ch1.setLevel(logging.INFO)
+                formatter = logging.Formatter('%(asctime)s|%(message)s', datefmt='%d-%m-%Y_%H-%M-%S')
+
+                file_handler = logging.FileHandler(self.chAKB[0].report_dir + self.chAKB[0].report_file, encoding='utf-8', mode='a')
+                file_handler.setFormatter(formatter)
+                self.testing_ch1.addHandler(file_handler)
+
+                i_temp = self.tab_reg[24]
+                print(i_temp)
+                i_temp &= ~7
+                print(i_temp)
+                i_temp |= 1
+                print(i_temp)
+
+                # state = (self.tab_reg[24] >> (channel * 4)) & 7
+
+                self.master.execute(slave=3, function_code=cst.WRITE_SINGLE_REGISTER, starting_address=24, output_value=i_temp)
+
+            case 2:
+                pass
+            case 3:
+                pass
+            case 4:
+                pass
+
+        self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД АКБ')
+        self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
+        self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
+        self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
+        self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
+        MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
+
+
+    # Нажатие кнопки "Запуск теста"
+    def btn_start_test_channel(self, channel: int):
+                
+        # Если нажали на кнопку "Запуск теста"
+        if self.findChild(QPushButton, f'btn_start_test_ch{channel}').text() == ' Запуск теста':
+        
+            # Если кнопка "Записать настройки канала" доступна
+            if self.findChild(QToolButton, f'btn_write_settings_ch{channel}').isEnabled():
+                buff_i_start_discharge = self.i_start_discharge_list[channel - 1]
+                buff_u_stop_discharge = self.u_stop_discharge_list[channel - 1]
+                buff_i_stop_charge = self.i_stop_charge_list[channel - 1]
+                answer = QMessageBox.warning(self, 'Предупреждение', 'Изменённые настройки канала ' + str(channel) + \
+                                    ' не переданы в прибор. Продолжить тестирование, используя прежние настройки?\n' + \
+                                    f'\nПрежние настройки: {buff_i_start_discharge} | {buff_u_stop_discharge} | {buff_i_stop_charge}.', \
+                                    buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
+                                    defaultButton=QMessageBox.StandardButton.No)
+                if answer == QMessageBox.StandardButton.Yes:
+                    self.start_test_channel(channel)
+            else:
+                self.start_test_channel(channel)
+
+        else:
+            answer = QMessageBox.warning(self, 'Внимание!', 'В данный момент происходит тестирование АКБ в канале ' + str(channel) + \
+                                '. Вы действительно хотите прервать процесс?', \
+                                buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
+                                defaultButton=QMessageBox.StandardButton.No)
+            if answer == QMessageBox.StandardButton.Yes:
+                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('АКБ ПОДКЛЮЧЕНА')
+                self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_36.png'))
+                self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(True)
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Запуск теста')
+                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Запуск теста АКБ в канале ' + str(channel))
+                MainWindow.insert_text_to_log(win, logging.WARNING, 'Остановлено тестирование АКБ на канале ' + str(channel))
+
+                self.master.execute(slave=3, function_code=cst.WRITE_SINGLE_REGISTER, starting_address=24, output_value=8)
 
 
     # Открытие окна логов зарядки
@@ -699,61 +786,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         number_ch = int(btn.objectName().split('btn_start_test_ch')[1])
         # Вызов функции, соответствующей кнопке
         self.btn_start_test_channel(number_ch)
-
-    # Запустить тестирование АКБ в канале
-    def btn_start_test_channel(self, channel: int):
-        
-        match channel:
-            case 1:
-                pass
-            case 2:
-                pass
-            case 3:
-                pass
-            case 4:
-                pass
-        
-        
-        if self.findChild(QPushButton, f'btn_start_test_ch{channel}').text() == ' Запуск теста':
-        
-            if self.findChild(QToolButton, f'btn_write_settings_ch{channel}').isEnabled():
-                buff_i_start_discharge = self.i_start_discharge_list[channel - 1]
-                buff_u_stop_discharge = self.u_stop_discharge_list[channel - 1]
-                buff_i_stop_charge = self.i_stop_charge_list[channel - 1]
-                answer = QMessageBox.warning(self, 'Предупреждение', 'Изменённые настройки канала ' + str(channel) + \
-                                    ' не переданы в прибор. Продолжить тестирование, используя прежние настройки?\n' + \
-                                    f'\nПрежние настройки: {buff_i_start_discharge} | {buff_u_stop_discharge} | {buff_i_stop_charge}.', \
-                                    buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
-                                    defaultButton=QMessageBox.StandardButton.No)
-                if answer == QMessageBox.StandardButton.Yes:
-                    self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД АКБ')
-                    self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
-                    self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
-                    self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
-                    self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
-                    MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
-                    
-            else:
-                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('РАЗРЯД АКБ')
-                self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_2_36.png'))
-                self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
-                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
-                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
-                MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
-
-        else:
-            answer = QMessageBox.warning(self, 'Внимание!', 'В данный момент происходит тестирование АКБ в канале ' + str(channel) + \
-                                '. Вы действительно хотите прервать процесс?', \
-                                buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No, \
-                                defaultButton=QMessageBox.StandardButton.No)
-            if answer == QMessageBox.StandardButton.Yes:
-                self.findChild(QLabel, f'lbl_status_ch{channel}').setText('АКБ ПОДКЛЮЧЕНА')
-                self.findChild(QLabel, f'lbl_ico_ch{channel}').setPixmap(QPixmap(':/ICO/N1_36.png'))
-                self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(True)
-                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Запуск теста')
-                self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Запуск теста АКБ в канале ' + str(channel))
-                MainWindow.insert_text_to_log(win, logging.WARNING, 'Остановлено тестирование АКБ на канале ' + str(channel))
-    
 
     # Реакция на изменение настроек каналов
     def settings_channel_changed(self, channel: int):
