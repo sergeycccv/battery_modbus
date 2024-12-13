@@ -474,14 +474,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
                 self.get_ready_chan()
                 self.start_read_data()
-
-            return
+                return
 
         self.serial.close()
         self.serial_connect = False
         self.list_com.setEnabled(True)
         self.btn_settings_port.setEnabled(True)
         self.btn_connect.setText(' Подключиться')
+        
+        self.frm_back_ch1.setEnabled(False) ---
+
         # Остановка таймера чтения данных
         self.timer_read_data.stop()
         # Запуск таймера обновления списка COM-портов
@@ -532,7 +534,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(False)
         self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Остановить тестирование')
         self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Остановка теста АКБ в канале ' + str(channel))
-        MainWindow.insert_text_to_log(win, logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
+        self.insert_text_to_log(logging.WARNING, 'Запущено тестирование АКБ на канале ' + str(channel))
 
 
     # Нажатие кнопки "Запуск теста"
@@ -567,7 +569,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.findChild(QFrame, f'frm_back_ch{channel}').setEnabled(True)
                 self.findChild(QPushButton, f'btn_start_test_ch{channel}').setText(' Запуск теста')
                 self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Запуск теста АКБ в канале ' + str(channel))
-                MainWindow.insert_text_to_log(win, logging.WARNING, 'Остановлено тестирование АКБ на канале ' + str(channel))
+                self.insert_text_to_log(logging.WARNING, 'Остановлено тестирование АКБ на канале ' + str(channel))
 
                 # Команда прибору для остановки тестирования на первом канале
                 self.master.execute(slave=3, function_code=cst.WRITE_SINGLE_REGISTER, starting_address=24, output_value=8)
@@ -768,7 +770,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                  '», ' + '«' + str(self.i_stop_charge_list[channel - 1]) + '»'
         # Делаем недоступной кнопку «Записать настройки канала»
         self.settings_channel_changed(channel)
-        MainWindow.insert_text_to_log(win, logging.INFO, 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
+        self.insert_text_to_log(logging.INFO, 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
                                         settings_channel_before + '. После сохранения: ' + settings_channel_after)
         QMessageBox.information(self, 'Информация', 'Были изменены настройки канала ' + str(channel) + '. До сохранения: ' + \
                                         settings_channel_before + '. После сохранения: ' + settings_channel_after)
