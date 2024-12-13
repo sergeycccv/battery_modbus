@@ -445,70 +445,66 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    # Подключение к COM-порту
+    # Подключение к COM-порту и чтение данных с прибора
     def btn_connect_clicked(self):
         def connect_port():
-            try:
-                self.serial = serial.Serial(port=self.port, baudrate=self.baud_rate, bytesize=self.byte_size, 
-                                            parity=self.parity, stopbits=self.stop_bits, xonxoff=self.x_on_x_off)
-                self.insert_text_to_log(logging.WARNING, 'Установлено подключение к порту ' + self.port)
-                return True
-            except Exception as e:
-                self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + ': Serial - ' + str(e))
+            if not self.serial.isOpen():
+                try:
+                    self.serial = serial.Serial(port=self.port, baudrate=self.baud_rate, bytesize=self.byte_size, 
+                                                parity=self.parity, stopbits=self.stop_bits, xonxoff=self.x_on_x_off)
+                    self.insert_text_to_log(logging.WARNING, 'Установлено подключение к порту ' + self.port)
+                    return True
+                except Exception as e:
+                    self.insert_text_to_log(logging.ERROR, 'Ошибка подключения к порту ' + self.port + ': Serial - ' + str(e))
+                    return False
+            else:
                 return False
         
-        if not self.serial_connect:
+        self.serial_connect = connect_port()
+
+        if self.serial_connect:
+
             # Стоп таймера обновления списка COM-портов
             self.timer_upd_com_list.stop()
+
+            self.list_com.setEnabled(False)
+            self.btn_settings_port.setEnabled(False)
+            self.btn_connect.setText(' Отключиться')
             
-            self.serial_connect = connect_port()
+            read_port = self.read_port()
 
-            if self.serial_connect:
-                self.list_com.setEnabled(False)
-                self.btn_settings_port.setEnabled(False)
-                self.btn_connect.setText(' Отключиться')
+            if read_port:
                 
-                read_port = self.read_port()
+                self.get_ready_chan()
+                self.start_read_data()
 
-                if read_port:
-                    
-                    self.get_ready_chan()
-                    self.start_read_data()
+            return
 
-                else:
-                    self.serial.close()
-                    self.serial_connect = False
-                    self.list_com.setEnabled(True)
-                    self.btn_settings_port.setEnabled(True)
-                    self.btn_connect.setText(' Подключиться')
-                    # Остановка таймера чтения данных
-                    self.timer_read_data.stop()
-                    # Запуск таймера обновления списка COM-портов
-                    self.timer_upd_com_list.start(1000)
-                    self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
-                    self.insert_text_to_log(logging.NOTSET, 'Ошибка чтения данных с устройства! ' + 'Повторите попытку подключения')
+            # else:
+            #     self.serial.close()
+            #     self.serial_connect = False
+            #     self.list_com.setEnabled(True)
+            #     self.btn_settings_port.setEnabled(True)
+            #     self.btn_connect.setText(' Подключиться')
+            #     # Остановка таймера чтения данных
+            #     self.timer_read_data.stop()
+            #     # Запуск таймера обновления списка COM-портов
+            #     self.timer_upd_com_list.start(1000)
+            #     self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
+            #     self.insert_text_to_log(logging.NOTSET, 'Ошибка чтения данных с устройства! ' + 'Повторите попытку подключения')
 
-            else:
-                self.list_com.setEnabled(True)
-                self.btn_settings_port.setEnabled(True)
-                self.btn_connect.setText(' Подключиться')
-                # Остановка таймера чтения данных
-                self.timer_read_data.stop()
-                # Запуск таймера обновления списка COM-портов
-                self.timer_upd_com_list.start(1000)
-
-        else:
-            self.serial.close()
-            self.serial_connect = False
-            self.list_com.setEnabled(True)
-            self.btn_settings_port.setEnabled(True)
-            self.btn_connect.setText(' Подключиться')
-            # Остановка таймера чтения данных
-            self.timer_read_data.stop()
-            # Запуск таймера обновления списка COM-портов
-            self.timer_upd_com_list.start(1000)
-            self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
-            self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
+        # else:
+        self.serial.close()
+        self.serial_connect = False
+        self.list_com.setEnabled(True)
+        self.btn_settings_port.setEnabled(True)
+        self.btn_connect.setText(' Подключиться')
+        # Остановка таймера чтения данных
+        self.timer_read_data.stop()
+        # Запуск таймера обновления списка COM-портов
+        self.timer_upd_com_list.start(1000)
+        self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
+        self.insert_text_to_log(logging.NOTSET, 'Подключитесь к системе тестирования')
 
     # Старт тестирования АКБ
     def start_test_channel(self, channel: int):
@@ -531,16 +527,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 file_handler.setFormatter(formatter)
                 self.testing_ch1.addHandler(file_handler)
 
-                i_temp = self.tab_reg[24]
-                print(i_temp)
-                i_temp &= ~7
-                print(i_temp)
-                i_temp |= 1
-                print(i_temp)
+                # Перед запуском тестирования значение self.tab_reg[24] равно 8 (0000 0000 0000 1000)
+                # Для старта тестирования необходимо передать значение 9 (0000 0000 0000 1001)
+                # i_temp = self.tab_reg[24]
+                # i_temp &= ~7
+                # i_temp |= 1
 
-                # state = (self.tab_reg[24] >> (channel * 4)) & 7
-
-                self.master.execute(slave=3, function_code=cst.WRITE_SINGLE_REGISTER, starting_address=24, output_value=i_temp)
+                self.master.execute(slave=3, function_code=cst.WRITE_SINGLE_REGISTER, starting_address=24, output_value=9)
 
             case 2:
                 pass
