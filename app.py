@@ -401,7 +401,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.read_data()
         self.timer_read_data.start(5000)
 
-    # Чтение данных из прибора по таймеру
+    # Чтение данных из прибора
     def read_data(self):
         if self.serial_connect:
             read_port = self.read_port()
@@ -442,9 +442,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 self.frm_ch1.setEnabled(True)
 
-        else:
-            pass
-
     # Подключение к COM-порту и чтение данных с прибора
     def btn_connect_clicked(self):
         def connect_port():
@@ -480,20 +477,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             return
 
-            # else:
-            #     self.serial.close()
-            #     self.serial_connect = False
-            #     self.list_com.setEnabled(True)
-            #     self.btn_settings_port.setEnabled(True)
-            #     self.btn_connect.setText(' Подключиться')
-            #     # Остановка таймера чтения данных
-            #     self.timer_read_data.stop()
-            #     # Запуск таймера обновления списка COM-портов
-            #     self.timer_upd_com_list.start(1000)
-            #     self.insert_text_to_log(logging.WARNING, 'Произведено отключение от порта ' + self.port)
-            #     self.insert_text_to_log(logging.NOTSET, 'Ошибка чтения данных с устройства! ' + 'Повторите попытку подключения')
-
-        # else:
         self.serial.close()
         self.serial_connect = False
         self.list_com.setEnabled(True)
@@ -511,21 +494,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         match channel:
             case 1:
 
-                self.chAKB[0].report_dir = self.path_logs + '\\' + self.edit_number_ch1.text() + '\\tests\\'
-                self.chAKB[0].report_file = 'report_ch1.log'
                 self.chAKB[0].num_akb = self.edit_number_ch1.text()
-                self.chAKB[0].old_state = 0
+                self.chAKB[0].report_dir = self.path_logs + '\\' + self.chAKB[0].num_akb + '\\tests\\'
                 if not os.path.isdir(self.chAKB[0].report_dir):
                     os.makedirs(self.chAKB[0].report_dir, exist_ok=True)
+                self.chAKB[0].report_file = 'report_ch1.log'
+                self.chAKB[0].old_state = 0
 
                 # Запуск системы логирования тестирования AKB
-                self.testing_ch1 = logging.getLogger('testing_ch1')
-                self.testing_ch1.setLevel(logging.INFO)
-                formatter = logging.Formatter('%(asctime)s|%(message)s', datefmt='%d-%m-%Y_%H-%M-%S')
+                if self.testing_ch1.name != 'testing_ch1':
+                    self.testing_ch1 = logging.getLogger('testing_ch1')
+                    self.testing_ch1.setLevel(logging.INFO)
+                    formatter = logging.Formatter('%(asctime)s|%(message)s', datefmt='%d-%m-%Y_%H-%M-%S')
 
-                file_handler = logging.FileHandler(self.chAKB[0].report_dir + self.chAKB[0].report_file, encoding='utf-8', mode='a')
-                file_handler.setFormatter(formatter)
-                self.testing_ch1.addHandler(file_handler)
+                    file_handler = logging.FileHandler(self.chAKB[0].report_dir + self.chAKB[0].report_file, encoding='utf-8', mode='a')
+                    file_handler.setFormatter(formatter)
+                    self.testing_ch1.addHandler(file_handler)
 
                 # Перед запуском тестирования значение self.tab_reg[24] равно 8 (0000 0000 0000 1000)
                 # Для старта тестирования необходимо передать значение 9 (0000 0000 0000 1001)
@@ -533,6 +517,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 # i_temp &= ~7
                 # i_temp |= 1
 
+                # Команда прибору для старта тестирования (подзаряд АКБ) на первом канале
                 self.master.execute(slave=3, function_code=cst.WRITE_SINGLE_REGISTER, starting_address=24, output_value=9)
 
             case 2:
@@ -584,6 +569,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.findChild(QPushButton, f'btn_start_test_ch{channel}').setStatusTip('Запуск теста АКБ в канале ' + str(channel))
                 MainWindow.insert_text_to_log(win, logging.WARNING, 'Остановлено тестирование АКБ на канале ' + str(channel))
 
+                # Команда прибору для остановки тестирования на первом канале
                 self.master.execute(slave=3, function_code=cst.WRITE_SINGLE_REGISTER, starting_address=24, output_value=8)
 
 
