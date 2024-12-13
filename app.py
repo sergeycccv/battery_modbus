@@ -1,5 +1,6 @@
 import sys, os, serial, glob, datetime, logging, logging.handlers
-# import ctypes as ct
+
+from ctypes import c_int16
 
 import modbus_tk.defines as cst
 from modbus_tk.modbus_rtu import RtuMaster
@@ -333,8 +334,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.btn_connect.setEnabled(True)
 
 
+    # Чтение данных с прибора по Modbus
     def read_port(self):
-        
         self.master = RtuMaster(self.serial)
         self.master.set_timeout(1.0)
         self.master.set_verbose(True)
@@ -346,38 +347,51 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.master.close()
             return False
 
+    # Обновление индикаторов тестирования прочитанной из прибора информацией
     def updateData(self, channel):
         for i in range(0, 4):
             if i == channel:
                 child = self.findChild(QLabel, f'lbl_status_ch{i + 1}')
                 child.setText(self.chAKB[i].state)
+                
                 child = self.findChild(QLineEdit, f'u_start_ch{i + 1}')
-                child.setText(str(self.chAKB[i].u_start))
+                child.setText(f'{self.chAKB[i].u_start:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'u_current_ch{i + 1}')
-                child.setText(str(self.chAKB[i].u_current))
+                child.setText(f'{self.chAKB[i].u_current:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'i_current_ch{i + 1}')
-                child.setText(str(self.chAKB[i].i_current))
+                child.setText(f'{self.chAKB[i].i_current:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'p_current_ch{i + 1}')
-                child.setText(str(self.chAKB[i].p_current))
+                child.setText(f'{self.chAKB[i].p_current:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'c_recharge_ch{i + 1}')
-                child.setText(str(self.chAKB[i].c_recharge))
+                child.setText(f'{self.chAKB[i].c_recharge:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'w_recharge_ch{i + 1}')
-                child.setText(str(self.chAKB[i].w_recharge))
+                child.setText(f'{self.chAKB[i].w_recharge:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'c_discharge_ch{i + 1}')
-                child.setText(str(self.chAKB[i].c_discharge))
+                child.setText(f'{self.chAKB[i].c_discharge:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'w_discharge_ch{i + 1}')
-                child.setText(str(self.chAKB[i].w_discharge))
+                child.setText(f'{self.chAKB[i].w_discharge:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'c_charge_ch{i + 1}')
-                child.setText(str(self.chAKB[i].c_charge))
+                child.setText(f'{self.chAKB[i].c_charge:<7.4f}')
+                
                 child = self.findChild(QLineEdit, f'w_charge_ch{i + 1}')
-                child.setText(str(self.chAKB[i].w_charge))
+                child.setText(f'{self.chAKB[i].w_charge:<7.4f}')
 
+    # Чтение информации из прибора о подключенных к каналам АКБ
     def get_ready_chan(self):
         self.channel_usage_list[0] = (self.tab_reg[24] >> 3) & 1
         self.channel_usage_list[1] = (self.tab_reg[24] >> 7) & 1
         self.channel_usage_list[2] = (self.tab_reg[24] >> 11) & 1
         self.channel_usage_list[3] = (self.tab_reg[24] >> 15) & 1
 
+    # Чтение информации из прибора о состоянии канала
     def get_state_chan(self, channel: int):
         state = (self.tab_reg[24] >> (channel * 4)) & 7
         return state
@@ -385,7 +399,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # Старт чтения данных из прибора и запуск таймера
     def start_read_data(self):
         self.read_data()
-        # Старт таймера чтения данных из прибора
         self.timer_read_data.start(5000)
 
     # Чтение данных из прибора по таймеру
@@ -395,21 +408,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if read_port:
                 
                 self.chAKB[0].u_current = round(self.tab_reg[1] * 0.00125, 4)
-                self.chAKB[0].i_current = self.tab_reg[0] >> 1 # * 0.00005
+                self.chAKB[0].i_current =  c_int16(self.tab_reg[0]).value * 0.00005
                 self.chAKB[0].p_current = self.tab_reg[2] * 25 * 0.00005
                 
                 match self.get_state_chan(0):
                     case 0:
                         self.chAKB[0].state = 'АКБ ПОДКЛЮЧЕНА'
-                        self.chAKB[0].u_start = round(self.tab_reg[1] * 0.00125, 4)
+                        if self.chAKB[0].u_start == 0:
+                            self.chAKB[0].u_start = self.chAKB[0].u_current
                     case 1:
                         if self.chAKB[0].old_state != 1:
                             self.chAKB[0].old_state = 1
-                            self.testing_ch1.info(f'{self.chAKB[0].num_akb}|{self.chAKB[0].u_current:<7.4f}')
+                            self.testing_ch1.info(f'{self.chAKB[0].num_akb}|СТАРТ|{self.chAKB[0].u_current:<7.4f}')
                         self.chAKB[0].state = 'ПОДЗАРЯД АКБ'
                         self.chAKB[0].c_recharge += self.chAKB[0].i_current / 3600
                         self.chAKB[0].w_recharge += self.chAKB[0].p_current / 3600
-                        self.testing_ch1.info(f'{self.chAKB[0].i_current:<7.4f}|{self.chAKB[0].u_current:<7.4f}|{self.chAKB[0].p_current:<7.4f}')
+                        self.testing_ch1.info(f'{self.chAKB[0].i_current:.4f}|{self.chAKB[0].u_current:.4f}|{self.chAKB[0].p_current:.4f}')
                     case 2:
                         self.chAKB[0].state = 'РАЗРЯД АКБ'
                         # self.chAKB[0].c_discharge
@@ -446,6 +460,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if not self.serial_connect:
             # Стоп таймера обновления списка COM-портов
             self.timer_upd_com_list.stop()
+            
             self.serial_connect = connect_port()
 
             if self.serial_connect:
